@@ -1,0 +1,1 @@
+This is the blog application which is created by me :) Where you the user has to login in order to create a new blog, where they can create, edit, view and delete the blog. These blogs is displayed to all the users. To make the changes in the already published blog post, the blog post must be created by the user and can also delete if they want.
