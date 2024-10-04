@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const Blogs = ({ page, blogs }) => {
-  console.log("FETCHED BLOGS: ", blogs[0]?.blogImage);
+  // console.log("FETCHED BLOGS: ", blogs[0]?.blogImage);
   return (
     <>
       {/* Heading */}
@@ -15,14 +15,6 @@ const Blogs = ({ page, blogs }) => {
           <div className="h-[450px] border-2 w-full rounded-md flex flex-col gap-4 p-4 cursor-pointer">
             {/* Image */}
             <div className="flex w-full h-[250px] relative">
-              {blogs[0]?.blogImage && (
-                <Image
-                  src={blogs[0]?.blogImage}
-                  alt="blog1.png"
-                  fill
-                  className="object-cover rounded-md"
-                />
-              )}
               <Image
                 src="https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="blog1.png"
@@ -33,28 +25,24 @@ const Blogs = ({ page, blogs }) => {
             </div>
             {/* Tag and paragraph */}
             <div className="flex flex-col gap-2">
-              <p className="text-blue-500 font-medium">{blogs[0]?.tag}</p>
+              <p className="text-blue-500 font-medium">Technology</p>
               {/* Author image, title and date */}
-              <h3 className="font-semibold">{blogs[0]?.title}</h3>
+              <h3 className="font-semibold">
+                The Impact of Technology on the Workplace: How Technology is
+                Changing
+              </h3>
             </div>
             <div className="flex gap-2 items-center justify-between">
               <div className="flex items-center justify-center gap-4 text-slate-500">
-                {blogs[0]?.userData?.profileImage ? (
-                  <Image
-                    src={blogs[0]?.userData?.profileImage}
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                  />
-                ) : (
-                  <h2>Profile Image not found</h2>
-                )}
-
+                <Image
+                  src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                />
                 {/* Author name */}
-                <p className="text-[10px] xl:text-[14px]">
-                  {blogs[0]?.userData?.name}
-                </p>
+                <p className="text-[10px] xl:text-[14px]">Jason Francisco</p>
               </div>
               {/* Published date */}
               <p className="text-slate-500 text-[9px] xl:text-[14px]">

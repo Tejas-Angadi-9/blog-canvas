@@ -1,9 +1,10 @@
 "use client";
 import Blogs from "@/components/Blogs";
 import HeroSection from "@/components/HeroSection";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const fetchBlogs = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/blogs");
