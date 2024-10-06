@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 const NavbarContents = ({ type }) => {
+  const { isUserLoggedIn } = useAuth();
   return (
     <div
       className={`${
@@ -26,11 +28,13 @@ const NavbarContents = ({ type }) => {
           All Blogs
         </p>
       </Link>
-      <Link href={"/create-blog"}>
-        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
-          Create A Blog
-        </p>
-      </Link>
+      {isUserLoggedIn && (
+        <Link href={"/create-blog"}>
+          <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+            Create A Blog
+          </p>
+        </Link>
+      )}
       <Link href={"/about"}>
         <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
           About

@@ -2,10 +2,12 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useLockBodyScroll } from "react-use";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 import NavbarContents from "./NavbarContents";
 
 const Navbar = () => {
+  const { isUserLoggedIn } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   if (isOpen) {
@@ -13,8 +15,6 @@ const Navbar = () => {
   } else {
     useLockBodyScroll(false);
   }
-
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   return (
     <div className="w-11/12 flex h-24 mx-auto">
@@ -28,15 +28,16 @@ const Navbar = () => {
           </Link>
         </div>
         {/* Contents */}
-        {isUserLoggedIn ? (
-          <NavbarContents type="desktop" />
-        ) : (
+        <NavbarContents type="desktop" />
+        {!isUserLoggedIn && (
           <Link href={"/auth"}>
             <p className="duration-200 text-[16px] md:text-[18px] font-medium hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
               Login / Signup
             </p>
           </Link>
         )}
+
+        {console.log("USER SIGNED IN? :", isUserLoggedIn)}
 
         {/* Mobile Navigation 3 dashes */}
         {isUserLoggedIn && (
