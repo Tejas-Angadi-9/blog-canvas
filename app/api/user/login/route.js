@@ -1,5 +1,6 @@
 import connectToDB from "@/config/database";
 import User from "@/models/User";
+import Blog from "@/models/Blog";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import { serialize } from "cookie";

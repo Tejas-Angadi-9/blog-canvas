@@ -1,8 +1,31 @@
 import Link from "next/link";
 import { useAuth } from "@/app/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const NavbarContents = ({ type }) => {
-  const { isUserLoggedIn } = useAuth();
+  const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
+  const router = useRouter();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("UserData");
+    setIsUserLoggedIn(null);
+    router.push("/");
+    toast.success("Logged out!");
+  };
+
+  const createNewBlogChecker = () => {
+    if (isUserLoggedIn) {
+      router.push("/create-blog");
+    } else {
+      toast.error(
+        "Login before creating a new blog",
+        { duration: 4000 },
+        { style: { fontSize: "17px", marginTop: "18px" } },
+      );
+    }
+  };
+
   return (
     <div
       className={`${
@@ -28,13 +51,13 @@ const NavbarContents = ({ type }) => {
           All Blogs
         </p>
       </Link>
-      {isUserLoggedIn && (
-        <Link href={"/create-blog"}>
-          <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
-            Create A Blog
-          </p>
-        </Link>
-      )}
+      {/* {isUserLoggedIn && ( */}
+      <button onClick={createNewBlogChecker}>
+        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+          Create A Blog
+        </p>
+      </button>
+      {/* )} */}
       <Link href={"/about"}>
         <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
           About
@@ -45,6 +68,20 @@ const NavbarContents = ({ type }) => {
           Contact
         </p>
       </Link>
+      {isUserLoggedIn && (
+        <button onClick={logoutHandler}>
+          <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+            Logout
+          </p>
+        </button>
+      )}
+      {!isUserLoggedIn && (
+        <Link href={"/auth"}>
+          <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+            Login / Signup
+          </p>
+        </Link>
+      )}
     </div>
   );
 };

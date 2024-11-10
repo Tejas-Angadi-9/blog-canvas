@@ -71,7 +71,7 @@ const AuthPage = () => {
         setOpenModal(true);
       }
       const output = await response.json();
-      console.log("OUtput: ", output);
+      console.log("Output: ", output);
       toast.dismiss(toastId);
     } catch (err) {
       console.log("Failed to post sign-up details");
@@ -108,6 +108,8 @@ const AuthPage = () => {
         console.log("Logged in successfully!: ", output);
         toast.success("Logged In successfully!");
         setIsUserLoggedIn(true);
+        const userData = JSON.stringify(output);
+        localStorage.setItem("UserData", userData);
         router.push("/");
       }
       toast.dismiss(toastId);

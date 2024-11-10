@@ -1,10 +1,12 @@
 "use client";
 import Blogs from "@/components/Blogs";
 import HeroSection from "@/components/HeroSection";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAuth } from "./contexts/AuthContext";
 
 export default function Home() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
+
   const fetchBlogs = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/blogs");
@@ -14,10 +16,6 @@ export default function Home() {
       console.log("Failed to fetch the blogs from the backend: ", err.message);
     }
   };
-
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
 
   return (
     <div className="xl:w-11/12 h-100% flex flex-col mx-auto p-10 gap-10">

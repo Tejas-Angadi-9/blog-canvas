@@ -1,10 +1,12 @@
 "use client"
-import react, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const userData = localStorage.getItem("UserData");
+    const parsedUserData = JSON.parse(userData);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(parsedUserData);
 
     return (
         <AuthContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn }}>
