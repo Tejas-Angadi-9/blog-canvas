@@ -55,10 +55,13 @@ const CreateBlogForm = () => {
   const postBlog = async (formData) => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/blogs/createBlog", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/blogs/createBlog",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
       const output = await response.json();
 
       if (response.ok) {
@@ -79,7 +82,7 @@ const CreateBlogForm = () => {
   return (
     <div className="px-4 md:px-10">
       <Toaster position="top-right" reverseOrder={false} />
-      
+
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 w-full border-gray-300 rounded-lg shadow-lg p-10 transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-2">
@@ -114,7 +117,9 @@ const CreateBlogForm = () => {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="blogImage" className="text-lg font-semibold text-gray-700">
+            <label
+              htmlFor="blogImage"
+              className="text-lg font-semibold text-gray-700">
               Blog Image:
             </label>
             <input

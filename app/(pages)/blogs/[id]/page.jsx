@@ -12,7 +12,7 @@ import Loading from "@/components/common/Loading";
 const Blog = ({ params }) => {
   const [copiedLink, setCopiedLink] = useState("");
   const [blogData, setBlogData] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const handleCopy = () => {
     const linkToCopy = window.location.href; // or any specific URL you want to copy
@@ -36,7 +36,7 @@ const Blog = ({ params }) => {
       const output = await response.json();
 
       setBlogData(output?.blog);
-      setUserInfo(output?.blog.userData);
+      setUserData(output?.blog.userData);
     } catch (err) {
       console.log("Failed to fetch each blog data");
     }
@@ -46,8 +46,12 @@ const Blog = ({ params }) => {
     getEachBlogData();
   }, []);
 
-  console.log("Userdata: ", userInfo);
-  console.log("blogData: ", blogData);
+  const date = new Date(blogData?.date);
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div className="w-11/12 flex flex-col items-start gap-2 mx-auto h-full mb-10 md:mb-20">
@@ -89,24 +93,35 @@ const Blog = ({ params }) => {
             <div className="flex gap-2 items-center mt-5">
               <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
                 {/* This contains the image of the user */}
-                <Image
-                  // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  src={userInfo?.profileImage}
-                  alt="userImage.png"
-                  width={40}
-                  height={40}
-                  className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
-                />
+                {userData?.profileImage ? (
+                  <Image
+                    // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    src={`${userData?.profileImage}`}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                  />
+                ) : (
+                  <img
+                    src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                  />
+                )}
               </div>
               {/* Author name */}
               <div className="flex flex-row justify-between gap-5">
                 <p className="text-[11px] xl:text-lg font-semibold">
                   {/* Jason Francisco */}
-                  {userInfo?.name}
+                  {userData?.name}
                 </p>
                 {/* Published date */}
                 <p className="text-slate-500 text-[11px] xl:text-lg">
-                  August 20, 2022
+                  {/* August 20, 2022 */}
+                  {formattedDate}
                 </p>
               </div>
             </div>

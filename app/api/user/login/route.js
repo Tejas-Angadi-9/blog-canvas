@@ -52,8 +52,8 @@ export const POST = async (req) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3d' })
 
     const cookie = serialize('authToken', token, {
-      httpOnly: true,
-      maxAge: 60 * 60,
+      // httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
       path: '/'
     })
 
@@ -70,8 +70,7 @@ export const POST = async (req) => {
       status: 200,
       headers:
         { 'Set-Cookie': cookie }
-    }
-    );
+    });
   } catch (err) {
     console.log("Internal server issue while logging up ", err.message);
     Response(

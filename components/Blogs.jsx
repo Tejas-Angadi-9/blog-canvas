@@ -11,13 +11,13 @@ const Blogs = ({ page }) => {
   return (
     <>
       {/* Heading */}
-      <div className="font-bold text-[28px] xl:text-[32px]">
+      <div className="font-bold text-[28px] md:block flex items-center w-full justify-center xl:text-[32px]">
         {page === "homePage" ? "Latest Blogs" : "All Blogs"}
       </div>
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
 
-      <div className="w-full h-full p-3 xl:p-6 rounded-md gap-x-5 gap-16 overflow-x-hidden grid grid-cols-3">
+      <div className="w-full h-full p-3 xl:p-6 rounded-md gap-x-5 gap-16 overflow-x-hidden md:grid md:grid-cols-3">
         {!blogs ? (
           <div className="flex w-full h-fit mx-auto items-center justify-center">
             <Loading />
@@ -25,12 +25,18 @@ const Blogs = ({ page }) => {
         ) : (
           blogs?.map((blog, index) => {
             const userData = blog?.userData;
+            const date = new Date(blog?.date);
+            const formattedDate = date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
             return (
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
                 target="_blank"
-                className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-md">
+                className="flex md:w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-md">
                 <div
                   className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-md"
                   key={blog._id}>
@@ -47,7 +53,9 @@ const Blogs = ({ page }) => {
                     </div>
                     {/* Tag and paragraph */}
                     <div className="flex flex-col gap-2">
-                      <p className="text-blue-500 font-normal">Technology</p>
+                      <p className="text-blue-500 font-normal text-[12px] md:text-[15px] mt-2">
+                        {blog?.tag}
+                      </p>
                       {/* Author image, title and date */}
                       <h3 className="font-semibold">
                         {blog?.title}
@@ -57,23 +65,34 @@ const Blogs = ({ page }) => {
                     </div>
                     <div className="flex gap-2 items-center justify-between">
                       <div className="flex items-center justify-center gap-4 text-slate-500">
-                        <Image
-                          // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                          src={`${userData?.profileImage}`}
-                          alt=""
-                          width={40}
-                          height={40}
-                          className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                        />
+                        {userData?.profileImage ? (
+                          <Image
+                            src={`${userData?.profileImage}`}
+                            alt=""
+                            width={40}
+                            height={40}
+                            className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                          />
+                        ) : (
+                          <img
+                            src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
+                            alt={`${userData?.name}.svg`}
+                            width={40}
+                            height={40}
+                            className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                          />
+                        )}
+
                         {/* Author name */}
-                        <p className="text-[10px] xl:text-[14px]">
+                        <p className="text-[12px] xl:text-[14px]">
                           {/* Jason Francisco */}
                           {userData?.name}
                         </p>
                       </div>
                       {/* Published date */}
-                      <p className="text-slate-500 text-[9px] xl:text-[14px]">
-                        August 20, 2022
+                      <p className="text-slate-500 text-[12px] xl:text-[14px]">
+                        {/* August 20, 2022 */}
+                        {formattedDate}
                       </p>
                     </div>
                   </div>
@@ -83,7 +102,7 @@ const Blogs = ({ page }) => {
           })
         )}
       </div>
-      <button className="bg-slate-200 px-4 py-2 w-[50%] xl:w-[20%] flex text-center items-center justify-center mx-auto rounded-md font-semibold mt-5 hover:bg-white hover:text-black hover:border-2 hover:border-black duration-200 hover:scale-95 hover:shadow-md">
+      <button className="text-[12px] md:text-[16px] bg-slate-200 px-4 py-2 w-[50%] xl:w-[20%] flex text-center items-center justify-center mx-auto rounded-md font-semibold mt-5 hover:bg-white hover:text-black hover:border-2 hover:border-black duration-200 hover:scale-95 hover:shadow-md">
         Load More....
       </button>
     </>

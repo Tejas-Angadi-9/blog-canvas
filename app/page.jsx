@@ -1,7 +1,6 @@
 "use client";
 import Blogs from "@/components/Blogs";
 import HeroSection from "@/components/HeroSection";
-import { useEffect } from "react";
 import { useAuth } from "./contexts/AuthContext";
 
 export default function Home() {
