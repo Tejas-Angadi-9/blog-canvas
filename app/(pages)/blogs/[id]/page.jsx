@@ -72,6 +72,22 @@ const Blog = ({ params }) => {
     }
   };
 
+  const localData = localStorage.getItem("UserData");
+  const userInfo = JSON.parse(localData);
+  const userId = userInfo?.user?._id;
+  console.log("UserInfo: ", userInfo?.user?._id);
+  console.log("blogData: ", likedUsers);
+
+  const hasUserLiked = () => {
+    for (let i = 0; i < likedUsers.length; i++) {
+      if (userId === likedUsers[i]) {
+        console.log("Got it");
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="w-11/12 flex flex-col items-start gap-2 mx-auto h-full mb-10 md:mb-20">
       {!blogData ? (
@@ -147,11 +163,18 @@ const Blog = ({ params }) => {
               </div>
               <div className="flex items-center justify-center pr-10 pb-1">
                 <button
-                  className="flex flex-col gap-1 items-center justify-center"
+                  className="flex md:flex-col gap-1 items-center justify-center text-[14px]  md:text-[22px]"
                   onClick={likeHandler}>
-                  <CiHeart className="text-[30px]" />
+                  <>
+                    {hasUserLiked() ? (
+                      <FaHeart className=" text-red-500" />
+                    ) : (
+                      <CiHeart className="" />
+                    )}
+                  </>
+                  {/* <CiHeart className="text-[30px]" /> */}
                   {/* <FaHeart className="text-[30px] text-red-500" /> */}
-                  <p className="font-semibold">
+                  <p className="">
                     {likedUsers?.length > 0 ? likedUsers?.length : 0}
                   </p>
                 </button>
