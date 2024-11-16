@@ -78,15 +78,18 @@ const Blog = ({ params }) => {
   console.log("UserInfo: ", userInfo?.user?._id);
   console.log("blogData: ", likedUsers);
 
-  const hasUserLiked = () => {
-    for (let i = 0; i < likedUsers.length; i++) {
-      if (userId === likedUsers[i]) {
-        console.log("Got it");
-        return true;
-      }
-    }
-    return false;
-  };
+  // const hasUserLiked = () => {
+  //   for (let i = 0; i < likedUsers.length; i++) {
+  //     if (userId === likedUsers[i]) {
+  //       console.log("Got it");
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }; 
+
+  // Alernate way to use the above logc using .some()
+  const hasUserLiked = likedUsers.some((likedUser) => likedUser === userId);
 
   return (
     <div className="w-11/12 flex flex-col items-start gap-2 mx-auto h-full mb-10 md:mb-20">
@@ -166,7 +169,7 @@ const Blog = ({ params }) => {
                   className="flex md:flex-col gap-1 items-center justify-center text-[14px]  md:text-[22px]"
                   onClick={likeHandler}>
                   <>
-                    {hasUserLiked() ? (
+                    {hasUserLiked ? (
                       <FaHeart className=" text-red-500" />
                     ) : (
                       <CiHeart className="" />
