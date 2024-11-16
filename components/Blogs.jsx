@@ -44,7 +44,6 @@ const Blogs = ({ page }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                target="_blank"
                 className="flex xl:w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
                 <div
                   className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl"
@@ -75,7 +74,7 @@ const Blogs = ({ page }) => {
                     <div className="flex gap-2 items-center justify-between">
                       <div className="flex items-center justify-center gap-4 text-slate-500">
                         {userData?.profileImage ? (
-                          <Image
+                          <img
                             src={`${userData?.profileImage}`}
                             alt=""
                             width={40}

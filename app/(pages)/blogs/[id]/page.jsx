@@ -20,6 +20,7 @@ const Blog = ({ params }) => {
   const [copiedLink, setCopiedLink] = useState("");
   const [blogData, setBlogData] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [likedUsers, setLikedUsers] = useState([]);
 
   const handleCopy = () => {
     const linkToCopy = window.location.href; // or any specific URL you want to copy
@@ -44,6 +45,7 @@ const Blog = ({ params }) => {
 
       setBlogData(output?.blog);
       setUserData(output?.blog.userData);
+      setLikedUsers(output?.blog.likedUsers);
     } catch (err) {
       console.log("Failed to fetch each blog data");
     }
@@ -60,8 +62,11 @@ const Blog = ({ params }) => {
     day: "numeric",
   });
 
+  console.log("BLog Data: ", likedUsers.length);
+
   const likeHandler = () => {
     if (!isUserLoggedIn) {
+      toast("Please login, to like the blog", { style: { marginTop: "10px" } });
       router.push("/auth");
       return;
     }
@@ -109,7 +114,7 @@ const Blog = ({ params }) => {
                 <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
                   {/* This contains the image of the user */}
                   {userData?.profileImage ? (
-                    <Image
+                    <img
                       // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       src={`${userData?.profileImage}`}
                       alt=""
@@ -146,7 +151,9 @@ const Blog = ({ params }) => {
                   onClick={likeHandler}>
                   <CiHeart className="text-[30px]" />
                   {/* <FaHeart className="text-[30px] text-red-500" /> */}
-                  <p className="font-semibold">1</p>
+                  <p className="font-semibold">
+                    {likedUsers?.length > 0 ? likedUsers?.length : 0}
+                  </p>
                 </button>
               </div>
             </div>

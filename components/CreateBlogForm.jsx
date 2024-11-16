@@ -89,8 +89,6 @@ const CreateBlogForm = () => {
 
   return (
     <div className="px-4 md:w-[60%] md:px-10">
-      <Toaster position="top-right" reverseOrder={false} />
-
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 w-full border-gray-300 rounded-lg shadow-lg p-10 transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-2">

@@ -33,6 +33,13 @@ export const POST = async (req, { params }) => {
         }
 
         const exisitingBlog = await Blog.findById(blogId);
+        const userAlreadyLiked = exisitingBlog.likedUsers.includes(userId);
+        if (userAlreadyLiked) {
+            return new Response(JSON.stringify({
+                status: false,
+                message: "User has already liked"
+            }), { status: 404 })
+        }
         if (!exisitingBlog) {
             return new Response(JSON.stringify({
                 status: false,
