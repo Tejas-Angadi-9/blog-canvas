@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import Router, { useRouter } from "next/navigation";
 
 const CreateBlogForm = () => {
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,14 +16,6 @@ const CreateBlogForm = () => {
       setImagePreview(URL.createObjectURL(file));
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
-    };
-  }, [imagePreview]);
 
   const [blogData, setBlogData] = useState({
     title: "",
@@ -63,14 +57,20 @@ const CreateBlogForm = () => {
         },
       );
       const output = await response.json();
+      console.log("Ouptut: ", response);
 
       if (response.ok) {
         toast.success("Blog created successfully!");
         setBlogData({ title: "", description: "", tag: "" });
         setSelectedImage(null);
         setImagePreview(null);
-      } else {
-        toast.error(`Error: ${output.message || "Unable to create blog"}`);
+        return;
+      } else if (response?.status === 404) {
+        // toast.error(`Error: ${output.message || "Unable to create blog"}`);
+        localStorage.removeItem("UserData");
+        toast.error("Session Expired, Please login again");
+        router.push("/auth");
+        return;
       }
     } catch (error) {
       toast.error(`Error: ${error.message || "Something went wrong"}`);
@@ -78,6 +78,14 @@ const CreateBlogForm = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   return (
     <div className="px-4 md:w-[60%] md:px-10">

@@ -139,7 +139,7 @@ const Blog = ({ params }) => {
                 className="object-cover rounded-md opacity-95"
               />
             </div>
-            <div className="p-4 bg-white bg-opacity-90 backdrop-blur-md w-[90%] mx-auto flex flex-col items-center justify-center text-justify">
+            <div className="p-4 bg-white bg-opacity-90 backdrop-blur-md w-[85%] mx-auto flex flex-col items-center justify-center text-justify">
               <p className="text-[#3B3C4A] md:text-[20px] leading-relaxed">
                 {blogData?.description}
               </p>
