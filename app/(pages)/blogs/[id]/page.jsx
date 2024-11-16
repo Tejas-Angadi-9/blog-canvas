@@ -8,8 +8,15 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa6";
 import { MdDone } from "react-icons/md";
 import Loading from "@/components/common/Loading";
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Blog = ({ params }) => {
+  const { isUserLoggedIn } = useAuth();
+  const router = useRouter();
   const [copiedLink, setCopiedLink] = useState("");
   const [blogData, setBlogData] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -53,6 +60,13 @@ const Blog = ({ params }) => {
     day: "numeric",
   });
 
+  const likeHandler = () => {
+    if (!isUserLoggedIn) {
+      router.push("/auth");
+      return;
+    }
+  };
+
   return (
     <div className="w-11/12 flex flex-col items-start gap-2 mx-auto h-full mb-10 md:mb-20">
       {!blogData ? (
@@ -90,39 +104,50 @@ const Blog = ({ params }) => {
                 {blogData?.title}
               </h1>
             </div>
-            <div className="flex gap-2 items-center mt-5">
-              <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
-                {/* This contains the image of the user */}
-                {userData?.profileImage ? (
-                  <Image
-                    // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    src={`${userData?.profileImage}`}
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                  />
-                ) : (
-                  <img
-                    src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                  />
-                )}
+            <div className="flex gap-2 items-center mt-5 justify-between px-5">
+              <div className="flex flex-row items-center justify-center gap-2">
+                <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
+                  {/* This contains the image of the user */}
+                  {userData?.profileImage ? (
+                    <Image
+                      // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      src={`${userData?.profileImage}`}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                    />
+                  ) : (
+                    <img
+                      src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                    />
+                  )}
+                </div>
+                {/* Author name */}
+                <div className="flex flex-row justify-between gap-5">
+                  <p className="text-[11px] xl:text-lg font-semibold">
+                    {/* Jason Francisco */}
+                    {userData?.name}
+                  </p>
+                  {/* Published date */}
+                  <p className="text-slate-500 text-[11px] xl:text-lg">
+                    {/* August 20, 2022 */}
+                    {formattedDate}
+                  </p>
+                </div>
               </div>
-              {/* Author name */}
-              <div className="flex flex-row justify-between gap-5">
-                <p className="text-[11px] xl:text-lg font-semibold">
-                  {/* Jason Francisco */}
-                  {userData?.name}
-                </p>
-                {/* Published date */}
-                <p className="text-slate-500 text-[11px] xl:text-lg">
-                  {/* August 20, 2022 */}
-                  {formattedDate}
-                </p>
+              <div className="flex items-center justify-center pr-10 pb-1">
+                <button
+                  className="flex flex-col gap-1 items-center justify-center"
+                  onClick={likeHandler}>
+                  <CiHeart className="text-[30px]" />
+                  {/* <FaHeart className="text-[30px] text-red-500" /> */}
+                  <p className="font-semibold">1</p>
+                </button>
               </div>
             </div>
           </section>

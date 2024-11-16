@@ -53,11 +53,11 @@ export const POST = async (req) => {
 
     const cookie = serialize('authToken', token, {
       // httpOnly: true,
-      maxAge: 60,
+      maxAge: 3 * 24 * 60 * 60 * 1000,
       path: '/'
     })
 
-    const { password: _, ...userWithoutPassword } = exisitingUser.toObject(); 
+    const { password: _, ...userWithoutPassword } = exisitingUser.toObject();
 
     // Then login
     return new Response(
