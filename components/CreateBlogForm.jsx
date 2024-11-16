@@ -80,7 +80,7 @@ const CreateBlogForm = () => {
   };
 
   return (
-    <div className="px-4 md:px-10">
+    <div className="px-4 md:w-[60%] md:px-10">
       <Toaster position="top-right" reverseOrder={false} />
 
       <form onSubmit={handleSubmit}>
@@ -163,7 +163,7 @@ const CreateBlogForm = () => {
         </div>
 
         <button
-          className="mt-10 w-full bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95"
+          className="mt-10 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95"
           type="submit"
           disabled={isLoading}>
           {isLoading ? "Creating Blog..." : "Create Blog"}

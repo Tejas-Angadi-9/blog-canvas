@@ -129,7 +129,7 @@ const Blog = ({ params }) => {
 
           {/* This section contains the image and the blog description */}
           <section className="flex flex-col relative md:px-20 w-full h-full gap-4 md:gap-10">
-            <div className="relative w-full h-[300px] md:h-[500px]">
+            <div className="relative w-[80%] h-[300px] flex items-center justify-center mx-auto md:h-[500px]">
               {/* This contains the blog image */}
               <Image
                 // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -139,26 +139,15 @@ const Blog = ({ params }) => {
                 className="object-cover rounded-md opacity-95"
               />
             </div>
-            <div className="p-4 bg-white bg-opacity-90 backdrop-blur-md md:w-11/12 mx-auto">
+            <div className="p-4 bg-white bg-opacity-90 backdrop-blur-md w-[90%] mx-auto flex flex-col items-center justify-center text-justify">
               <p className="text-[#3B3C4A] md:text-[20px] leading-relaxed">
-                {/* Traveling is an enriching experience that opens up new horizons,
-            exposes us to different cultures, and creates memories that last a
-            lifetime. However, traveling can also be stressful and overwhelming,
-            especially if you don't plan and prepare adequately. In this blog
-            article, we'll explore tips and tricks for a memorable journey and
-            how to make the most of your travels. One of the most rewarding
-            aspects of traveling is immersing yourself in the local culture and
-            customs. This includes trying local cuisine, attending cultural
-            events and festivals, and interacting with locals. Learning a few
-            phrases in the local language can also go a long way in making
-            connections and showing respect. */}
                 {blogData?.description}
               </p>
             </div>
           </section>
 
           <Link
-            className="bg-white border-2 border-black text-black px-2 py-2 text-[15px] ml-4 md:px-4 md:py-2 rounded-md hover:bg-black hover:text-white transition-all duration-200 hover:border-2 hover:border-black hover:shadow-lg flex items-center justify-center gap-2 mt-10"
+            className="bg-white border-2 border-black text-black px-2 py-2 text-[15px] ml-4 md:px-4 md:py-2 rounded-md  transition-all duration-200 hover:border-2 hover:border-black hover:scale-95 flex items-center justify-center gap-2 mt-10"
             href={"/blogs"}>
             <IoMdArrowRoundBack />
             Go Back to blogs

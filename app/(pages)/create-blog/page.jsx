@@ -21,7 +21,7 @@ const CreateABlogPage = () => {
   return (
     <>
       {visiblePage ? (
-        <div className="flex flex-col w-11/12 h-screen mx-auto">
+        <div className="flex flex-col w-11/12 h-full mb-10 mx-auto">
           {/* This div will contain the fixed title to create the blog post */}
           <div className="p-2 md:p-10">
             <h1 className="text-[22px] md:text-[40px] font-bold">
