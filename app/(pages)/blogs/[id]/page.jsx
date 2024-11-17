@@ -40,8 +40,10 @@ const Blog = ({ params }) => {
     );
   };
 
+  // Getting Blog Id from the url parameters
   const blogId = params?.id;
 
+  // Getting each blog data
   const getEachBlogData = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`);
@@ -55,6 +57,7 @@ const Blog = ({ params }) => {
     }
   };
 
+  // Converting Date to readable format
   const date = new Date(blogData?.date);
   const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -62,6 +65,7 @@ const Blog = ({ params }) => {
     day: "numeric",
   });
 
+  // Like Handler
   const likeHandler = async () => {
     if (!isUserLoggedIn) {
       toast("Login to like!", {
@@ -88,6 +92,7 @@ const Blog = ({ params }) => {
     }
   };
 
+  // Unlike Handler
   const unlikeHandler = async () => {
     if (!isUserLoggedIn) {
       toast("Login to like!", {
@@ -134,6 +139,7 @@ const Blog = ({ params }) => {
 
   // Alernate way to use the above logc using .some()
   const hasUserLiked = likedUsers.some((likedUser) => likedUser === userId);
+  const canEditAndDelete = blogData?.userData?._id.toString() === userId;
 
   return (
     <div className="w-11/12 flex flex-col items-start gap-2 mx-auto h-full mb-10 md:mb-20">
@@ -266,14 +272,16 @@ const Blog = ({ params }) => {
                   {blogData?.description}
                 </p>
               </div>
-              <div className="w-[90%] flex items-center gap-5 md:pt-10 h-full mt-5">
-                <button className="flex border-2 border-black items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md outline-none">
-                  Edit
-                </button>
-                <button className="flex items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md bg-red-500 text-white outline-none">
-                  Delete
-                </button>
-              </div>
+              {canEditAndDelete == true && (
+                <div className="w-[90%] flex items-center gap-5 md:pt-10 h-full mt-5">
+                  <button className="flex border-2 border-black items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md outline-none">
+                    Edit
+                  </button>
+                  <button className="flex items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md bg-red-500 text-white outline-none">
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
             <aside className="flex flex-col mt-5 md:mt-0">
               <MoreBlogs text="More Blogs" />
