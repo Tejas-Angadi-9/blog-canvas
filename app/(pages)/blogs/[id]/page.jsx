@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Blogs from "@/components/Blogs";
 import MoreBlogs from "@/components/blogsSection/MoreBlogs";
+import Spinner from "@/components/common/Spinner";
 
 const Blog = ({ params }) => {
   const { isUserLoggedIn } = useAuth();
@@ -23,6 +24,7 @@ const Blog = ({ params }) => {
   const [blogData, setBlogData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [likedUsers, setLikedUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleCopy = () => {
     const linkToCopy = window.location.href; // or any specific URL you want to copy
@@ -53,10 +55,6 @@ const Blog = ({ params }) => {
     }
   };
 
-  useEffect(() => {
-    getEachBlogData();
-  }, []);
-
   const date = new Date(blogData?.date);
   const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -64,9 +62,7 @@ const Blog = ({ params }) => {
     day: "numeric",
   });
 
-  console.log("BLog Data: ", likedUsers.length);
-
-  const likeHandler = () => {
+  const likeHandler = async () => {
     if (!isUserLoggedIn) {
       toast("Login to like!", {
         style: { marginTop: "10px" },
@@ -74,13 +70,57 @@ const Blog = ({ params }) => {
       router.push("/auth");
       return;
     }
+
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `http://localhost:3000/api/blogs/${blogId}/likeBlog`,
+        {
+          method: "POST",
+        },
+      );
+      const output = await response.json();
+      console.log(output);
+      setLoading(false);
+      toast.success("Blog Liked!");
+    } catch (err) {
+      console.log("Failed to like the blog: ", err.message);
+    }
   };
+
+  const unlikeHandler = async () => {
+    if (!isUserLoggedIn) {
+      toast("Login to like!", {
+        style: { marginTop: "10px" },
+      });
+      router.push("/auth");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `http://localhost:3000/api/blogs/${blogId}/unlikeBlog`,
+        {
+          method: "POST",
+        },
+      );
+      const output = await response.json();
+      console.log(output);
+      setLoading(false);
+      toast.success("Blog Unliked!");
+    } catch (err) {
+      console.log("Failed to like the blog: ", err.message);
+    }
+  };
+
+  useEffect(() => {
+    getEachBlogData();
+  }, [loading, 1000]);
 
   const localData = localStorage.getItem("UserData");
   const userInfo = JSON.parse(localData);
   const userId = userInfo?.user?._id;
-  console.log("UserInfo: ", userInfo?.user?._id);
-  console.log("blogData: ", likedUsers);
 
   // const hasUserLiked = () => {
   //   for (let i = 0; i < likedUsers.length; i++) {
@@ -169,21 +209,40 @@ const Blog = ({ params }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center justify-center pr-10 pb-1">
-                <button
-                  className="flex md:flex-col gap-1 items-center justify-center text-[14px]  md:text-[22px]"
-                  onClick={likeHandler}>
-                  <>
-                    {hasUserLiked ? (
-                      <FaHeart className=" text-red-500" />
+              <div className="flex gap-1 items-center justify-center pr-10 pb-1">
+                {hasUserLiked ? (
+                  <button
+                    className="flex md:flex gap-1 items-center justify-center text-[14px]  md:text-[22px]"
+                    onClick={unlikeHandler}>
+                    {loading ? (
+                      // <Loading />
+                      <Spinner />
                     ) : (
-                      <CiHeart className="" />
+                      <>
+                        <FaHeart className="text-red-500 mr-1" />
+                        <p className="">
+                          {likedUsers?.length > 0 ? likedUsers?.length : 0}
+                        </p>
+                      </>
                     )}
-                  </>
-                  <p className="">
-                    {likedUsers?.length > 0 ? likedUsers?.length : 0}
-                  </p>
-                </button>
+                  </button>
+                ) : (
+                  <button
+                    className="flex md:flex gap-1 items-center justify-center text-[14px]  md:text-[22px]"
+                    onClick={likeHandler}>
+                    {loading ? (
+                      // <Loading />
+                      <Spinner />
+                    ) : (
+                      <>
+                        <CiHeart className="text-[28px]" />
+                        <p className="">
+                          {likedUsers?.length > 0 ? likedUsers?.length : 0}
+                        </p>
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           </section>
