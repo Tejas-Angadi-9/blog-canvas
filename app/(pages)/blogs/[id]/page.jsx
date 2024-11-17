@@ -13,6 +13,8 @@ import { FaHeart } from "react-icons/fa";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Blogs from "@/components/Blogs";
+import MoreBlogs from "@/components/blogsSection/MoreBlogs";
 
 const Blog = ({ params }) => {
   const { isUserLoggedIn } = useAuth();
@@ -101,7 +103,7 @@ const Blog = ({ params }) => {
         </div>
       ) : (
         <>
-          <section className="flex flex-col p-2 md:p-5 justify-between w-full">
+          <section className="flex flex-col p-2 md:p-5 justify-around item w-full">
             <div className="flex w-full justify-between items-center">
               <TagButton text={blogData?.tag} />
               <button
@@ -187,31 +189,37 @@ const Blog = ({ params }) => {
           </section>
 
           {/* This section contains the image and the blog description */}
-          <section className="flex  flex-col items-center justify-center md:block md:px-5 w-full h-full gap-4 md:gap-10">
-            <div className="relative w-[80%] md:w-[65%] h-[300px] flex md:h-[500px]">
-              {/* This contains the blog image */}
-              <Image
-                // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                src={blogData?.blogImage}
-                alt="blogImage"
-                layout="fill"
-                className="object-cover rounded-md opacity-95"
-                loading="lazy"
-              />
+          <section className="md:flex md:flex-row flex-col items-start justify-center md:px-5 w-full h-full gap-4 md:gap-10">
+            <div className="flex flex-col flex-1 items-center justify-center md:items-start md:justify-start">
+              <div className="relative w-[80%] md:w-[90%] h-[300px] flex md:h-[500px]">
+                {/* This contains the blog image */}
+                <Image
+                  // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src={blogData?.blogImage}
+                  alt="blogImage"
+                  layout="fill"
+                  className="object-cover rounded-md opacity-95"
+                  loading="lazy"
+                />
+              </div>
+              <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[95%] md:w-[90%] flex text-justify">
+                <p className="text-[#3B3C4A] text-[12px] md:text-[18px] leading-relaxed">
+                  {blogData?.description}
+                </p>
+              </div>
+              <div className="w-[90%] flex items-center gap-5 md:pt-10 h-full mt-5">
+                <button className="flex border-2 border-black items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md outline-none">
+                  Edit
+                </button>
+                <button className="flex items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md bg-red-500 text-white outline-none">
+                  Delete
+                </button>
+              </div>
             </div>
-            <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[95%] md:w-[65%] flex text-justify">
-              <p className="text-[#3B3C4A] text-[12px] md:text-[18px] leading-relaxed">
-                {blogData?.description}
-              </p>
-            </div>
+            <aside className="flex flex-col mt-5 md:mt-0">
+              <MoreBlogs text="More Blogs" />
+            </aside>
           </section>
-
-          <Link
-            className="bg-white border-2 border-black text-black px-2 py-2 text-[12px] md:text-[16px] ml-4 md:px-4 md:py-2 rounded-md  transition-all duration-200 hover:border-2 hover:border-black hover:scale-95 flex items-center justify-center gap-2 mt-10"
-            href={"/blogs"}>
-            <IoMdArrowRoundBack />
-            Go Back to blogs
-          </Link>
         </>
       )}
     </div>
