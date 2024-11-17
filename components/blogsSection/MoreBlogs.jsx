@@ -3,12 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import Loading from "@/components/common/Loading";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const MoreBlogs = ({ text }) => {
   const [visible, setVisible] = useState(3);
 
+  const pathName = usePathname();
+  const blogId = pathName.split("/")[2];
   const { allBlogsData } = useAuth();
   const blogs = allBlogsData?.blogs;
+  const filteredBlogs = blogs?.filter(
+    (blog) => blog?._id.toString() !== blogId,
+  );
   useEffect(() => {
     blogs?.sort(() => Math.random() - 0.5);
   }, [blogs]);
@@ -20,7 +26,7 @@ const MoreBlogs = ({ text }) => {
   return (
     <>
       {/* Heading */}
-      <div className="font-bold text-[28px] xl:block flex items-center w-full justify-center xl:text-[32px]">
+      <div className="font-bold text-[28px] px-6 xl:block flex items-center w-full justify-center xl:text-[32px]">
         {text}
       </div>
 
@@ -35,7 +41,7 @@ const MoreBlogs = ({ text }) => {
             <Loading />
           </div>
         ) : (
-          blogs?.slice(0, visible).map((blog, index) => {
+          filteredBlogs?.slice(0, visible).map((blog, index) => {
             const userData = blog?.userData;
             const date = new Date(blog?.date);
             const formattedDate = date.toLocaleDateString("en-US", {

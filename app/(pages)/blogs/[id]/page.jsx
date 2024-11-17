@@ -172,13 +172,13 @@ const Blog = ({ params }) => {
               </button>
             </div>
             <div>
-              <h1 className="text-[18px] md:text-[45px] md:w-11/12 font-bold mt-5">
+              <h1 className="text-[18px] md:text-[45px] md:w-[65%] font-bold mt-5">
                 {/* The Impact of Technology on the Workplace: How Technology is
             Changing */}
                 {blogData?.title}
               </h1>
             </div>
-            <div className="flex gap-2 items-center mt-5 justify-between">
+            <div className="flex gap-2 items-center mt-5 justify-between w-[62%]">
               <div className="flex flex-row items-center justify-center gap-2">
                 <div className="flex items-center justify-center gap-2 xl:gap-5 text-slate-500">
                   {/* This contains the image of the user */}
@@ -215,7 +215,7 @@ const Blog = ({ params }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex gap-1 items-center justify-center pr-10 pb-1">
+              <div className="flex gap-1 items-center justify-center pb-1 pt-2">
                 {hasUserLiked ? (
                   <button
                     className="flex md:flex gap-1 items-center justify-center text-[14px]  md:text-[22px]"
@@ -283,7 +283,7 @@ const Blog = ({ params }) => {
                 </div>
               )}
             </div>
-            <aside className="flex flex-col mt-5 md:mt-0">
+            <aside className="flex flex-col mt-5 md:-mt-20">
               <MoreBlogs text="More Blogs" />
             </aside>
           </section>

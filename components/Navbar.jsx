@@ -17,7 +17,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="w-11/12 sticky top-0 bg-white z-20 flex h-24 mx-auto">
+    <div className="w-full px-10 sticky top-0 bg-white z-20 flex h-24 mx-auto">
       <div className="px-5 py-2 xl:px-10 xl:py-5 border-gray-950 flex w-full items-center justify-between">
         {/* Logo and the app name */}
         <div className="flex">
