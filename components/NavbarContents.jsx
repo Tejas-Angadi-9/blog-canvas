@@ -30,7 +30,7 @@ const NavbarContents = ({ type }) => {
     <div
       className={`${
         type === "mobile"
-          ? "flex flex-col absolute items-center justify-center top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] gap-12 text-[18px] bg-white z-10 w-full h-[100%] overflow-hidden transition-all duration-200 font-semibold"
+          ? "flex flex-col absolute items-center justify-center -translate-y-[5%] left-[50%] -translate-x-[50%] gap-12 text-[18px] bg-white z-10 w-full h-[100vh] transition-all duration-200 font-semibold"
           : "hidden xl:flex gap-12 text-[18px] font-medium"
       } `}>
       <div>
@@ -42,42 +42,37 @@ const NavbarContents = ({ type }) => {
         {/* <div className="flex w-full h-1 bg-black rounded-lg inline"></div> */}
       </div>
       <Link href={"/"}>
-        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+        <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-xl">
           Home
         </p>
       </Link>
       <Link href={"/blogs"}>
-        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+        <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-xl">
           All Blogs
         </p>
       </Link>
       {/* {isUserLoggedIn && ( */}
       <button onClick={createNewBlogChecker}>
-        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+        <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-xl">
           Create A Blog
         </p>
       </button>
       {/* )} */}
       <Link href={"/about"}>
-        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+        <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-xl">
           About
-        </p>
-      </Link>
-      <Link href={"#contact"}>
-        <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
-          Contact
         </p>
       </Link>
       {isUserLoggedIn && (
         <button onClick={logoutHandler}>
-          <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+          <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-xl">
             Logout
           </p>
         </button>
       )}
       {!isUserLoggedIn && (
         <Link href={"/auth"}>
-          <p className="duration-200 hover:scale-95 hover:shadow-xl px-4 py-2 outline-none rounded-xl">
+          <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-xl">
             Login / Signup
           </p>
         </Link>

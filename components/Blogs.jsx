@@ -24,8 +24,8 @@ const Blogs = ({ page }) => {
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit p-3 xl:p-6 rounded-xl gap-x-5 gap-16 overflow-x-hidden ${
-          blogs && "grid xl:grid xl:grid-cols-3 md:grid-cols-2"
+        className={`w-full h-fit xl:p-6 rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
+          blogs && "md:grid xl:grid xl:grid-cols-3 md:grid-cols-2"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (
           <div className="flex w-full h-fit xl:translate-x-[100%]">
@@ -44,7 +44,7 @@ const Blogs = ({ page }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex xl:w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
+                className="flex md:w-[350px] w-[300px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
                 <div
                   className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl"
                   key={blog._id}>
@@ -57,6 +57,7 @@ const Blogs = ({ page }) => {
                         alt="blog1.png"
                         fill
                         className="object-cover rounded-xl"
+                        loading="lazy"
                       />
                     </div>
                     {/* Tag and paragraph */}
@@ -80,6 +81,7 @@ const Blogs = ({ page }) => {
                             width={40}
                             height={40}
                             className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                            loading="lazy"
                           />
                         ) : (
                           <img
@@ -88,6 +90,7 @@ const Blogs = ({ page }) => {
                             width={40}
                             height={40}
                             className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                            loading="lazy"
                           />
                         )}
 

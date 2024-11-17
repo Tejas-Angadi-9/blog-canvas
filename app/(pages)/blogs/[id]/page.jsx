@@ -66,7 +66,9 @@ const Blog = ({ params }) => {
 
   const likeHandler = () => {
     if (!isUserLoggedIn) {
-      toast("Please login, to like the blog", { style: { marginTop: "10px" } });
+      toast("Login to like!", {
+        style: { marginTop: "10px" },
+      });
       router.push("/auth");
       return;
     }
@@ -86,7 +88,7 @@ const Blog = ({ params }) => {
   //     }
   //   }
   //   return false;
-  // }; 
+  // };
 
   // Alernate way to use the above logc using .some()
   const hasUserLiked = likedUsers.some((likedUser) => likedUser === userId);
@@ -99,7 +101,7 @@ const Blog = ({ params }) => {
         </div>
       ) : (
         <>
-          <section className="flex flex-col p-2 md:p-10 justify-between w-full">
+          <section className="flex flex-col p-2 md:p-5 justify-between w-full">
             <div className="flex w-full justify-between items-center">
               <TagButton text={blogData?.tag} />
               <button
@@ -128,18 +130,18 @@ const Blog = ({ params }) => {
                 {blogData?.title}
               </h1>
             </div>
-            <div className="flex gap-2 items-center mt-5 justify-between px-5">
+            <div className="flex gap-2 items-center mt-5 justify-between">
               <div className="flex flex-row items-center justify-center gap-2">
-                <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
+                <div className="flex items-center justify-center gap-2 xl:gap-5 text-slate-500">
                   {/* This contains the image of the user */}
                   {userData?.profileImage ? (
                     <img
-                      // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       src={`${userData?.profileImage}`}
                       alt=""
                       width={40}
                       height={40}
                       className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                      loading="lazy"
                     />
                   ) : (
                     <img
@@ -148,6 +150,7 @@ const Blog = ({ params }) => {
                       width={40}
                       height={40}
                       className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                      loading="lazy"
                     />
                   )}
                 </div>
@@ -175,8 +178,6 @@ const Blog = ({ params }) => {
                       <CiHeart className="" />
                     )}
                   </>
-                  {/* <CiHeart className="text-[30px]" /> */}
-                  {/* <FaHeart className="text-[30px] text-red-500" /> */}
                   <p className="">
                     {likedUsers?.length > 0 ? likedUsers?.length : 0}
                   </p>
@@ -186,8 +187,8 @@ const Blog = ({ params }) => {
           </section>
 
           {/* This section contains the image and the blog description */}
-          <section className="flex flex-col relative md:px-20 w-full h-full gap-4 md:gap-10">
-            <div className="relative w-[80%] h-[300px] flex items-center justify-center mx-auto md:h-[500px]">
+          <section className="flex  flex-col items-center justify-center md:block md:px-5 w-full h-full gap-4 md:gap-10">
+            <div className="relative w-[80%] md:w-[65%] h-[300px] flex md:h-[500px]">
               {/* This contains the blog image */}
               <Image
                 // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -195,17 +196,18 @@ const Blog = ({ params }) => {
                 alt="blogImage"
                 layout="fill"
                 className="object-cover rounded-md opacity-95"
+                loading="lazy"
               />
             </div>
-            <div className="p-4 bg-white bg-opacity-90 backdrop-blur-md w-[85%] mx-auto flex flex-col items-center justify-center text-justify">
-              <p className="text-[#3B3C4A] md:text-[20px] leading-relaxed">
+            <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[95%] md:w-[65%] flex text-justify">
+              <p className="text-[#3B3C4A] text-[12px] md:text-[18px] leading-relaxed">
                 {blogData?.description}
               </p>
             </div>
           </section>
 
           <Link
-            className="bg-white border-2 border-black text-black px-2 py-2 text-[15px] ml-4 md:px-4 md:py-2 rounded-md  transition-all duration-200 hover:border-2 hover:border-black hover:scale-95 flex items-center justify-center gap-2 mt-10"
+            className="bg-white border-2 border-black text-black px-2 py-2 text-[12px] md:text-[16px] ml-4 md:px-4 md:py-2 rounded-md  transition-all duration-200 hover:border-2 hover:border-black hover:scale-95 flex items-center justify-center gap-2 mt-10"
             href={"/blogs"}>
             <IoMdArrowRoundBack />
             Go Back to blogs

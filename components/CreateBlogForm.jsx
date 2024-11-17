@@ -144,6 +144,7 @@ const CreateBlogForm = () => {
                   src={imagePreview}
                   alt="Selected blog"
                   className="h-32 object-cover rounded-md mb-2"
+                  loading="lazy"
                 />
               ) : (
                 <p>Choose an Image.</p>

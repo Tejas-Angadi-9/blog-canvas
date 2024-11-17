@@ -36,68 +36,63 @@ const HeroSection = () => {
       {!blog ? (
         <Loading />
       ) : (
-        <Link href={`/blogs/${blog?._id}`} target="_blank">
-          <div className="relative flex flex-col h-[250px] w-full xl:h-[500px] cursor-pointer">
-            {/* Image */}
-            <Image
-              // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              src={blog?.blogImage}
-              alt="blogImage"
-              fill
-              className="object-cover rounded-[10px] opacity-95"
-            />
-            <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black to-transparent rounded-b-[10px]"></div>
-            {/* Blog title, tag and other stuff */}
-            <div className="bg-[#E8E8EA] shadow-xl p-2 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20 md:w-[60%] md:h-[150px] xl:w-[500px] xl:h-[250px] xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0">
-              <div className="flex flex-col items-start gap-2">
-                {/* Tag */}
-                <h4 className="text-[8px] xl:text-[16px] w-fit px-[5px] py-[2px] xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
-                  {/* Technology */}
-                  {blog?.tag}
-                </h4>
-                {/* Blog Title in bold */}
-                <h1 className="text-[11px] font-medium xl:text-[24px] xl:font-semibold">
-                  {/* The Impact of Technology on the Workplace: How Technology is
+        <>
+          <Link href={`/blogs/${blog?._id}`}>
+            <div className="relative flex flex-col h-[250px] w-full xl:h-[500px] cursor-pointer">
+              {/* Image */}
+              <Image
+                // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src={blog?.blogImage}
+                alt="blogImage"
+                fill
+                className="object-cover rounded-[10px] opacity-95"
+                loading="lazy"
+              />
+              <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black to-transparent rounded-b-[10px]"></div>
+              {/* Blog title, tag and other stuff */}
+              <div className="bg-[#E8E8EA] shadow-xl p-2 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20 md:w-[60%] md:h-[150px] xl:w-[500px] xl:h-[250px] xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0">
+                <div className="flex flex-col items-start gap-2">
+                  {/* Tag */}
+                  <h4 className="text-[8px] xl:text-[16px] w-fit px-[5px] py-[2px] xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
+                    {/* Technology */}
+                    {blog?.tag}
+                  </h4>
+                  {/* Blog Title in bold */}
+                  <h1 className="text-[11px] font-medium xl:text-[24px] xl:font-semibold">
+                    {/* The Impact of Technology on the Workplace: How Technology is
               Changing */}
-                  {blog?.title}
-                </h1>
-              </div>
-              {/* Author image, name and date of blog published */}
-              <div className="flex gap-2 items-center justify-between">
-                <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
-                  {blog?.userData?.profileImage ? (
-                    <Image
-                      // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      src={blog?.userData?.profileImage}
-                      alt="userImage.png"
-                      width={40}
-                      height={40}
-                      className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
-                    />
-                  ) : (
-                    <img
-                      src={`https://api.dicebear.com/9.x/initials/svg?seed=${blog?.userData?.name}`}
-                      alt=""
-                      width={40}
-                      height={40}
-                      className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                    />
-                  )}
-
-                  {/* Author name */}
-                  <p className="text-[9px] xl:text-lg font-semibold">
-                    {/* Jason Francisco */}
-                    {blog?.userData?.name}
+                    {blog?.title}
+                  </h1>
+                </div>
+                {/* Author image, name and date of blog published */}
+                <div className="flex gap-2 items-center justify-between">
+                  <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
+                    {blog?.userData?.profileImage && (
+                      <img
+                        // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        src={blog?.userData?.profileImage}
+                        alt="userImage.png"
+                        width={40}
+                        height={40}
+                        className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
+                        loading="lazy"
+                      />
+                    )}
+                    {/* Author name */}
+                    <p className="text-[9px] xl:text-lg font-semibold">
+                      {/* Jason Francisco */}
+                      {blog?.userData?.name}
+                    </p>
+                  </div>
+                  {/* Published date */}
+                  <p className="text-slate-500 text-[9px] xl:text-lg">
+                    {/* August 20, 2022 */}
+                    {formattedDate}
                   </p>
                 </div>
-                {/* Published date */}
-                <p className="text-slate-500 text-[9px] xl:text-lg">
-                  {/* August 20, 2022 */}
-                  {formattedDate}
-                </p>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="mt-[90px] flex gap-5 flex-col items-center justify-center">
             <h1 className="text-[26px] xl:text-[42px] font-semibold">
               Why BlogCanvas?
@@ -107,7 +102,7 @@ const HeroSection = () => {
               blog content."
             </p>
           </div>
-        </Link>
+        </>
       )}
     </>
   );
