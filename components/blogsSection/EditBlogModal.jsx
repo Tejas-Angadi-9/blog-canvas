@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const EditBlogModal = ({ setIsEditModalOpen, blogId }) => {
+const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -24,9 +24,9 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId }) => {
   };
 
   const [blogData, setBlogData] = useState({
-    title: "",
-    description: "",
-    tag: "",
+    title: blogContent?.title,
+    description: blogContent?.description,
+    tag: blogContent?.tag,
   });
 
   const handleSubmit = (e) => {
@@ -89,7 +89,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId }) => {
   }, [imagePreview]);
 
   return (
-    <div className="flex flex-col items-center justify-center md:absolute left-[50%] md:-translate-x-[50%] bg-white z-10 p-2 md:p-5 w-11/12 max-w-md md:max-w-lg h-fit py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 md:ml-0">
+    <div className="flex flex-col items-center justify-center md:absolute left-[50%] md:-translate-x-[50%] bg-white z-10 p-2 md:p-5 w-11/12 max-w-md md:max-w-[60%] h-fit py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 md:ml-0">
       <div className="px-4 w-full flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <h2 class="text-[18px] md:text-[24px] font-semibold text-gray-800">
@@ -128,6 +128,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId }) => {
               <textarea
                 id="description"
                 name="description"
+                rows={10}
                 placeholder="Write your blog content here..."
                 value={blogData.description}
                 onChange={handleInputChange}

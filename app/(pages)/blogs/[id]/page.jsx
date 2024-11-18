@@ -54,7 +54,6 @@ const Blog = ({ params }) => {
     try {
       const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`);
       const output = await response.json();
-
       setBlogData(output?.blog);
       setUserData(output?.blog.userData);
       setLikedUsers(output?.blog.likedUsers);
@@ -70,6 +69,12 @@ const Blog = ({ params }) => {
     month: "long",
     day: "numeric",
   });
+
+  // const data = blogData?.description.split("\n");
+  // const blogArray = data?.filter((da) => da !== "\r");
+  // console.log("Data: ", blogArray);
+
+  const blogArray = blogData?.description?.split("\n");
 
   // Like Handler
   const likeHandler = async () => {
@@ -186,6 +191,7 @@ const Blog = ({ params }) => {
               <EditBlogModal
                 setIsEditModalOpen={setIsEditModalOpen}
                 blogId={blogId}
+                blogContent={blogData}
               />
             </div>
           )}
@@ -230,14 +236,14 @@ const Blog = ({ params }) => {
                 </div>
                 <div className="flex gap-2 items-center mt-5 justify-between w-[95%] md:w-full">
                   <div className="flex flex-row items-center justify-center gap-2">
-                    <div className="flex items-center justify-center gap-2 xl:gap-5 text-slate-500">
+                    <div className="flex items-center justify-center gap-2 md:gap-5 text-slate-500">
                       {userData?.profileImage ? (
                         <img
                           src={`${userData?.profileImage}`}
                           alt=""
                           width={40}
                           height={40}
-                          className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                          className="w-6 h-6 md:w-10 md:h-10 rounded-full"
                           loading="lazy"
                         />
                       ) : (
@@ -246,16 +252,16 @@ const Blog = ({ params }) => {
                           alt=""
                           width={40}
                           height={40}
-                          className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                          className="w-6 h-6 md:w-10 md:h-10 rounded-full"
                           loading="lazy"
                         />
                       )}
                     </div>
                     <div className="flex flex-row justify-between gap-5">
-                      <p className="text-[11px] xl:text-lg font-semibold">
+                      <p className="text-[11px] md:text-lg font-semibold">
                         {userData?.name}
                       </p>
-                      <p className="text-slate-500 text-[11px] xl:text-lg">
+                      <p className="text-slate-500 text-[11px] md:text-lg">
                         {formattedDate}
                       </p>
                     </div>
@@ -306,16 +312,23 @@ const Blog = ({ params }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] flex text-justify flex flex-col">
-                  <p className="text-[#3B3C4A] text-[12px] md:text-[18px] leading-relaxed">
-                    {blogData?.description}
-                  </p>
+                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] text-justify flex flex-col gap-4">
+                  {blogArray?.map((eachLine, index) => (
+                    <p
+                      key={index}
+                      className="text-[14px] font-normal md:text-[18px] leading-relaxed">
+                      {eachLine}
+                    </p>
+                  ))}
                   <div className="w-full">
                     {canEditAndDelete && (
                       <div className="w-[90%] flex items-center justify-start gap-5 md:pt-10 h-full mt-5">
                         <button
                           className="flex border-2 border-slate-500 items-center justify-center text-[12px] md:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700"
-                          onClick={() => setIsEditModalOpen((prev) => !prev)}>
+                          onClick={() => {
+                            setIsEditModalOpen((prev) => !prev);
+                            window.scrollTo(0, 0);
+                          }}>
                           <p>Edit Blog</p>
                           <FaRegEdit className="text-[14px]" />
                         </button>
@@ -332,7 +345,7 @@ const Blog = ({ params }) => {
               </div>
             </section>
             <aside className="flex flex-col mt-5">
-              <MoreBlogs text="More Blogs" />
+              <MoreBlogs text="Featured Blogs" />
             </aside>
           </div>
         </div>

@@ -105,12 +105,11 @@ const AuthPage = () => {
       }
       if (response.status === 200) {
         const output = await response.json();
-        console.log("Logged in successfully!: ", output);
         toast.success("Logged In successfully!");
         setIsUserLoggedIn(true);
         const userData = JSON.stringify(output);
         localStorage.setItem("UserData", userData);
-        router.push("/");
+        window.location.href = "/";
       }
       toast.dismiss(toastId);
     } catch (err) {

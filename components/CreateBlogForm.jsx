@@ -115,6 +115,7 @@ const CreateBlogForm = () => {
               required
               id="description"
               name="description"
+              rows={6}
               placeholder="Write your blog content here..."
               value={blogData.description}
               onChange={handleInputChange}
