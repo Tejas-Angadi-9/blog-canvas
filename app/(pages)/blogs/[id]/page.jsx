@@ -127,16 +127,6 @@ const Blog = ({ params }) => {
   const userInfo = JSON.parse(localData);
   const userId = userInfo?.user?._id;
 
-  // const hasUserLiked = () => {
-  //   for (let i = 0; i < likedUsers.length; i++) {
-  //     if (userId === likedUsers[i]) {
-  //       console.log("Got it");
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // };
-
   // Alernate way to use the above logc using .some()
   const hasUserLiked = likedUsers.some((likedUser) => likedUser === userId);
   const canEditAndDelete = blogData?.userData?._id.toString() === userId;

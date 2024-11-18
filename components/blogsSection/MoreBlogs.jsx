@@ -33,7 +33,7 @@ const MoreBlogs = ({ text }) => {
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit xl:p-6 rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
+        className={`w-full h-fit xl:p-6 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
           blogs && "flex flex-col"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (
@@ -53,15 +53,12 @@ const MoreBlogs = ({ text }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex md:w-[350px] w-[300px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
-                <div
-                  className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl"
-                  key={blog._id}>
-                  <div className="h-[430px] shadow-lg w-full rounded-xl flex flex-col gap-2 p-4 cursor-pointer">
+                className="flex md:w-[450px] w-[300px] h-full gap-2">
+                <div className="flex w-full h-fit gap-5" key={blog._id}>
+                  <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between w-full flex gap-10 p-4 cursor-pointer py-2 pb-6">
                     {/* Image */}
-                    <div className="flex w-full h-[250px] relative">
+                    <div className="flex w-[50%] h-[150px] relative">
                       <Image
-                        // src="https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                         src={`${blog?.blogImage}`}
                         alt="blog1.png"
                         fill
@@ -69,51 +66,54 @@ const MoreBlogs = ({ text }) => {
                         loading="lazy"
                       />
                     </div>
-                    {/* Tag and paragraph */}
-                    <div className="flex flex-col gap-2">
-                      <p className="text-blue-500 font-normal text-[12px] xl:text-[15px] mt-2">
-                        {blog?.tag}
-                      </p>
-                      {/* Author image, title and date */}
-                      <h3 className="font-semibold">
-                        {blog?.title}
-                        {/* The Impact of Technology on the Workplace: How Technology is
-                Changing */}
-                      </h3>
-                    </div>
-                    <div className="flex gap-2 items-center justify-between">
-                      <div className="flex items-center justify-center gap-4 text-slate-500">
-                        {userData?.profileImage ? (
-                          <img
-                            src={`${userData?.profileImage}`}
-                            alt=""
-                            width={40}
-                            height={40}
-                            className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <img
-                            src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
-                            alt={`${userData?.name}.svg`}
-                            width={40}
-                            height={40}
-                            className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                            loading="lazy"
-                          />
-                        )}
 
-                        {/* Author name */}
-                        <p className="text-[12px] xl:text-[14px]">
-                          {/* Jason Francisco */}
-                          {userData?.name}
+                    <div className="w-[50%] flex flex-col items-start justify-start">
+                      {/* Tag and paragraph */}
+                      <div className="flex flex-col w-[120%]">
+                        {/* Author image, title and date */}
+                        <h3 className="font-semibold text-[16px]">
+                          {blog?.title}
+                          {/* The Impact of Technology on the Workplace: How Technology is Changing */}
+                        </h3>
+                        <p className="text-blue-500 font-normal text-[12px] xl:text-[12px] mt-2">
+                          {blog?.tag}
                         </p>
                       </div>
-                      {/* Published date */}
-                      <p className="text-slate-500 text-[12px] xl:text-[14px]">
-                        {/* August 20, 2022 */}
-                        {formattedDate}
-                      </p>
+                      <div className="flex gap-2 items-center justify-between mt-5">
+                        <div className="flex items-center justify-center gap-4 text-slate-500">
+                          {userData?.profileImage ? (
+                            <img
+                              src={`${userData?.profileImage}`}
+                              alt=""
+                              width={20}
+                              height={20}
+                              className="w-3 h-3 xl:w-8 xl:h-8 rounded-full"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <img
+                              src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
+                              alt={`${userData?.name}.svg`}
+                              width={20}
+                              height={20}
+                              className="w-3 h-3 xl:w-8 xl:h-8 rounded-full"
+                              loading="lazy"
+                            />
+                          )}
+                          <div className="flex flex-col items-start justify-center">
+                            {/* Author name */}
+                            <p className="text-[12px] xl:text-[14px]">
+                              {/* Jason Francisco */}
+                              {userData?.name}
+                            </p>
+                            {/* Published date */}
+                            <p className="text-slate-500 text-[12px] xl:text-[14px]">
+                              {/* August 20, 2022 */}
+                              {formattedDate}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -122,7 +122,7 @@ const MoreBlogs = ({ text }) => {
           })
         )}
       </div>
-      {visible <= blogs?.length && (
+      {visible <= filteredBlogs?.length && (
         <button
           onClick={loadMoreHandler}
           className="text-[12px] xl:text-[14px] bg-white border-2 border-black border-opacity-50 px-4 py-2 w-fit flex text-center items-center justify-center mx-auto rounded-xl font-semibold mt-5 hover:text-black hover:border-2 hover:border-black duration-200 hover:scale-95 hover:shadow-xl">
