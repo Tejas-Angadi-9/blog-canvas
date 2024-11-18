@@ -26,14 +26,14 @@ const MoreBlogs = ({ text }) => {
   return (
     <>
       {/* Heading */}
-      <div className="font-bold text-[28px] px-6 xl:block flex items-center w-full justify-center xl:text-[32px]">
+      <div className="font-bold text-[24px] px-6 xl:block flex items-center w-full justify-center xl:text-[32px]">
         {text}
       </div>
 
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit xl:p-6 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
+        className={`w-[97%] h-fit xl:p-6 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
           blogs && "flex flex-col"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (
@@ -53,11 +53,11 @@ const MoreBlogs = ({ text }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex md:w-[450px] w-[300px] h-full gap-2">
+                className="flex md:w-[450px] w-[400px] h-full gap-2">
                 <div className="flex w-full h-fit gap-5" key={blog._id}>
                   <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between w-full flex gap-10 p-4 cursor-pointer py-2 pb-6">
                     {/* Image */}
-                    <div className="flex w-[50%] h-[150px] relative">
+                    <div className="flex w-[50%] h-[120px] relative">
                       <Image
                         src={`${blog?.blogImage}`}
                         alt="blog1.png"
@@ -67,15 +67,15 @@ const MoreBlogs = ({ text }) => {
                       />
                     </div>
 
-                    <div className="w-[50%] flex flex-col items-start justify-start">
+                    <div className="w-[50%] flex flex-col items-start justify-start mt-5 md:mt-0">
                       {/* Tag and paragraph */}
-                      <div className="flex flex-col w-[120%]">
+                      <div className="flex flex-col md:w-[120%]">
                         {/* Author image, title and date */}
-                        <h3 className="font-semibold text-[16px]">
+                        <h3 className="font-semibold text-[13px] md:text-[16px]">
                           {blog?.title}
                           {/* The Impact of Technology on the Workplace: How Technology is Changing */}
                         </h3>
-                        <p className="text-blue-500 font-normal text-[12px] xl:text-[12px] mt-2">
+                        <p className="text-blue-500 font-normal text-[11px] xl:text-[12px] mt-2">
                           {blog?.tag}
                         </p>
                       </div>
@@ -87,7 +87,7 @@ const MoreBlogs = ({ text }) => {
                               alt=""
                               width={20}
                               height={20}
-                              className="w-3 h-3 xl:w-8 xl:h-8 rounded-full"
+                              className="w-6 h-6 xl:w-8 xl:h-8 rounded-full"
                               loading="lazy"
                             />
                           ) : (
@@ -96,18 +96,18 @@ const MoreBlogs = ({ text }) => {
                               alt={`${userData?.name}.svg`}
                               width={20}
                               height={20}
-                              className="w-3 h-3 xl:w-8 xl:h-8 rounded-full"
+                              className="w-6 h-6 xl:w-8 xl:h-8 rounded-full"
                               loading="lazy"
                             />
                           )}
                           <div className="flex flex-col items-start justify-center">
                             {/* Author name */}
-                            <p className="text-[12px] xl:text-[14px]">
+                            <p className="text-[11px] xl:text-[14px]">
                               {/* Jason Francisco */}
                               {userData?.name}
                             </p>
                             {/* Published date */}
-                            <p className="text-slate-500 text-[12px] xl:text-[14px]">
+                            <p className="text-slate-500 text-[11px] xl:text-[14px]">
                               {/* August 20, 2022 */}
                               {formattedDate}
                             </p>
