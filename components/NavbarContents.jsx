@@ -18,8 +18,8 @@ const NavbarContents = ({ type }) => {
     if (isUserLoggedIn) {
       router.push("/create-blog");
     } else {
-      toast.error(
-        "Login before creating a new blog",
+      toast(
+        "Login before to create a blog",
         { duration: 4000 },
         { style: { fontSize: "17px", marginTop: "18px" } },
       );
