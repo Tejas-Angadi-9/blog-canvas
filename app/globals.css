@@ -51,4 +51,7 @@ html {
   }
 }
 
-
+.modal-container {
+  position: fixed;
+  backdrop-filter: blur(100px);
+}
