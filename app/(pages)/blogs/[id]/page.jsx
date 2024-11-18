@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import MoreBlogs from "@/components/blogsSection/MoreBlogs";
 import Spinner from "@/components/common/Spinner";
 import Modal from "@/components/common/Modal";
+import EditBlogModal from "@/components/blogsSection/EditBlogModal";
 
 const Blog = ({ params }) => {
   const { isUserLoggedIn } = useAuth();
@@ -136,8 +137,6 @@ const Blog = ({ params }) => {
   const hasUserLiked = likedUsers.some((likedUser) => likedUser === userId);
   const canEditAndDelete = blogData?.userData?._id.toString() === userId;
 
-  const deleteBlogHandler = () => {};
-
   const confirmedDelete = async () => {
     try {
       const response = await fetch(
@@ -178,14 +177,28 @@ const Blog = ({ params }) => {
               />
             </div>
           )}
+          {isEditModalOpen && (
+            <div
+              className="flex justify-center"
+              // className="flex items-center absolute z-10 top-[5%] left-0 justify-center w-full h-screen"
+            >
+              {/* This section will be blurred when the modal is open */}
+              <EditBlogModal
+                setIsEditModalOpen={setIsEditModalOpen}
+                blogId={blogId}
+              />
+            </div>
+          )}
 
           {/* Wrapper that can be blurred when delete modal is open */}
           <div
             className={`flex flex-col md:flex-row relative w-full ${
-              isDeleteModalOpen && "blur-md pointer-events-none"
+              (isDeleteModalOpen && "blur-md pointer-events-none") ||
+              (isEditModalOpen && "blur-md pointer-events-none")
             }`}
             onClick={() => {
-              isDeleteModalOpen && setIsDeleteModalOpen(false);
+              (isDeleteModalOpen && setIsDeleteModalOpen(false)) ||
+                (isEditModalOpen && setIsEditModalOpen(false));
             }}>
             <section className="md:flex flex-col items-start justify-start md:pr-10 w-full md:border-r-2 rounded-s-lg gap-4 md:gap-5">
               <section className="flex flex-col px-6 md:p-5 justify-center item w-full">
@@ -293,28 +306,28 @@ const Blog = ({ params }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] flex text-justify">
+                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] flex text-justify flex flex-col">
                   <p className="text-[#3B3C4A] text-[12px] md:text-[18px] leading-relaxed">
                     {blogData?.description}
                   </p>
-                </div>
-                <div className="w-full">
-                  {canEditAndDelete && (
-                    <div className="w-[90%] flex items-center gap-5 md:pt-10 h-full mt-5">
-                      <button
-                        className="flex border-2 border-slate-700 items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md outline-none gap-2 text-slate-700"
-                        onClick={() => setIsEditModalOpen((prev) => !prev)}>
-                        <p>Edit</p>
-                        <FaRegEdit className="text-[14px]" />
-                      </button>
-                      <button
-                        onClick={() => setIsDeleteModalOpen((prev) => !prev)}
-                        className="flex items-center justify-center text-[12px] md:text-[14px] p-1 w-fit md:px-4 md:py-2 rounded-md bg-red-500 text-white outline-none gap-2">
-                        <p>Delete blog</p>
-                        <MdDelete className="text-[16px]" />
-                      </button>
-                    </div>
-                  )}
+                  <div className="w-full">
+                    {canEditAndDelete && (
+                      <div className="w-[90%] flex items-center justify-start gap-5 md:pt-10 h-full mt-5">
+                        <button
+                          className="flex border-2 border-slate-500 items-center justify-center text-[12px] md:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700"
+                          onClick={() => setIsEditModalOpen((prev) => !prev)}>
+                          <p>Edit Blog</p>
+                          <FaRegEdit className="text-[14px]" />
+                        </button>
+                        <button
+                          onClick={() => setIsDeleteModalOpen((prev) => !prev)}
+                          className="flex items-center justify-center text-[12px] md:text-[14px] p-1 w-fit px-4 py-2 rounded-md bg-red-500 text-white outline-none gap-2">
+                          <p>Delete blog</p>
+                          <MdDelete className="text-[16px]" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </section>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import Router, { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CreateBlogForm = () => {
   const router = useRouter();
