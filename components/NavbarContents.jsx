@@ -42,7 +42,7 @@ const NavbarContents = ({ type }) => {
           </h1>
         )}
       </div>
-      <div className="flex items-center justify-center w-full gap-16">
+      <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-16">
         <Link href={"/"}>
           <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
             Home
@@ -63,25 +63,13 @@ const NavbarContents = ({ type }) => {
             About
           </p>
         </Link>
-        {userData?.profileImage ? (
-          <button className="relative" onClick={logoutHandler}>
-            <img
-              src={userData.profileImage}
-              width={50}
-              className="rounded-full"
-              loading="lazy"
-              alt="User Profile"
-            />
-          </button>
-        ) : (
-          !isUserLoggedIn && (
-            <Link href={"/auth"}>
-              <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
-                Login / Signup
-              </p>
-            </Link>
-          )
-        )}
+        <Link href={"/auth"} className="xl:hidden visible">
+          {!isUserLoggedIn && (
+            <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
+              Login / Signup
+            </p>
+          )}
+        </Link>
       </div>
     </div>
   );
