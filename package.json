@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@nextui-org/tooltip": "^2.0.39",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.4.0",
