@@ -50,3 +50,8 @@ html {
     opacity: 0;
   }
 }
+
+.modal-container {
+  position: fixed;
+  backdrop-filter: blur(100px);
+}

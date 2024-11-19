@@ -83,6 +83,7 @@ export const POST = async (req) => {
         }
         else {
             // If blog image is found then save the image to the local server with a path and then upload it to cloudinary
+            //! Check this repeated part.
             if (!blogImage) {
                 return new Response(JSON.stringify({
                     status: true,

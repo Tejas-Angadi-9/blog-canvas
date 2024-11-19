@@ -163,7 +163,7 @@ export const GET = async (req, { params }) => {
 
     try {
         await connectToDB();
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findById(blogId).populate("userData");
 
         if (!blog) {
             return new Response(JSON.stringify({

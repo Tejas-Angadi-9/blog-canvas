@@ -48,7 +48,8 @@ export const POST = async (req) => {
     const newUser = await User.create({
       name: name,
       email: email,
-      password: hashedPassword
+      password: hashedPassword,
+      profileImage: `https://api.dicebear.com/9.x/initials/svg?seed=${name}`
     })
 
     return new Response(

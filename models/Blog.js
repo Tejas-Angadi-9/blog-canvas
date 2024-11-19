@@ -24,6 +24,11 @@ const blogSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  likedUsers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    unique: true
+  }]
 });
 
 const Blog = models.Blog || model("Blog", blogSchema);

@@ -36,7 +36,8 @@ export const POST = async (req) => {
         const validationToken = jwt.sign({ userId: exisitingUser._id }, process.env.JWT_SECRET, { expiresIn: "10m" })
 
         exisitingUser.resetPasswordToken = validationToken;
-        exisitingUser.resetPasswordExpires = Date.now() + 10 * 60 * 1000;
+        localStorage.setItem("userToken", validationToken);
+        exisitingUser.resetPasswordExpires = Date.now() + 3 * 24 * 60 * 60 * 1000;
 
         await exisitingUser.save();
 
