@@ -78,11 +78,13 @@ const NavbarContents = ({ type }) => {
           </Link>
         )}
         {isUserLoggedIn && (
-          <Link href={"/auth"} className="xl:hidden visible">
+          <button
+            onClick={logoutHandler}
+            className="xl:hidden visible text-red-500">
             <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
               Logout
             </p>
-          </Link>
+          </button>
         )}
       </div>
     </div>

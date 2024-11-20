@@ -8,8 +8,8 @@ import NavbarContents from "./NavbarContents";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { GoPerson } from "react-icons/go";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { IoPersonSharp } from "react-icons/io5";
 
 const Navbar = () => {
   const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
@@ -67,7 +67,7 @@ const Navbar = () => {
                 <Link
                   className="p-2 flex items-center justify-center gap-2"
                   href={"/profile"}>
-                  <IoPersonSharp />
+                  <GoPerson />
                   <p>Profile</p>
                 </Link>
                 <button
@@ -118,15 +118,15 @@ const Navbar = () => {
                 <div className="absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 hidden group-hover:block">
                   <div className="flex flex-col items-start justify-center">
                     <Link
-                      className="p-2 flex items-center justify-center gap-2"
+                      className="text-[16px] p-2 flex items-center justify-center gap-2"
                       href={"/profile"}>
-                      <IoPersonSharp />
+                      <GoPerson className="text-[18px]" />
                       <p>Profile</p>
                     </Link>
                     <button
-                      className="p-2 flex items-center justify-center gap-2 text-red-500"
+                      className="text-[16px] p-2 flex items-center justify-center gap-2 text-red-500"
                       onClick={logoutHandler}>
-                      <RiLogoutBoxLine />
+                      <RiLogoutBoxLine className="text-[18px]" />
                       <p>Logout</p>
                     </button>
                   </div>
@@ -138,7 +138,7 @@ const Navbar = () => {
             {!isUserLoggedIn && (
               <div className="flex gap-2 items-center justify-center">
                 <Link href={"/auth"}>
-                  <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
+                  <p className="text-[18px] font-medium duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
                     Login / Signup
                   </p>
                 </Link>
