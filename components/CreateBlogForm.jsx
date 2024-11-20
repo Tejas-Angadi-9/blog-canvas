@@ -88,7 +88,7 @@ const CreateBlogForm = () => {
   }, [imagePreview]);
 
   return (
-    <div className="px-4 md:w-[60%] md:px-10">
+    <div className="px-4 xl:w-[60%] xl:px-10">
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 w-full border-gray-300 rounded-lg shadow-lg p-10 transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-2">

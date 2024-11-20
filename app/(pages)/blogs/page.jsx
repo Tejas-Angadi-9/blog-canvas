@@ -19,7 +19,7 @@ const BlogsPage = () => {
   if (index === null) {
     return (
       <div className="flex w-full h-screen mx-auto items-center justify-center">
-        <h1 className="md:text-[40px] font-bold -mt-10">No Blogs Found</h1>
+        <h1 className="xl:text-[40px] font-bold -mt-10">No Blogs Found</h1>
       </div>
     );
   }

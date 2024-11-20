@@ -9,10 +9,10 @@ const Modal = ({
   confirmedDelete,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center absolute z-10 bg-white p-10 w-[70%] h-[40%] md:w-[50%] md:h-[65%] rounded-md shadow-2xl gap-5">
+    <div className="flex flex-col items-center justify-center absolute z-10 bg-white p-10 w-[70%] h-[40%] xl:w-[50%] xl:h-[65%] rounded-md shadow-2xl gap-5">
       {type === "deleteBlog" && (
         <>
-          <p className="text-[18px] md:text-[30px] font-semibold text-center">
+          <p className="text-[18px] xl:text-[30px] font-semibold text-center">
             Are you sure you want to delete this blog?
           </p>
           <div className="flex gap-4">
@@ -32,10 +32,10 @@ const Modal = ({
 
       {type === "login" && (
         <>
-          <p className="text-[18px] md:text-[30px] font-semibold">
+          <p className="text-[18px] xl:text-[30px] font-semibold">
             User signed up successfully!
           </p>
-          <p className="text-[14px] md:text-[22px] font-semibold">
+          <p className="text-[14px] xl:text-[22px] font-semibold">
             Please Login
           </p>
           <Link

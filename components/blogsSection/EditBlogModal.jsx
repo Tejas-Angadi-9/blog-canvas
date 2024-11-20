@@ -89,13 +89,13 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
   }, [imagePreview]);
 
   return (
-    <div className="flex flex-col items-center justify-center md:absolute left-[50%] md:-translate-x-[50%] bg-white z-10 p-2 md:p-5 w-11/12 max-w-md md:max-w-[60%] h-fit py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 md:ml-0">
+    <div className="flex flex-col items-center justify-center xl:absolute left-[50%] xl:-translate-x-[50%] bg-white z-10 p-2 xl:p-5 w-11/12 max-w-md xl:max-w-[60%] h-fit py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 xl:ml-0">
       <div className="px-4 w-full flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          <h2 class="text-[18px] md:text-[24px] font-semibold text-gray-800">
+          <h2 class="text-[18px] xl:text-[24px] font-semibold text-gray-800">
             Edit Blog
           </h2>
-          <p class="text-[14px] md:text-[16px] text-gray-600">
+          <p class="text-[14px] xl:text-[16px] text-gray-600">
             You can edit only the fields you want to change. Leave the others
             blank.
           </p>
@@ -105,7 +105,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="title"
-                className="text-base md:text-lg font-semibold">
+                className="text-base xl:text-lg font-semibold">
                 Title:
               </label>
               <input
@@ -122,7 +122,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="description"
-                className="text-base md:text-lg font-semibold">
+                className="text-base xl:text-lg font-semibold">
                 Description:
               </label>
               <textarea
@@ -139,7 +139,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
             <div className="flex flex-col">
               <label
                 htmlFor="blogImage"
-                className="text-base md:text-lg font-semibold text-gray-700">
+                className="text-base xl:text-lg font-semibold text-gray-700">
                 Blog Image:
               </label>
               <input
@@ -169,7 +169,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="tag"
-                className="text-base md:text-lg font-semibold">
+                className="text-base xl:text-lg font-semibold">
                 Tag:
               </label>
               <input

@@ -53,7 +53,7 @@ const MoreBlogs = ({ text }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex md:w-[450px] w-[400px] h-full gap-2">
+                className="flex xl:w-[450px] w-[400px] h-full gap-2">
                 <div className="flex w-full h-fit gap-5" key={blog._id}>
                   <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between w-full flex gap-10 p-4 cursor-pointer py-2 pb-6">
                     {/* Image */}
@@ -67,11 +67,11 @@ const MoreBlogs = ({ text }) => {
                       />
                     </div>
 
-                    <div className="w-[50%] flex flex-col items-start justify-start mt-5 md:mt-0">
+                    <div className="w-[50%] flex flex-col items-start justify-start mt-5 xl:mt-0">
                       {/* Tag and paragraph */}
-                      <div className="flex flex-col md:w-[120%]">
+                      <div className="flex flex-col xl:w-[120%]">
                         {/* Author image, title and date */}
-                        <h3 className="font-semibold text-[13px] md:text-[16px]">
+                        <h3 className="font-semibold text-[13px] xl:text-[16px]">
                           {blog?.title}
                           {/* The Impact of Technology on the Workplace: How Technology is Changing */}
                         </h3>

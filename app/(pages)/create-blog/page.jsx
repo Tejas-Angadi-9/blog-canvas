@@ -23,11 +23,11 @@ const CreateABlogPage = () => {
       {visiblePage ? (
         <div className="flex flex-col w-11/12 h-full mb-10 mx-auto">
           {/* This div will contain the fixed title to create the blog post */}
-          <div className="p-2 md:p-10">
-            <h1 className="text-[22px] md:text-[40px] font-bold">
+          <div className="p-2 xl:p-10">
+            <h1 className="text-[22px] xl:text-[40px] font-bold">
               Unleash Your Voice: Create a Blog Today!
             </h1>
-            <p className="text-[16px] md:text-[20px] text-gray-700 mt-2">
+            <p className="text-[16px] xl:text-[20px] text-gray-700 mt-2">
               Share your story, idea, or experience - start your blog today.
             </p>
           </div>
@@ -38,7 +38,7 @@ const CreateABlogPage = () => {
         </div>
       ) : (
         <div className="w-full h-screen flex items-center justify-center mx-auto">
-          <h1 className="md:text-[40px] font-bold">Loading...</h1>
+          <h1 className="xl:text-[40px] font-bold">Loading...</h1>
         </div>
       )}
     </>

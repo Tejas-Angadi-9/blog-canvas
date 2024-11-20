@@ -24,8 +24,8 @@ const Blogs = ({ page }) => {
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit xl:p-6 rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
-          blogs && "md:grid xl:grid xl:grid-cols-3 md:grid-cols-2"
+        className={`w-full h-fit xl:p-6 rounded-xl gap-5 gap-10 items-center flex flex-col overflow-x-hidden ${
+          blogs && "xl:grid md:grid xl:grid-cols-3 md:grid-cols-2"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (
           <div className="flex w-full h-fit xl:translate-x-[100%]">
@@ -44,7 +44,7 @@ const Blogs = ({ page }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex md:w-[350px] w-[300px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
+                className="flex xl:w-[350px] w-[300px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
                 <div
                   className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl"
                   key={blog._id}>

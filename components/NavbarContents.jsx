@@ -33,7 +33,7 @@ const NavbarContents = ({ type }) => {
       className={`${
         type === "mobile"
           ? "flex flex-col absolute items-center justify-center -translate-y-[5%] left-[50%] -translate-x-[50%] gap-12 text-[18px] bg-white z-10 w-full h-[100vh] transition-all duration-200 font-semibold"
-          : "hidden md:flex gap-12 text-[18px] font-medium"
+          : "hidden xl:flex gap-12 text-[18px] font-medium"
       } `}>
       <div>
         {type === "mobile" && (

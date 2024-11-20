@@ -10,7 +10,7 @@ export default function Home() {
         <HeroSection />
       </section>
       {/* 2nd Section where all blogs are displayed in grid */}
-      <section className="flex flex-col gap-4 md:items-center md:justify-center md:mx-auto">
+      <section className="flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
         <Blogs page="homePage" />
       </section>
     </div>

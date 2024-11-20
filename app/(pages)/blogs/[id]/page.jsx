@@ -163,13 +163,13 @@ const Blog = ({ params }) => {
 
   return (
     <div
-      className={`w-11/12 flex flex-col items-start xl:items-center gap-2 mx-auto h-full mb-10 md:mb-20 mt-5`}>
+      className={`w-11/12 flex flex-col items-start xl:items-center gap-2 mx-auto h-full mb-10 xl:mb-20 mt-5`}>
       {!blogData ? (
         <div className="flex w-full h-fit mx-auto items-center justify-center">
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col w-full md:flex-row relative items-center justify-center">
+        <div className="flex flex-col w-full xl:flex-row relative items-center justify-center">
           {/* This section contains the image and the blog description */}
           {isDeleteModalOpen && (
             <div className="flex items-center fixed z-10 top-[5%] left-0 justify-center w-full h-screen">
@@ -198,7 +198,7 @@ const Blog = ({ params }) => {
 
           {/* Wrapper that can be blurred when delete modal is open */}
           <div
-            className={`flex flex-col md:flex-row relative w-full ${
+            className={`flex flex-col xl:flex-row relative w-full ${
               (isDeleteModalOpen && "blur-md pointer-events-none") ||
               (isEditModalOpen && "blur-md pointer-events-none")
             }`}
@@ -206,18 +206,18 @@ const Blog = ({ params }) => {
               (isDeleteModalOpen && setIsDeleteModalOpen(false)) ||
                 (isEditModalOpen && setIsEditModalOpen(false));
             }}>
-            <section className="md:flex flex-col items-start justify-start md:pr-10 w-full md:border-r-2 rounded-s-lg gap-4 md:gap-5">
-              <section className="flex flex-col md:p-5 justify-center item w-full">
+            <section className="xl:flex flex-col items-start justify-start xl:pr-10 w-full xl:border-r-2 rounded-s-lg gap-4 xl:gap-5">
+              <section className="flex flex-col xl:p-5 justify-center item w-full">
                 <div className="flex w-full justify-between items-center">
                   <TagButton text={blogData?.tag} />
                   <button
-                    className="flex items-center gap-2 border-2 border-black p-2 md:px-4 md:py-2 rounded-md bg-white text-black transition-all duration-200 hover:text-white hover:bg-black md:text-[16px] text-[10px]"
+                    className="flex items-center gap-2 border-2 border-black p-2 xl:px-4 xl:py-2 rounded-md bg-white text-black transition-all duration-200 hover:text-white hover:bg-black xl:text-[16px] text-[10px]"
                     onClick={handleCopy}>
                     {copiedLink && (
                       <>
                         <p>Link copied Successfully</p>
                         <div className=" rounded-full p-2font-bold">
-                          <MdDone className="text-green-500 text-[16px] md:text-[22px]" />
+                          <MdDone className="text-green-500 text-[16px] xl:text-[22px]" />
                         </div>
                       </>
                     )}
@@ -230,20 +230,20 @@ const Blog = ({ params }) => {
                   </button>
                 </div>
                 <div>
-                  <h1 className="text-[20px] md:text-[45px] w-full font-bold mt-5">
+                  <h1 className="text-[20px] xl:text-[45px] w-full font-bold mt-5">
                     {blogData?.title}
                   </h1>
                 </div>
                 <div className="flex gap-2 items-center mt-5 justify-between w-full">
                   <div className="flex flex-row items-center justify-center gap-2">
-                    <div className="flex items-center justify-center gap-2 md:gap-5 text-slate-500">
+                    <div className="flex items-center justify-center gap-2 xl:gap-5 text-slate-500">
                       {userData?.profileImage ? (
                         <img
                           src={`${userData?.profileImage}`}
                           alt=""
                           width={40}
                           height={40}
-                          className="w-8 h-8 md:w-10 md:h-10 rounded-full"
+                          className="w-8 h-8 xl:w-10 xl:h-10 rounded-full"
                           loading="lazy"
                         />
                       ) : (
@@ -252,16 +252,16 @@ const Blog = ({ params }) => {
                           alt=""
                           width={40}
                           height={40}
-                          className="w-6 h-6 md:w-10 md:h-10 rounded-full"
+                          className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
                           loading="lazy"
                         />
                       )}
                     </div>
                     <div className="flex flex-row justify-between gap-5">
-                      <p className="text-[12px] md:text-lg font-semibold">
+                      <p className="text-[12px] xl:text-lg font-semibold">
                         {userData?.name}
                       </p>
-                      <p className="text-slate-500 text-[12px] md:text-lg">
+                      <p className="text-slate-500 text-[12px] xl:text-lg">
                         {formattedDate}
                       </p>
                     </div>
@@ -269,13 +269,13 @@ const Blog = ({ params }) => {
                   <div className="flex gap-1 items-center justify-center pb-1 pt-2">
                     {hasUserLiked ? (
                       <button
-                        className="flex md:flex gap-1 items-center justify-center text-[14px]  md:text-[22px]"
+                        className="flex xl:flex gap-1 items-center justify-center text-[14px]  xl:text-[22px]"
                         onClick={unlikeHandler}>
                         {loading ? (
                           <Spinner />
                         ) : (
                           <>
-                            <FaHeart className="text-red-500 mr-1 text-[18px] md:text-[22px]" />
+                            <FaHeart className="text-red-500 mr-1 text-[18px] xl:text-[22px]" />
                             <p>
                               {likedUsers?.length > 0 ? likedUsers?.length : 0}
                             </p>
@@ -284,13 +284,13 @@ const Blog = ({ params }) => {
                       </button>
                     ) : (
                       <button
-                        className="flex md:flex gap-1 items-center justify-center text-[14px]  md:text-[22px]"
+                        className="flex xl:flex gap-1 items-center justify-center text-[14px]  xl:text-[22px]"
                         onClick={likeHandler}>
                         {loading ? (
                           <Spinner />
                         ) : (
                           <>
-                            <CiHeart className="mr-0 text-[22px] md:text-[22px]" />
+                            <CiHeart className="mr-0 text-[22px] xl:text-[22px]" />
                             <p>
                               {likedUsers?.length > 0 ? likedUsers?.length : 0}
                             </p>
@@ -301,8 +301,8 @@ const Blog = ({ params }) => {
                   </div>
                 </div>
               </section>
-              <div className="flex flex-col w-full items-center justify-center mx-auto mt-5 md:mt-0 md:pr-0 md:w-full">
-                <div className="relative w-[95%] md:w-[800px] md:h-full">
+              <div className="flex flex-col w-full items-center justify-center mx-auto mt-5 xl:mt-0 xl:pr-0 xl:w-full">
+                <div className="relative w-[95%] xl:w-[800px] xl:h-full">
                   <Image
                     src={blogData?.blogImage}
                     alt="blogImage"
@@ -312,19 +312,19 @@ const Blog = ({ params }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] text-left flex flex-col gap-4">
+                <div className="pt-6 xl:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] xl:w-[100%] text-left flex flex-col gap-4">
                   {blogArray?.map((eachLine, index) => (
                     <p
                       key={index}
-                      className="text-[14px] font-light md:text-[18px] leading-relaxed">
+                      className="text-[14px] font-light xl:text-[18px] leading-relaxed">
                       {eachLine}
                     </p>
                   ))}
                   <div className="w-full">
                     {canEditAndDelete && (
-                      <div className="w-[90%] flex items-center justify-start gap-5 md:pt-10 h-full mt-5">
+                      <div className="w-[90%] flex items-center justify-start gap-5 xl:pt-10 h-full mt-5">
                         <button
-                          className="flex border-2 border-slate-500 items-center justify-center text-[12px] md:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"
+                          className="flex border-2 border-slate-500 items-center justify-center text-[12px] xl:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"
                           onClick={() => {
                             setIsEditModalOpen((prev) => !prev);
                             window.scrollTo(0, 0);
@@ -334,7 +334,7 @@ const Blog = ({ params }) => {
                         </button>
                         <button
                           onClick={() => setIsDeleteModalOpen((prev) => !prev)}
-                          className="flex items-center justify-center text-[12px] md:text-[14px] p-1 w-fit px-4 py-2 rounded-md bg-red-500 text-white outline-none gap-2">
+                          className="flex items-center justify-center text-[12px] xl:text-[14px] p-1 w-fit px-4 py-2 rounded-md bg-red-500 text-white outline-none gap-2">
                           <p>Delete blog</p>
                           <MdDelete className="text-[16px]" />
                         </button>

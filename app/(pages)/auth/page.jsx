@@ -145,7 +145,7 @@ const AuthPage = () => {
         <div className="text-center mt-4">
           <button
             onClick={handleSwitch}
-            className="text-blue-500 hover:underline text-[14px] md:text-normal">
+            className="text-blue-500 hover:underline text-[14px] xl:text-normal">
             {isLogin
               ? "Don't have an account? Sign Up"
               : "Already have an account? Login"}

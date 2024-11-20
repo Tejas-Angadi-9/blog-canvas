@@ -19,7 +19,7 @@ const HeroSection = () => {
   if (index === null) {
     return (
       <div className="flex w-full h-screen mx-auto items-center justify-center">
-        <h1 className="md:text-[40px] font-bold -mt-10">No Blogs Found</h1>
+        <h1 className="xl:text-[40px] font-bold -mt-10">No Blogs Found</h1>
       </div>
     );
   }
@@ -50,7 +50,7 @@ const HeroSection = () => {
               />
               <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black to-transparent rounded-b-[10px]"></div>
               {/* Blog title, tag and other stuff */}
-              <div className="bg-[#E8E8EA] shadow-xl p-2 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20 md:w-[60%] md:h-[150px] xl:w-[500px] xl:h-[250px] xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0">
+              <div className="bg-[#E8E8EA] shadow-xl p-2 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20 xl:w-[60%] xl:h-[150px] xl:w-[500px] xl:h-[250px] xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0">
                 <div className="flex flex-col items-start gap-2">
                   {/* Tag */}
                   <h4 className="text-[8px] xl:text-[16px] w-fit px-[5px] py-[2px] xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
