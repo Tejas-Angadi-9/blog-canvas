@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Modal = ({
@@ -8,7 +9,7 @@ const Modal = ({
   confirmedDelete,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center border-2 absolute z-10 bg-white p-10 w-[90%] h-[40%] md:w-[50%] md:h-[65%] rounded-md shadow-2xl gap-5">
+    <div className="flex flex-col items-center justify-center absolute z-10 bg-white p-10 w-[70%] h-[40%] md:w-[50%] md:h-[65%] rounded-md shadow-2xl gap-5">
       {type === "deleteBlog" && (
         <>
           <p className="text-[18px] md:text-[30px] font-semibold text-center">
@@ -37,11 +38,12 @@ const Modal = ({
           <p className="text-[14px] md:text-[22px] font-semibold">
             Please Login
           </p>
-          <button
+          <Link
+            href={"/auth"}
             className="bg-blue-500 text-white py-2 px-4 w-fit rounded-md duration-300 transition-all hover:scale-95"
             onClick={handleCloseModal}>
             Go to Login
-          </button>
+          </Link>
         </>
       )}
     </div>

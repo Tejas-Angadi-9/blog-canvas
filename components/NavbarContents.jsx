@@ -42,7 +42,7 @@ const NavbarContents = ({ type }) => {
           </h1>
         )}
       </div>
-      <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-16">
+      <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-10 xl:gap-16 overflow-auto pb-10 xl:pb-0 xl:overflow-hidden">
         <Link href={"/"}>
           <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
             Home
@@ -63,13 +63,27 @@ const NavbarContents = ({ type }) => {
             About
           </p>
         </Link>
-        <Link href={"/auth"} className="xl:hidden visible">
-          {!isUserLoggedIn && (
+        {!isUserLoggedIn && (
+          <Link href={"/auth"} className="xl:hidden visible">
             <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
               Login / Signup
             </p>
-          )}
-        </Link>
+          </Link>
+        )}
+        {isUserLoggedIn && (
+          <Link href={"/profile"} className="xl:hidden visible">
+            <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
+              Profile
+            </p>
+          </Link>
+        )}
+        {isUserLoggedIn && (
+          <Link href={"/auth"} className="xl:hidden visible">
+            <p className="duration-200 hover:scale-95 px-4 py-2 outline-none rounded-md">
+              Logout
+            </p>
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -163,13 +163,13 @@ const Blog = ({ params }) => {
 
   return (
     <div
-      className={`w-11/12 flex flex-col items-start gap-2 mx-auto h-full mb-10 md:mb-20 mt-5`}>
+      className={`w-11/12 flex flex-col items-start xl:items-center gap-2 mx-auto h-full mb-10 md:mb-20 mt-5`}>
       {!blogData ? (
         <div className="flex w-full h-fit mx-auto items-center justify-center">
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row relative">
+        <div className="flex flex-col w-full md:flex-row relative items-center justify-center">
           {/* This section contains the image and the blog description */}
           {isDeleteModalOpen && (
             <div className="flex items-center fixed z-10 top-[5%] left-0 justify-center w-full h-screen">
@@ -207,7 +207,7 @@ const Blog = ({ params }) => {
                 (isEditModalOpen && setIsEditModalOpen(false));
             }}>
             <section className="md:flex flex-col items-start justify-start md:pr-10 w-full md:border-r-2 rounded-s-lg gap-4 md:gap-5">
-              <section className="flex flex-col px-6 md:p-5 justify-center item w-full">
+              <section className="flex flex-col md:p-5 justify-center item w-full">
                 <div className="flex w-full justify-between items-center">
                   <TagButton text={blogData?.tag} />
                   <button
@@ -230,11 +230,11 @@ const Blog = ({ params }) => {
                   </button>
                 </div>
                 <div>
-                  <h1 className="text-[18px] md:text-[45px] w-full font-bold mt-5">
+                  <h1 className="text-[20px] md:text-[45px] w-full font-bold mt-5">
                     {blogData?.title}
                   </h1>
                 </div>
-                <div className="flex gap-2 items-center mt-5 justify-between w-[95%] md:w-full">
+                <div className="flex gap-2 items-center mt-5 justify-between w-full">
                   <div className="flex flex-row items-center justify-center gap-2">
                     <div className="flex items-center justify-center gap-2 md:gap-5 text-slate-500">
                       {userData?.profileImage ? (
@@ -243,7 +243,7 @@ const Blog = ({ params }) => {
                           alt=""
                           width={40}
                           height={40}
-                          className="w-6 h-6 md:w-10 md:h-10 rounded-full"
+                          className="w-8 h-8 md:w-10 md:h-10 rounded-full"
                           loading="lazy"
                         />
                       ) : (
@@ -258,10 +258,10 @@ const Blog = ({ params }) => {
                       )}
                     </div>
                     <div className="flex flex-row justify-between gap-5">
-                      <p className="text-[11px] md:text-lg font-semibold">
+                      <p className="text-[12px] md:text-lg font-semibold">
                         {userData?.name}
                       </p>
-                      <p className="text-slate-500 text-[11px] md:text-lg">
+                      <p className="text-slate-500 text-[12px] md:text-lg">
                         {formattedDate}
                       </p>
                     </div>
@@ -301,8 +301,8 @@ const Blog = ({ params }) => {
                   </div>
                 </div>
               </section>
-              <div className="flex flex-col items-center justify-center mx-auto mt-3 md:mt-0 pr-4 md:pr-0 md:w-full">
-                <div className="relative w-[90%] md:w-[800px] md:h-full">
+              <div className="flex flex-col w-full items-center justify-center mx-auto mt-5 md:mt-0 md:pr-0 md:w-full">
+                <div className="relative w-[95%] md:w-[800px] md:h-full">
                   <Image
                     src={blogData?.blogImage}
                     alt="blogImage"
@@ -312,11 +312,11 @@ const Blog = ({ params }) => {
                     loading="lazy"
                   />
                 </div>
-                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] text-justify flex flex-col gap-4">
+                <div className="pt-6 md:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] md:w-[100%] text-left flex flex-col gap-4">
                   {blogArray?.map((eachLine, index) => (
                     <p
                       key={index}
-                      className="text-[14px] font-normal md:text-[18px] leading-relaxed">
+                      className="text-[14px] font-light md:text-[18px] leading-relaxed">
                       {eachLine}
                     </p>
                   ))}
@@ -324,7 +324,7 @@ const Blog = ({ params }) => {
                     {canEditAndDelete && (
                       <div className="w-[90%] flex items-center justify-start gap-5 md:pt-10 h-full mt-5">
                         <button
-                          className="flex border-2 border-slate-500 items-center justify-center text-[12px] md:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700"
+                          className="flex border-2 border-slate-500 items-center justify-center text-[12px] md:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"
                           onClick={() => {
                             setIsEditModalOpen((prev) => !prev);
                             window.scrollTo(0, 0);
