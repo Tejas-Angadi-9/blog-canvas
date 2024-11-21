@@ -14,8 +14,10 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 const Navbar = () => {
   const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
   const router = useRouter();
 
+  console.log("IsDropdownopen: ", openDropdown);
   if (isOpen) {
     useLockBodyScroll(true);
   } else {
@@ -29,6 +31,10 @@ const Navbar = () => {
     setIsUserLoggedIn(null);
     router.push("/");
     toast.success("Logged out!");
+  };
+
+  const dropdownHandler = () => {
+    setOpenDropdown((prev) => !prev);
   };
 
   return (
@@ -48,20 +54,37 @@ const Navbar = () => {
         <div className="xl:hidden flex items-center justify-center gap-6">
           {userData?.profileImage && (
             <div className="relative">
-              <button
-              // onClick={logoutHandler}
-              >
+              <button onClick={dropdownHandler}>
                 <div className="flex gap-1 items-center justify-center">
                   <img
                     src={userData.profileImage}
-                    width={35}
+                    width={40}
                     className="rounded-full"
                     loading="lazy"
                     alt="User Profile"
                   />
-                  {/* <IoMdArrowDropdown className="text-[22px]" /> */}
                 </div>
               </button>
+              {openDropdown && (
+                <div
+                  className={`absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2
+                  }`}>
+                  <div className="flex flex-col items-start justify-center z-10">
+                    <Link
+                      className="text-[12px] p-2 flex items-center justify-center gap-2"
+                      href={"/profile"}>
+                      <GoPerson className="text-[14px]" />
+                      <p>Profile</p>
+                    </Link>
+                    <button
+                      className="text-[12px] p-2 flex items-center justify-center gap-2 text-red-500"
+                      onClick={logoutHandler}>
+                      <RiLogoutBoxLine className="text-[14px]" />
+                      <p>Logout</p>
+                    </button>
+                  </div>
+                </div>
+              )}
 
               <div className="absolute hidden top-14 w-[100px] h-fit bg-white xl:flex flex-col gap-2 items-start justify-between rounded-md">
                 <Link
@@ -102,7 +125,7 @@ const Navbar = () => {
           <div>
             {userData?.profileImage && (
               <div className="relative group">
-                <button>
+                <button onClick={dropdownHandler}>
                   <div className="flex gap-1 items-center justify-center">
                     <img
                       src={userData.profileImage}
@@ -114,17 +137,17 @@ const Navbar = () => {
                     <IoMdArrowDropdown className="text-[22px]" />
                   </div>
                 </button>
-
-                <div className="absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 hidden group-hover:block">
-                  <div className="flex flex-col items-start justify-center">
+                <div
+                  className={`absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 block group-hover:block`}>
+                  <div className="flex flex-col items-start justify-between gap-1">
                     <Link
-                      className="text-[16px] p-2 flex items-center justify-center gap-2"
+                      className="text-[16px] p-2 flex items-center justify-center gap-2 h-fit"
                       href={"/profile"}>
                       <GoPerson className="text-[18px]" />
                       <p>Profile</p>
                     </Link>
                     <button
-                      className="text-[16px] p-2 flex items-center justify-center gap-2 text-red-500"
+                      className="text-[16px] p-2 flex items-center justify-center gap-2 text-red-500 h-fit"
                       onClick={logoutHandler}>
                       <RiLogoutBoxLine className="text-[18px]" />
                       <p>Logout</p>

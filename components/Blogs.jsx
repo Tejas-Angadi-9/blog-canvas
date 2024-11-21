@@ -24,7 +24,7 @@ const Blogs = ({ page }) => {
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit xl:p-6 rounded-xl gap-5 gap-10 items-center flex flex-col overflow-x-hidden ${
+        className={`w-full h-fit xl:p-6 rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
           blogs && "xl:grid md:grid xl:grid-cols-3 md:grid-cols-2"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (

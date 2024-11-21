@@ -33,7 +33,7 @@ const MoreBlogs = ({ text }) => {
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-[97%] h-fit xl:p-6 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
+        className={`w-full h-fit xl:p-6 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
           blogs && "flex flex-col"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (
@@ -55,7 +55,7 @@ const MoreBlogs = ({ text }) => {
                 href={`/blogs/${blog?._id}`}
                 className="flex xl:w-[450px] w-[400px] h-full gap-2">
                 <div className="flex w-full h-fit gap-5" key={blog._id}>
-                  <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between w-full flex gap-10 p-4 cursor-pointer py-2 pb-6">
+                  <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between mx-auto w-full flex gap-10 p-5 cursor-pointer py-2 pb-6">
                     {/* Image */}
                     <div className="flex w-[50%] h-[120px] relative">
                       <Image
