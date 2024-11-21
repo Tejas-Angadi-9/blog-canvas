@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLockBodyScroll } from "react-use";
 import { useAuth } from "@/app/contexts/AuthContext";
 
@@ -13,6 +13,8 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 
 const Navbar = () => {
   const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
+
+  const [userData, setUserData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const router = useRouter();
@@ -24,8 +26,6 @@ const Navbar = () => {
     useLockBodyScroll(false);
   }
 
-  const userData = isUserLoggedIn?.user;
-
   const logoutHandler = () => {
     localStorage.removeItem("UserData");
     setIsUserLoggedIn(null);
@@ -36,6 +36,22 @@ const Navbar = () => {
   const dropdownHandler = () => {
     setOpenDropdown((prev) => !prev);
   };
+
+  const getEachUserDetails = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/user");
+      const output = await response.json();
+
+      console.log("Output: ", output);
+      setUserData(output?.userData);
+    } catch (err) {
+      console.log("Failed to fetch the user details: ", err.message);
+    }
+  };
+
+  useEffect(() => {
+    getEachUserDetails();
+  }, []);
 
   return (
     <div className="w-full px-5 mt-3 xl:mt-0 sticky top-0 bg-white z-20 flex h-14 xl:h-24 mx-auto">
@@ -52,7 +68,7 @@ const Navbar = () => {
         <NavbarContents type="desktop" />
         {/* Mobile Navigation 3 dashes */}
         <div className="xl:hidden flex items-center justify-center gap-6">
-          {userData?.profileImage && (
+          {isUserLoggedIn && userData?.profileImage && (
             <div className="relative">
               <button onClick={dropdownHandler}>
                 <div className="flex gap-1 items-center justify-center">
@@ -123,7 +139,7 @@ const Navbar = () => {
 
         <div className="hidden xl:block">
           <div>
-            {userData?.profileImage && (
+            {isUserLoggedIn && userData?.profileImage && (
               <div className="relative group">
                 <button onClick={dropdownHandler}>
                   <div className="flex gap-1 items-center justify-center">
@@ -138,7 +154,7 @@ const Navbar = () => {
                   </div>
                 </button>
                 <div
-                  className={`absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 block group-hover:block`}>
+                  className={`absolute top-11 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 hidden group-hover:block`}>
                   <div className="flex flex-col items-start justify-between gap-1">
                     <Link
                       className="text-[16px] p-2 flex items-center justify-center gap-2 h-fit"

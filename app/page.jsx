@@ -1,18 +1,33 @@
 "use client";
 import Blogs from "@/components/Blogs";
 import HeroSection from "@/components/HeroSection";
+import { useAuth } from "./contexts/AuthContext";
+import Loading from "@/components/common/Loading";
 
 export default function Home() {
+  const { allBlogsData } = useAuth();
+  const blogs = allBlogsData?.blogs;
+  console.log("Blogs Data: ", blogs);
   return (
     <div className="xl:w-11/12 h-100% flex flex-col mx-auto p-10 gap-10 relative">
+      {!allBlogsData ? (
+        <Loading />
+      ) : blogs?.length === 0 ? (
+        <h1 className="flex w-full h-[75vh] items-center justify-center mx-auto text-[22px] xl:text-[40px] font-semibold">
+          No Blogs Found
+        </h1>
+      ) : (
+        <>
+          <section className="flex flex-col gap-4">
+            <HeroSection />
+          </section>
+          {/* 2nd Section where all blogs are displayed in grid */}
+          <section className="flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
+            <Blogs page="homePage" />
+          </section>
+        </>
+      )}
       {/* Top Section */}
-      <section className="flex flex-col gap-4">
-        <HeroSection />
-      </section>
-      {/* 2nd Section where all blogs are displayed in grid */}
-      <section className="flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
-        <Blogs page="homePage" />
-      </section>
     </div>
   );
 }

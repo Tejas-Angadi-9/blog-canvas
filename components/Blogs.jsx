@@ -4,21 +4,29 @@ import Link from "next/link";
 import Loading from "@/components/common/Loading";
 import { useState } from "react";
 
-const Blogs = ({ page }) => {
+const Blogs = ({ text = "", blogsProp }) => {
   const [visible, setVisible] = useState(6);
 
   const loadMoreHandler = () => {
     setVisible((prev) => prev + 6);
   };
 
+  let blogs;
   const { allBlogsData } = useAuth();
-  const blogs = allBlogsData?.blogs;
+  if (blogsProp?.length > 0) {
+    blogs = blogsProp;
+  } else if (!blogsProp) {
+    blogs = allBlogsData?.blogs;
+  } else if (blogsProp.length === 0) {
+    blogs = [];
+  }
 
+  console.log("Blogs Length: ", blogs);
   return (
     <>
       {/* Heading */}
-      <div className="font-bold text-[28px] xl:block flex items-center w-full justify-center xl:text-[32px]">
-        {page === "homePage" ? "Latest Blogs" : "All Blogs"}
+      <div className="font-bold text-[28px] xl:block text-center flex items-center w-full justify-center xl:text-[32px]">
+        {text && text} Blogs
       </div>
 
       {/* All Blogs Cards */}
@@ -27,10 +35,12 @@ const Blogs = ({ page }) => {
         className={`w-full h-fit xl:p-6 rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
           blogs && "xl:grid md:grid xl:grid-cols-3 md:grid-cols-2"
         }  ${!blogs && "flex items-center justify-center"}`}>
-        {!blogs ? (
+        {blogs === null ? (
           <div className="flex w-full h-fit xl:translate-x-[100%]">
             <Loading />
           </div>
+        ) : blogs.length === 0 ? (
+          <h1>No Blogs {text}</h1>
         ) : (
           blogs?.slice(0, visible).map((blog, index) => {
             const userData = blog?.userData;

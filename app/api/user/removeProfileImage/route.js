@@ -33,7 +33,10 @@ export const PATCH = async (req) => {
             }), { status: 404 })
         }
 
-        await existingUser.updateOne({ $unset: { profileImage: null } });
+        // await existingUser.updateOne({ $unset: { profileImage: null } });
+        const name = existingUser.name;
+        console.log(name)
+        await existingUser.updateOne({ profileImage: `https://api.dicebear.com/9.x/initials/svg?seed=${existingUser.name}` });
         const updatedUser = await User.findById(userId).populate("createdBlogs").exec();
 
         const { password: _, ...profileDetails } = updatedUser.toObject();

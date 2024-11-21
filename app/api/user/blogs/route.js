@@ -21,7 +21,18 @@ export const GET = async (req) => {
         const userId = decodedFromJWT.userId;
         // Extract userId from query parameters
         // Fetch the user with populated createdBlogs
-        const user = await User.findById(userId).populate("createdBlogs").exec();
+        // const user = await User.findById(userId).populate("createdBlogs").exec();    //* Can also use this
+        const user = await User.findById(userId).populate({
+            path: "createdBlogs",
+            populate: {
+                path: "userData"
+            }
+        }).populate({
+            path: "likedBlogs",
+            populate: {
+                path: "userData"
+            }
+        }).exec();
         if (!user) {
             return new Response(
                 JSON.stringify({
@@ -34,23 +45,23 @@ export const GET = async (req) => {
         const { password: _, ...userData } = user.toObject();
 
         // If user exists but has no created blogs
-        if (user.createdBlogs.length === 0) {
-            return new Response(
-                JSON.stringify({
-                    status: true,
-                    message: "User hasn't created any blogs",
-                }),
-                { status: 200 }
-            );
-        } else {
-            return new Response(
-                JSON.stringify({
-                    status: true,
-                    userData
-                }),
-                { status: 200 }
-            );
-        }
+        // if (user.createdBlogs.length === 0) {
+        //     return new Response(
+        //         JSON.stringify({
+        //             status: true,
+        //             message: "User hasn't created any blogs",
+        //         }),
+        //         { status: 200 }
+        //     );
+        // } else {
+        return new Response(
+            JSON.stringify({
+                status: true,
+                userData
+            }),
+            { status: 200 }
+        );
+        // }
     } catch (err) {
         return new Response(
             JSON.stringify({

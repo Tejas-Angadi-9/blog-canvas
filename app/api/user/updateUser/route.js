@@ -41,6 +41,10 @@ export const PATCH = async (req) => {
             }), { status: 404 })
         }
 
+        if (name) {
+            await existingUser.updateOne({ name: name });
+        }
+
         if (profileImage) {
             const buffer = Buffer.from(await profileImage.arrayBuffer());
             const uploadPath = path.join(process.cwd(), 'image-uploads', profileImage.name);
@@ -51,14 +55,11 @@ export const PATCH = async (req) => {
             await existingUser.updateOne(
                 {
                     profileImage: imageUploadResult.secure_url,
-                    name: name
                 }
             );
             await fs.unlink(uploadPath, buffer);
         }
-        if (name) {
-            await existingUser.updateOne({ name: name });
-        }
+
         const updatedUser = await User.findById(userId).populate("createdBlogs").exec();
 
         const { password: _, ...profileDetails } = updatedUser.toObject();
