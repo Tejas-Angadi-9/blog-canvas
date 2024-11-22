@@ -58,7 +58,7 @@ const Blogs = ({ text = "", blogsProp }) => {
                 <div
                   className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl"
                   key={blog._id}>
-                  <div className="h-[430px] shadow-lg w-full rounded-xl flex flex-col gap-2 p-4 cursor-pointer">
+                  <div className="h-[430px] shadow-lg w-full rounded-xl flex flex-col gap-2 p-4 cursor-pointer justify-between">
                     {/* Image */}
                     <div className="flex w-full h-[250px] relative">
                       <Image

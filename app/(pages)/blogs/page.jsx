@@ -34,7 +34,7 @@ const BlogsPage = () => {
 
   return (
     <div className="flex flex-col gap-12 p-5 xl:px-20 xl:py-10 items-center justify-center mx-auto">
-      <div className="flex flex-col h-[250px] w-full xl:h-[500px] relative cursor-pointer">
+      <div className="flex flex-col h-[250px] w-[90%] xl:h-[500px] relative cursor-pointer">
         <Link href={`/blogs/${blog?._id}`}>
           <Image
             // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"

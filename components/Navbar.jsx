@@ -75,7 +75,7 @@ const Navbar = () => {
                   <img
                     src={userData.profileImage}
                     width={40}
-                    className="rounded-full"
+                    className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
                     loading="lazy"
                     alt="User Profile"
                   />
@@ -146,7 +146,7 @@ const Navbar = () => {
                     <img
                       src={userData.profileImage}
                       width={42}
-                      className="rounded-full"
+                      className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
                       loading="lazy"
                       alt="User Profile"
                     />
