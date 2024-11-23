@@ -101,7 +101,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
           </p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-5 w-full rounded-lg p-5 transition-shadow duration-300">
+          <div className="flex flex-col gap-5 w-full rounded-lg p-5 transition-shadow duration-300 text-[14px] lg:text-[16px]">
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="title"

@@ -40,7 +40,11 @@ const Blogs = ({ text = "", blogsProp }) => {
             <Loading />
           </div>
         ) : blogs.length === 0 ? (
-          <h1>No Blogs {text}</h1>
+          <div className="flex w-full h-fit xl:translate-x-[120%] py-5 lg:py-10">
+            <h1 className="text-[22px] xl:text font-semibold">
+              No Blogs {text}
+            </h1>
+          </div>
         ) : (
           blogs?.slice(0, visible).map((blog, index) => {
             const userData = blog?.userData;
