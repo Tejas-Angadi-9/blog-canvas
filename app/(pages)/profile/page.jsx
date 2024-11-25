@@ -6,6 +6,8 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import NoPageFound from "@/components/common/NoPageFound";
 import Blogs from "@/components/Blogs";
 import Loading from "@/components/common/Loading";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [userData, setUserData] = useState(null);
@@ -14,11 +16,19 @@ const page = () => {
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [showNameModal, setShowNameModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
-
-  console.log("Liked Blogs: ", likedBlogs);
-  console.log("created Blogs: ", createdBlogs);
-
   const [switcher, setSwitcher] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [newName, setNewName] = useState(userData?.name);
+
+  const [passwordState, setPasswordState] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
+  const router = useRouter();
 
   const getCreatedandLikedBlogs = async () => {
     try {
@@ -31,26 +41,155 @@ const page = () => {
     }
   };
 
-  console.log("createdBlogs : ", createdBlogs);
-
   const getEachUserDetails = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/user");
       const output = await response.json();
-
-      console.log("Output: ", output);
       setUserData(output?.userData);
+      setNewName(output?.userData?.name);
     } catch (err) {
       console.log("Failed to fetch the user details: ", err.message);
     }
   };
 
-  const [showModal, setShowModal] = React.useState(false);
-
   const handleDeleteAccount = () => {
-    // Add your delete account logic here
-    console.log("Account deleted");
-    setShowModal(false); // Close modal after deletion
+    setShowModal(false);
+  };
+
+  const removePhotoHandler = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "http://localhost:3000/api/user/removeProfileImage",
+        { method: "PATCH" },
+      );
+
+      const output = await response.json();
+
+      console.log("Photo removed? ", output);
+      if (response.ok) {
+        toast.success("Removed Photo successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, [1000]);
+      } else if (response.status === 404) {
+        toast.error("Can't remove the photo, Please try again!");
+      }
+    } catch (err) {
+      console.log(
+        "Internal server issue while removing the photo: ",
+        err.message,
+      );
+      toast.error("Error while removing the profile photo");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const passwordChangeHandler = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setPasswordState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const updatePasswordHandler = async (e) => {
+    e.preventDefault();
+    if (passwordState.newPassword !== passwordState.confirmNewPassword) {
+      setWarning(true);
+      return;
+    }
+    console.log("Password State: ", passwordState);
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "http://localhost:3000/api/user/updatePassword",
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            oldPassword: passwordState.oldPassword,
+            newPassword: passwordState.newPassword,
+            confirmNewPassword: passwordState.confirmNewPassword,
+          }),
+        },
+      );
+      const output = await response.json();
+      console.log("Update Password: ", output);
+      if (response.ok) {
+        toast.success("Password updated successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, [1000]);
+      } else if (response.status === 404 || response.status === 400) {
+        console.log("output: ", output.message);
+        toast.error(output.message);
+      }
+      setWarning(false);
+    } catch (err) {
+      console.log(
+        "Internal server issue while updating password: ",
+        err.message,
+      );
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const nameHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", newName);
+
+    updateName(formData);
+  };
+
+  const checkProfileImage = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/user/checkProfilePhoto",
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            updatedName: newName,
+          }),
+        },
+      );
+      const output = await response.json();
+
+      if (response.ok) {
+        return;
+      } else if (response?.status === 404) {
+        return;
+      }
+    } catch (err) {
+      console.log("Internal server issue while checking the profileImage");
+    }
+  };
+
+  const updateName = async (formData) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/user/updateUser",
+        {
+          method: "PATCH",
+          body: formData,
+        },
+      );
+      const output = await response.json();
+
+      if (response.ok) {
+        toast.success("Name updated successfully!");
+        checkProfileImage();
+        setTimeout(() => location.reload(), [1000]);
+      } else if (response?.status === 404) {
+        toast.error(output.message);
+      }
+    } catch (error) {
+      toast.error(`Error: ${error.message || "Something went wrong"}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -83,7 +222,7 @@ const page = () => {
               <div className="flex flex-col items-center justify-center gap-4">
                 <div className="relative">
                   <img
-                    src={userData?.profileImage || "/default-profile.png"}
+                    src={userData?.profileImage}
                     alt="User Profile"
                     className="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full shadow-md border border-gray-200"
                   />
@@ -105,7 +244,7 @@ const page = () => {
                 {/* Name Section */}
                 <div className="flex items-center w-[20%] gap-5">
                   <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-                    {userData?.name || "John Doe"}
+                    {userData?.name}
                   </h2>
                   <button
                     className="text-blue-500 text-sm sm:text-base font-medium hover:underline flex items-center gap-1"
@@ -125,7 +264,7 @@ const page = () => {
                   <span
                     id="email"
                     className="bg-gray-100 px-3 py-2 rounded-md text-sm sm:text-base text-gray-800 w-full sm:w-auto cursor-not-allowed">
-                    {userData?.email || "example@email.com"}
+                    {userData?.email}
                   </span>
                 </div>
 
@@ -158,61 +297,107 @@ const page = () => {
                   {/* Photo Modal Content */}
                   {showPhotoModal && (
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-800">
-                        Update Profile Photo
-                      </h2>
-                      <div className="flex items-center justify-start gap-2">
-                        <button className="bg-red-500 text-white px-4 py-2 rounded-md mt-4">
-                          Remove Photo
-                        </button>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
-                          Upload New Photo
-                        </button>
-                      </div>
+                      {loading ? (
+                        <Loading />
+                      ) : (
+                        <>
+                          <h2 className="text-xl font-semibold text-gray-800">
+                            Update Profile Photo
+                          </h2>
+                          <div className="flex items-center justify-start gap-2">
+                            <button
+                              className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
+                              onClick={removePhotoHandler}>
+                              Remove Photo
+                            </button>
+                            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
+                              Upload New Photo
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
 
                   {/* Name Modal Content */}
                   {showNameModal && (
                     <div>
+                      {/* {loading ? (
+                        <Loading />
+                      ) : ( */}
+                      {/* <> */}
                       <h2 className="text-xl font-semibold text-gray-800">
                         Update Name
                       </h2>
                       <input
                         type="text"
                         placeholder="Enter new name"
+                        value={newName}
                         className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                        onChange={(e) => setNewName(e.target.value)}
+                        required
                       />
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
-                        Update Name
+                      <button
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                        onClick={nameHandler}>
+                        {loading ? "Updating..." : "Update Name"}
                       </button>
+                      {/* </> */}
+                      {/* )} */}
                     </div>
                   )}
 
                   {/* Password Modal Content */}
                   {showPasswordModal && (
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-800">
-                        Update Password
-                      </h2>
-                      <input
-                        type="password"
-                        placeholder="Old Password"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                      />
-                      <input
-                        type="password"
-                        placeholder="New Password"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                      />
-                      <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                      />
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
-                        Update Password
-                      </button>
+                      {loading ? (
+                        <Loading />
+                      ) : (
+                        <>
+                          <h2 className="text-xl font-semibold text-gray-800">
+                            Update Password
+                          </h2>
+                          <form onSubmit={updatePasswordHandler}>
+                            <input
+                              type="password"
+                              name="oldPassword"
+                              placeholder="Old Password"
+                              value={passwordState.oldPassword}
+                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                              onChange={passwordChangeHandler}
+                              required
+                            />
+                            <input
+                              type="password"
+                              name="newPassword"
+                              placeholder="New Password"
+                              value={passwordState.newPassword}
+                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                              onChange={passwordChangeHandler}
+                              required
+                            />
+                            <input
+                              type="password"
+                              name="confirmNewPassword"
+                              placeholder="Confirm Password"
+                              value={passwordState.confirmNewPassword}
+                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                              onChange={passwordChangeHandler}
+                              required
+                            />
+                            {warning && (
+                              <div className="text-red-500">
+                                Passwords doesn't match
+                              </div>
+                            )}
+                            <button
+                              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                              type="submit">
+                              Update Password
+                            </button>
+                          </form>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
