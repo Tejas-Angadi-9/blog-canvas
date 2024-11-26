@@ -7,7 +7,6 @@ import Loading from "@/components/common/Loading";
 export default function Home() {
   const { allBlogsData } = useAuth();
   const blogs = allBlogsData?.blogs;
-  console.log("Blogs Data: ", blogs);
   return (
     <div className="xl:w-11/12 h-100% flex flex-col mx-auto p-10 gap-10 relative">
       {!allBlogsData ? (

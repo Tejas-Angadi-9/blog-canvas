@@ -21,14 +21,63 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
   const [newName, setNewName] = useState(userData?.name);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
+  // if (selectedImage) {
+  //   formData.append("blogImage", selectedImage);
+  // }
+
+  const uploadPhotoHanlder = async () => {
+    const formData = new FormData();
+    if (selectedImage) {
+      formData.append("profileImage", selectedImage);
+    }
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "http://localhost:3000/api/user/updateUser",
+        { method: "PATCH", body: formData },
+      );
+      const output = await response.json();
+
+      if (response.ok) {
+        toast.success(output.message);
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      } else if (response.status === 404 || response.status === 500) {
+        toast.error(output.message);
+      }
+    } catch (err) {
+      console.log("Failed while uploading new profile photo");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const [passwordState, setPasswordState] = useState({
     oldPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-
-  const router = useRouter();
 
   const getCreatedandLikedBlogs = async () => {
     try {
@@ -66,7 +115,6 @@ const page = () => {
 
       const output = await response.json();
 
-      console.log("Photo removed? ", output);
       if (response.ok) {
         toast.success("Removed Photo successfully!");
         setTimeout(() => {
@@ -98,7 +146,6 @@ const page = () => {
       setWarning(true);
       return;
     }
-    console.log("Password State: ", passwordState);
     try {
       setLoading(true);
       const response = await fetch(
@@ -113,14 +160,12 @@ const page = () => {
         },
       );
       const output = await response.json();
-      console.log("Update Password: ", output);
       if (response.ok) {
         toast.success("Password updated successfully!");
         setTimeout(() => {
           window.location.reload();
         }, [1000]);
       } else if (response.status === 404 || response.status === 400) {
-        console.log("output: ", output.message);
         toast.error(output.message);
       }
       setWarning(false);
@@ -296,26 +341,83 @@ const page = () => {
 
                   {/* Photo Modal Content */}
                   {showPhotoModal && (
-                    <div>
-                      {loading ? (
-                        <Loading />
-                      ) : (
-                        <>
-                          <h2 className="text-xl font-semibold text-gray-800">
-                            Update Profile Photo
-                          </h2>
-                          <div className="flex items-center justify-start gap-2">
-                            <button
-                              className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
-                              onClick={removePhotoHandler}>
-                              Remove Photo
-                            </button>
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
-                              Upload New Photo
-                            </button>
-                          </div>
-                        </>
-                      )}
+                    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+                      <div className="bg-white p-6 rounded-md shadow-lg w-96">
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          <>
+                            {uploadingPhoto ? (
+                              <>
+                                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                                  Upload New Profile Photo
+                                </h2>
+
+                                <div className="flex flex-col">
+                                  <label
+                                    htmlFor="blogImage"
+                                    className="text-base xl:text-lg font-semibold text-gray-700">
+                                    Blog Image:
+                                  </label>
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    name="blogImage"
+                                    id="blogImage"
+                                    onChange={handleFileUpload}
+                                    className="hidden"
+                                  />
+                                  <label
+                                    htmlFor="blogImage"
+                                    className="border border-gray-300 rounded-md p-2 cursor-pointer hover:bg-gray-100 transition duration-150">
+                                    {imagePreview ? (
+                                      <>
+                                        {loading ? (
+                                          <Loading />
+                                        ) : (
+                                          <>
+                                            <img
+                                              src={imagePreview}
+                                              alt="Selected blog"
+                                              className="h-32 object-cover rounded-md mb-2"
+                                              loading="lazy"
+                                            />
+                                            <button
+                                              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                                              onClick={uploadPhotoHanlder}>
+                                              Upload New Photo
+                                            </button>
+                                          </>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <p>Choose an Image.</p>
+                                    )}
+                                  </label>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <h2 className="text-xl font-semibold text-gray-800">
+                                  Update Profile Photo
+                                </h2>
+                                <div className="flex items-center justify-start gap-2">
+                                  <button
+                                    className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
+                                    onClick={removePhotoHandler}>
+                                    Remove Photo
+                                  </button>
+                                  <button
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                                    onClick={() => setUploadingPhoto(true)}>
+                                    Upload New Photo
+                                  </button>
+                                </div>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
                     </div>
                   )}
 
@@ -484,7 +586,7 @@ const page = () => {
                     {/* BlogCanvas Branding */}
                     <div className="flex items-center gap-2">
                       <h1 className="text-lg font-bold text-gray-800">
-                        BlogCanvas
+                        <span className="font-normal">Blog</span>Canvas
                       </h1>
                     </div>
 

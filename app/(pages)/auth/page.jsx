@@ -64,14 +64,12 @@ const AuthPage = () => {
       });
       if (response.status === 403) {
         toast.error("User Already exists!");
-        console.log("User already exists. Please sign in");
       }
       if (response.status === 200) {
         toast.success("Signed up!");
         setOpenModal(true);
       }
       const output = await response.json();
-      console.log("Output: ", output);
       toast.dismiss(toastId);
     } catch (err) {
       console.log("Failed to post sign-up details");

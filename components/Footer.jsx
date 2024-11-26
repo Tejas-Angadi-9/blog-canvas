@@ -15,7 +15,7 @@ const Footer = () => {
             at creating responsive web applications and solving complex
             problems...
             <span className="text-blue-500">
-              <Link href="/about"> Read More....</Link>
+              <Link href="/about"> Read More</Link>
             </span>
           </p>
         </div>
@@ -39,7 +39,9 @@ const Footer = () => {
       {/* BlogCanvas in bold with the copyright and year 2024. All rights reserved. Add your name */}
       <div className="h-[1px] w-11/12 bg-slate-400 rounded-md mt-2"></div>
       <div className="mt-5 flex flex-col xl:flex-row items-center justify-center gap-1">
-        <p className="font-bold text-[16px] xl:text-[18px]">BlogCanvas</p>
+        <p className="font-bold text-[16px] xl:text-[18px]">
+          <span className="font-normal">Blog</span>Canvas
+        </p>
         <p className="text-[14px]  xl:text-[16px]">
           © 2024 Tejas Angadi. All Rights Reserved.
         </p>

@@ -75,6 +75,6 @@ export const PATCH = async (req) => {
             status: false,
             message: err.message,
             data: "Internal server while updating the profile image"
-        }))
+        }), { status: 500 })
     }
 }

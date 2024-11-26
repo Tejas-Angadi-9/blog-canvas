@@ -70,10 +70,6 @@ const Blog = ({ params }) => {
     day: "numeric",
   });
 
-  // const data = blogData?.description.split("\n");
-  // const blogArray = data?.filter((da) => da !== "\r");
-  // console.log("Data: ", blogArray);
-
   const blogArray = blogData?.description?.split("\n");
 
   // Like Handler
@@ -95,7 +91,6 @@ const Blog = ({ params }) => {
         },
       );
       const output = await response.json();
-      console.log(output);
       setLoading(false);
       toast.success("Blog Liked!");
     } catch (err) {
@@ -122,7 +117,6 @@ const Blog = ({ params }) => {
         },
       );
       const output = await response.json();
-      console.log(output);
       setLoading(false);
       toast.success("Blog Unliked!");
     } catch (err) {
@@ -157,8 +151,9 @@ const Blog = ({ params }) => {
       } else if (!response.ok) {
         toast.error("Server Error, Please try again");
       }
-      console.log(output);
-    } catch (err) {}
+    } catch (err) {
+      console.log("Error occured during deleting the blog: ", err.message);
+    }
   };
 
   return (

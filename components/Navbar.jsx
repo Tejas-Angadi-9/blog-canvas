@@ -19,7 +19,6 @@ const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const router = useRouter();
 
-  console.log("IsDropdownopen: ", openDropdown);
   if (isOpen) {
     useLockBodyScroll(true);
   } else {
@@ -42,7 +41,6 @@ const Navbar = () => {
       const response = await fetch("http://localhost:3000/api/user");
       const output = await response.json();
 
-      console.log("Output: ", output);
       setUserData(output?.userData);
     } catch (err) {
       console.log("Failed to fetch the user details: ", err.message);
@@ -154,7 +152,7 @@ const Navbar = () => {
                   </div>
                 </button>
                 <div
-                  className={`absolute top-11 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 hidden group-hover:block`}>
+                  className={`absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2 hidden group-hover:block`}>
                   <div className="flex flex-col items-start justify-between gap-1">
                     <Link
                       className="text-[16px] p-2 flex items-center justify-center gap-2 h-fit"

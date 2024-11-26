@@ -55,9 +55,8 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
         },
       );
       const output = await response.json();
-      console.log("OUTPUT: ", output);
       if (response.ok) {
-        toast.success("Blog created successfully!");
+        toast.success("Blog updated successfully!");
         setBlogData({ title: "", description: "", tag: "" });
         setSelectedImage(null);
         setImagePreview(null);

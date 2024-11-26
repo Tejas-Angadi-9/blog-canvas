@@ -57,7 +57,6 @@ const CreateBlogForm = () => {
         },
       );
       const output = await response.json();
-      console.log("Ouptut: ", response);
 
       if (response.ok) {
         toast.success("Blog created successfully!");
