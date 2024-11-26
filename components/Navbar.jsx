@@ -17,7 +17,6 @@ const Navbar = () => {
   const [userData, setUserData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
-  const router = useRouter();
 
   if (isOpen) {
     useLockBodyScroll(true);
@@ -25,11 +24,29 @@ const Navbar = () => {
     useLockBodyScroll(false);
   }
 
-  const logoutHandler = () => {
-    localStorage.removeItem("UserData");
-    setIsUserLoggedIn(null);
-    router.push("/");
-    toast.success("Logged out!");
+  const logoutHandler = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/user/logout`,
+        {
+          method: "POST",
+        },
+      );
+      const output = await response.json();
+
+      if (response.ok) {
+        localStorage.removeItem("UserData");
+        setIsUserLoggedIn(null);
+        toast.success("Logged out!");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
+      } else {
+        toast.error("Can't logout Try Again!");
+      }
+    } catch (err) {
+      console.log("Failed to logout due to server issue, ", err.message);
+    }
   };
 
   const dropdownHandler = () => {

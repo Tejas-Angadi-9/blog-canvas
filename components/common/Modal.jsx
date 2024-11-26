@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 const Modal = ({
-  handleCloseModal,
+  handleLoginAfterSignup,
   type = "login",
   isDeleteModalOpen,
   setDeleteModalOpen,
@@ -41,7 +41,7 @@ const Modal = ({
           <Link
             href={"/auth"}
             className="bg-blue-500 text-white py-2 px-4 w-fit rounded-md duration-300 transition-all hover:scale-95"
-            onClick={handleCloseModal}>
+            onClick={handleLoginAfterSignup}>
             Go to Login
           </Link>
         </>

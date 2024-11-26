@@ -39,77 +39,74 @@ const AboutPage = () => {
       </div>
       <div className="flex flex-col-reverse xl:flex-row items-center justify-between mt-[15%] h-full w-full gap-10 xl:gap-24">
         {/* Social media links */}
-        <div className="flex flex-col p-5 xl:w-[50%] shadow-xl rounded-md">
-          <h2 className="text-[21px] text-center xl:text-start xl:text-2xl font-semibold mb-4">
+        <div className="flex flex-col p-6 w-full xl:w-[50%] shadow-lg rounded-lg bg-white">
+          <h2 className="text-lg xl:text-xl font-semibold mb-6 text-center xl:text-start text-gray-800">
             Social Media Links
           </h2>
-          <div className="flex xl:flex-col xl:-gap-2 justify-evenly">
+          <div className="flex flex-col gap-4">
             <Link
               href="https://github.com/Tejas-Angadi-9"
               target="_blank"
-              className="flex items-center p-2 hover:scale-95 gap-2 duration-300 border-r-[1px] border-slate-400 xl:border-none">
-              <p className="flex items-center text-[15px] xl:text-xl font-medium p-1">
-                <FaGithub className="text-[15px] xl:text-xl text-black mr-2" />{" "}
+              className="flex items-center justify-between p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all duration-300 shadow-sm">
+              <p className="flex items-center text-sm xl:text-base font-medium text-gray-700">
+                <FaGithub className="text-xl text-black mr-3" />
                 GitHub
               </p>
-              <FiExternalLink className="text-[15px] xl:text-xl mr-2 xl:mr-0" />
+              <FiExternalLink className="text-gray-500 text-lg" />
             </Link>
             <Link
               href="https://www.linkedin.com/in/tejasangadi9/"
               target="_blank"
-              className="flex items-center p-2 hover:scale-95 gap-2 transition duration-300 ml-1 xl:ml-0 border-r-[1px] border-slate-400 xl:border-none">
-              <p className="flex items-center text-[15px] xl:text-xl font-medium p-1">
-                <FaLinkedin className="text-[15px] xl:text-xl text-blue-600 mr-2" />{" "}
+              className="flex items-center justify-between p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all duration-300 shadow-sm">
+              <p className="flex items-center text-sm xl:text-base font-medium text-gray-700">
+                <FaLinkedin className="text-xl text-blue-600 mr-3" />
                 LinkedIn
               </p>
-              <FiExternalLink className="text-[15px] xl:text-xl mr-2 xl:mr-0" />
+              <FiExternalLink className="text-gray-500 text-lg" />
             </Link>
             <Link
               href="https://tejasangadi-portfolio.netlify.app/"
               target="_blank"
-              className="flex items-center p-2 hover:scale-95 gap-2 transition duration-300 ml-1 xl:ml-0">
-              <p className="flex items-center text-[15px] xl:text-xl font-medium p-1">
-                <CgWebsite className="text-[15px] text-slate-800 xl:text-xl mr-2" />
+              className="flex items-center justify-between p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all duration-300 shadow-sm">
+              <p className="flex items-center text-sm xl:text-base font-medium text-gray-700">
+                <CgWebsite className="text-xl text-slate-800 mr-3" />
                 Portfolio
               </p>
-              <FiExternalLink className="text-[15px] xl:text-xl" />
+              <FiExternalLink className="text-gray-500 text-lg" />
             </Link>
           </div>
         </div>
+
         {/* Description */}
-        <div className="text-center p-5 xl:p-10 bg-gray-100 text-gray-800 rounded-md shadow-xl flex flex-col gap-2">
-          <h1 className="text-[21px] xl:text-3xl font-bold mb-4">
+        <div className="flex flex-col items-center p-6 xl:p-12 bg-white text-gray-800 rounded-lg shadow-lg gap-4">
+          <h1 className="text-2xl xl:text-3xl font-bold text-gray-900 mb-4">
             Welcome to BlogCanvas! 🌟
           </h1>
-          <p className="text-[15px] w-full xl:text-lg mb-4">
+          <p className="text-sm xl:text-base text-center leading-relaxed mb-4">
             Created by <span className="font-semibold">Tejas Angadi</span>, a
             23-year-old Automation Test Engineer at Cognizant with a passion for
             Web-Dev. This project is a personal endeavor to explore and showcase
-            my skills in building applications. At <b>BlogCanvas</b> , you'll
+            my skills in building applications. At <b>BlogCanvas</b>, you'll
             find a collection of insightful content crafted with dedication.
           </p>
-          <div>
-            <div className="flex flex-col gap-3 mt-2">
-              <p className="text-[15px] xl:text-lg">
-                For inquiries or feedback, feel free to reach out:
-              </p>
-              <p className="text-blue-500 font-medium text-[15px] xl:text-lg">
-                <Link
-                  href="mailto:tejasangadi456@gmail.com"
-                  className="hover:underline">
-                  Email: tejasangadi456@gmail.com
-                </Link>
-              </p>
-              <p className="text-blue-500 font-medium text-[15px] xl:text-lg">
-                <Link href="tel:+919353423811" className="hover:underline">
-                  Phone: +91 - 9353423811
-                </Link>
-              </p>
-            </div>
-            <p className="font-semibold text-[16px] xl:text-2xl mt-5">
-              Dive in and enjoy the journey! 🚀
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-sm xl:text-base text-center">
+              For inquiries or feedback, feel free to reach out:
             </p>
+            <Link
+              href="mailto:tejasangadi456@gmail.com"
+              className="text-blue-600 font-medium text-sm xl:text-base hover:underline">
+              Email: tejasangadi456@gmail.com
+            </Link>
+            <Link
+              href="tel:+919353423811"
+              className="text-blue-600 font-medium text-sm xl:text-base hover:underline">
+              Phone: +91 - 9353423811
+            </Link>
           </div>
+          <p className="font-semibold text-lg xl:text-xl text-center mt-4">
+            Dive in and enjoy the journey! 🚀
+          </p>
         </div>
       </div>
     </div>

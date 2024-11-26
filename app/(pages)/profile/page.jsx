@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 import { MdOutlineModeEdit } from "react-icons/md";
-import NoPageFound from "@/components/common/NoPageFound";
 import Blogs from "@/components/Blogs";
-import Loading from "@/components/common/Loading";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+
+import Spinner from "@/components/common/Spinner";
+import Loading from "@/components/common/Loading";
 
 const page = () => {
+  const { isUserLoggedIn } = useAuth();
   const [userData, setUserData] = useState(null);
   const [createdBlogs, setCreatedBlogs] = useState([]);
   const [likedBlogs, setLikedBlogs] = useState([]);
@@ -40,10 +41,6 @@ const page = () => {
       }
     };
   }, [imagePreview]);
-
-  // if (selectedImage) {
-  //   formData.append("blogImage", selectedImage);
-  // }
 
   const uploadPhotoHanlder = async () => {
     const formData = new FormData();
@@ -101,8 +98,28 @@ const page = () => {
     }
   };
 
-  const handleDeleteAccount = () => {
-    setShowModal(false);
+  const handleDeleteAccount = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`, {
+        method: "DELETE",
+      });
+      const output = await response.json();
+      setLoading(false);
+      if (response.ok) {
+        localStorage.removeItem("UserData");
+        // cookieStore.delete("authToken");
+        toast.success("Account deleted successfully!");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }
+    } catch (err) {
+      console.log("Failed to delete the account: ", err.message);
+      toast.error("Failed to delete the account");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const removePhotoHandler = async () => {
@@ -238,6 +255,10 @@ const page = () => {
   };
 
   useEffect(() => {
+    if (!isUserLoggedIn) {
+      window.location.href = "/";
+      return;
+    }
     getEachUserDetails();
     getCreatedandLikedBlogs();
   }, []);
@@ -270,6 +291,7 @@ const page = () => {
                     src={userData?.profileImage}
                     alt="User Profile"
                     className="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full shadow-md border border-gray-200"
+                    loading="lazy"
                   />
                   <button
                     className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full shadow-md hover:bg-blue-600 transition duration-200"
@@ -341,83 +363,85 @@ const page = () => {
 
                   {/* Photo Modal Content */}
                   {showPhotoModal && (
-                    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-                      <div className="bg-white p-6 rounded-md shadow-lg w-96">
-                        {loading ? (
-                          <Loading />
-                        ) : (
-                          <>
-                            {uploadingPhoto ? (
-                              <>
-                                <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                                  Upload New Profile Photo
-                                </h2>
-
-                                <div className="flex flex-col">
-                                  <label
-                                    htmlFor="blogImage"
-                                    className="text-base xl:text-lg font-semibold text-gray-700">
-                                    Blog Image:
-                                  </label>
-                                  <input
-                                    type="file"
-                                    accept="image/*"
-                                    name="blogImage"
-                                    id="blogImage"
-                                    onChange={handleFileUpload}
-                                    className="hidden"
-                                  />
-                                  <label
-                                    htmlFor="blogImage"
-                                    className="border border-gray-300 rounded-md p-2 cursor-pointer hover:bg-gray-100 transition duration-150">
-                                    {imagePreview ? (
-                                      <>
-                                        {loading ? (
-                                          <Loading />
-                                        ) : (
-                                          <>
-                                            <img
-                                              src={imagePreview}
-                                              alt="Selected blog"
-                                              className="h-32 object-cover rounded-md mb-2"
-                                              loading="lazy"
-                                            />
-                                            <button
-                                              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                                              onClick={uploadPhotoHanlder}>
-                                              Upload New Photo
-                                            </button>
-                                          </>
-                                        )}
-                                      </>
-                                    ) : (
-                                      <p>Choose an Image.</p>
-                                    )}
-                                  </label>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <h2 className="text-xl font-semibold text-gray-800">
-                                  Update Profile Photo
-                                </h2>
-                                <div className="flex items-center justify-start gap-2">
-                                  <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
-                                    onClick={removePhotoHandler}>
-                                    Remove Photo
-                                  </button>
-                                  <button
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                                    onClick={() => setUploadingPhoto(true)}>
-                                    Upload New Photo
-                                  </button>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        )}
-                      </div>
+                    <div>
+                      {loading ? (
+                        <div className="w-full h-[150px] flex items-center justify-center mx-auto">
+                          <div className="w-full h-[150px] flex items-center justify-center mx-auto">
+                            <Spinner />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          {uploadingPhoto ? (
+                            <>
+                              <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                                Upload New Profile Photo
+                              </h2>
+                              <div className="flex flex-col">
+                                <label
+                                  htmlFor="profileImage"
+                                  className="text-base xl:text-lg font-semibold text-gray-700">
+                                  Choose an Image:
+                                </label>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  name="profileImage"
+                                  id="profileImage"
+                                  onChange={handleFileUpload}
+                                  className="hidden"
+                                />
+                                <label
+                                  htmlFor="profileImage"
+                                  className="border border-gray-300 rounded-md p-2 cursor-pointer hover:bg-gray-100 transition duration-150 text-center">
+                                  {imagePreview ? (
+                                    <>
+                                      <img
+                                        src={imagePreview}
+                                        alt="Selected"
+                                        className="h-32 object-cover rounded-md mb-2"
+                                        loading="lazy"
+                                      />
+                                      <button
+                                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit"
+                                        onClick={uploadPhotoHanlder}>
+                                        Upload Photo
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <p>Click to choose an image</p>
+                                  )}
+                                </label>
+                              </div>
+                              <div className="flex justify-end mt-4">
+                                <button
+                                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                                  onClick={() => setUploadingPhoto(false)}>
+                                  Cancel
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <h2 className="text-xl font-semibold text-gray-800">
+                                Update Profile Photo
+                              </h2>
+                              <div className="flex items-center justify-start gap-2 mt-4">
+                                <button
+                                  className="bg-red-500 text-white px-4 py-2 rounded-md"
+                                  onClick={removePhotoHandler}>
+                                  Remove Photo
+                                </button>
+                                <button
+                                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                  onClick={() => setUploadingPhoto(true)}>
+                                  Upload New Photo
+                                </button>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      )}
                     </div>
                   )}
 
@@ -453,7 +477,9 @@ const page = () => {
                   {showPasswordModal && (
                     <div>
                       {loading ? (
-                        <Loading />
+                        <div className="w-full h-[150px] flex items-center justify-center mx-auto">
+                          <Spinner />
+                        </div>
                       ) : (
                         <>
                           <h2 className="text-xl font-semibold text-gray-800">
@@ -589,32 +615,39 @@ const page = () => {
                         <span className="font-normal">Blog</span>Canvas
                       </h1>
                     </div>
+                    {loading ? (
+                      <div className="w-full h-[150px] flex items-center justify-center mx-auto">
+                        <Spinner />
+                      </div>
+                    ) : (
+                      <>
+                        {/* Title */}
+                        <h2 className="text-xl font-semibold text-gray-800 text-center">
+                          Confirm Deletion
+                        </h2>
+                        {/* Message */}
+                        <p className="text-sm text-gray-600 text-center">
+                          Are you sure you want to delete your account? This
+                          action is permanent and cannot be undone.
+                        </p>
 
-                    {/* Title */}
-                    <h2 className="text-xl font-semibold text-gray-800 text-center">
-                      Confirm Deletion
-                    </h2>
-                    {/* Message */}
-                    <p className="text-sm text-gray-600 text-center">
-                      Are you sure you want to delete your account? This action
-                      is permanent and cannot be undone.
-                    </p>
-
-                    {/* Action Buttons */}
-                    <div className="flex justify-center gap-4">
-                      <button
-                        className="px-6 py-2 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition duration-200"
-                        onClick={() => setShowModal(false)} // Close Modal
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="px-6 py-2 text-sm text-white bg-red-500 rounded-md hover:bg-red-600 transition duration-200"
-                        onClick={handleDeleteAccount} // Trigger Account Deletion
-                      >
-                        Yes, Delete
-                      </button>
-                    </div>
+                        {/* Action Buttons */}
+                        <div className="flex justify-center gap-4">
+                          <button
+                            className="px-6 py-2 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition duration-200"
+                            onClick={() => setShowModal(false)} // Close Modal
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            className="px-6 py-2 text-sm text-white bg-red-500 rounded-md hover:bg-red-600 transition duration-200"
+                            onClick={handleDeleteAccount} // Trigger Account Deletion
+                          >
+                            Yes, Delete
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -130,7 +130,7 @@ const Blog = ({ params }) => {
 
   const localData = localStorage.getItem("UserData");
   const userInfo = JSON.parse(localData);
-  const userId = userInfo?.user?._id;
+  const userId = userInfo?.user;
 
   // Alernate way to use the above logc using .some()
   const hasUserLiked = likedUsers.some((likedUser) => likedUser === userId);

@@ -57,9 +57,9 @@ const Blogs = ({ text = "", blogsProp }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex xl:w-[350px] w-[300px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl">
+                className="flex w-full h-full gap-5 rounded-xl">
                 <div
-                  className="flex w-[350px] h-full gap-5 border-[0.2px] border-slate-100 rounded-xl"
+                  className="flex w-full h-full gap-5 rounded-xl px-3"
                   key={blog._id}>
                   <div className="h-[430px] shadow-lg w-full rounded-xl flex flex-col gap-2 p-4 cursor-pointer justify-between">
                     {/* Image */}

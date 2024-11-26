@@ -64,8 +64,7 @@ export const POST = async (req) => {
       JSON.stringify({
         status: true,
         message: "User logged in successfully!",
-        user: userWithoutPassword,
-        token
+        user: exisitingUser._id,
       }), {
       status: 200,
       headers:

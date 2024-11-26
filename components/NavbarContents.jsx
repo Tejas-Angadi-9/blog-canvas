@@ -4,17 +4,8 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const NavbarContents = ({ type }) => {
-  const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
+  const { isUserLoggedIn } = useAuth();
   const router = useRouter();
-
-  const userData = isUserLoggedIn?.user;
-
-  const logoutHandler = () => {
-    localStorage.removeItem("UserData");
-    setIsUserLoggedIn(null);
-    router.push("/");
-    toast.success("Logged out!");
-  };
 
   const createNewBlogChecker = () => {
     if (isUserLoggedIn) {

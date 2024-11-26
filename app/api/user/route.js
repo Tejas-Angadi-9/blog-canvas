@@ -82,6 +82,7 @@ export const DELETE = async (req) => {
             }), { status: 404 });
         }
 
+        cookieStore.delete("authToken");
         await existingUser.deleteOne();
 
         return new Response(JSON.stringify({
