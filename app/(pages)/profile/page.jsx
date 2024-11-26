@@ -50,7 +50,7 @@ const page = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:3000/api/user/updateUser",
+        `${process.env.NEXT_PUBLIC_URL}/user/updateUser`,
         { method: "PATCH", body: formData },
       );
       const output = await response.json();
@@ -78,7 +78,7 @@ const page = () => {
 
   const getCreatedandLikedBlogs = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/user/blogs");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user/blogs`);
       const output = await response.json();
       setCreatedBlogs(output?.userData?.createdBlogs);
       setLikedBlogs(output?.userData?.likedBlogs);
@@ -89,7 +89,7 @@ const page = () => {
 
   const getEachUserDetails = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/user");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`);
       const output = await response.json();
       setUserData(output?.userData);
       setNewName(output?.userData?.name);
@@ -126,7 +126,7 @@ const page = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:3000/api/user/removeProfileImage",
+        `${process.env.NEXT_PUBLIC_URL}/user/removeProfileImage`,
         { method: "PATCH" },
       );
 
@@ -166,7 +166,7 @@ const page = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:3000/api/user/updatePassword",
+        `${process.env.NEXT_PUBLIC_URL}/user/updatePassword`,
         {
           method: "PATCH",
           body: JSON.stringify({
@@ -208,7 +208,7 @@ const page = () => {
   const checkProfileImage = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/user/checkProfilePhoto",
+        `${process.env.NEXT_PUBLIC_URL}/user/checkProfilePhoto`,
         {
           method: "PATCH",
           body: JSON.stringify({
@@ -232,7 +232,7 @@ const page = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:3000/api/user/updateUser",
+        `${process.env.NEXT_PUBLIC_URL}/user/updateUser`,
         {
           method: "PATCH",
           body: formData,

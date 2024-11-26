@@ -43,7 +43,7 @@ const AboutPage = () => {
           <h2 className="text-lg xl:text-xl font-semibold mb-6 text-center xl:text-start text-gray-800">
             Social Media Links
           </h2>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <Link
               href="https://github.com/Tejas-Angadi-9"
               target="_blank"

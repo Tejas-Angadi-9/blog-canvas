@@ -54,14 +54,17 @@ const AuthPage = () => {
     };
     try {
       const toastId = toast.loading("Loading...");
-      const response = await fetch("http://localhost:3000/api/user/signup", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/user/signup`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
         },
-        body: JSON.stringify(requestData),
-      });
+      );
       if (response.status === 403) {
         toast.error("User Already exists!");
       }
@@ -86,14 +89,17 @@ const AuthPage = () => {
         password: formData.password,
       };
 
-      const response = await fetch("http://localhost:3000/api/user/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/user/login`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
         },
-        body: JSON.stringify(requestBody),
-      });
+      );
 
       if (response.status === 500) {
         toast.error("Internal server error while logging in...");

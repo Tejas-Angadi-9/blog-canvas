@@ -50,7 +50,7 @@ const CreateBlogForm = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:3000/api/blogs/createBlog",
+        `${process.env.NEXT_PUBLIC_URL}/blogs/createBlog`,
         {
           method: "POST",
           body: formData,

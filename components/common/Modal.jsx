@@ -9,7 +9,7 @@ const Modal = ({
   confirmedDelete,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center absolute z-10 bg-white p-8 w-[72%] h-[40%] xl:w-[40%] xl:h-[50%] rounded-md shadow-2xl gap-5">
+    <div className="flex flex-col items-center justify-center absolute z-10 bg-white p-8 w-[72%] h-[40%] xl:w-[40%] xl:h-[60%] rounded-md shadow-2xl gap-5">
       {type === "deleteBlog" && (
         <>
           <p className="text-[16px] xl:text-[30px] font-semibold text-center">

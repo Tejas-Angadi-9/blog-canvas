@@ -48,13 +48,12 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/blogs/${blogId}`,
+        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}`,
         {
           method: "PATCH",
           body: formData,
         },
       );
-      const output = await response.json();
       if (response.ok) {
         toast.success("Blog updated successfully!");
         setBlogData({ title: "", description: "", tag: "" });

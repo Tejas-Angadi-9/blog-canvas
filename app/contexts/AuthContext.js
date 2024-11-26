@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     const getAllBlogs = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/blogs");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/blogs`);
             const output = await response.json();
 
             if (output) setAllBlogsData(output);

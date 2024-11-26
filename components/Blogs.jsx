@@ -64,14 +64,24 @@ const Blogs = ({ text = "", blogsProp }) => {
                   <div className="h-[430px] shadow-lg w-full rounded-xl flex flex-col gap-2 p-4 cursor-pointer justify-between">
                     {/* Image */}
                     <div className="flex w-full h-[250px] relative">
-                      <Image
-                        // src="https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        src={`${blog?.blogImage}`}
-                        alt="blog1.png"
-                        fill
-                        className="object-cover rounded-xl"
-                        loading="lazy"
-                      />
+                      {blog?.blogImage ? (
+                        <Image
+                          // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          src={blog?.blogImage}
+                          alt="Blog Image"
+                          fill
+                          className="object-cover rounded-lg"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <Image
+                          src="/images/no_image_available.jpg"
+                          alt=""
+                          fill
+                          className="object-cover rounded-lg"
+                          loading="lazy"
+                        />
+                      )}
                     </div>
                     {/* Tag and paragraph */}
                     <div className="flex flex-col gap-2">

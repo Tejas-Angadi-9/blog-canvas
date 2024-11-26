@@ -55,7 +55,7 @@ const Navbar = () => {
 
   const getEachUserDetails = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/user");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`);
       const output = await response.json();
 
       setUserData(output?.userData);

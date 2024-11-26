@@ -41,14 +41,25 @@ const HeroSection = () => {
             <div className=" flex flex-col h-[250px] w-full xl:h-[500px] cursor-pointer">
               {/* Image */}
               <div className="w-[90%] h-full shadow-lg flex items-center justify-center mx-auto relative">
-                <Image
-                  // src="https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  src={blog?.blogImage}
-                  alt="blogImage"
-                  fill
-                  className="object-cover rounded-[10px] opacity-95 h-24 w-24"
-                  loading="lazy"
-                />
+                {blog?.blogImage ? (
+                  <Image
+                    // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    src={blog?.blogImage}
+                    alt="Blog Image"
+                    fill
+                    className="object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src="/images/no_image_available.jpg"
+                    alt=""
+                    fill
+                    className="object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                )}
+
                 <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black to-transparent rounded-b-[10px]"></div>
                 {/* Blog title, tag and other stuff */}
                 <div className="bg-[#E8E8EA] shadow-xl p-2 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20 xl:w-[60%] xl:h-[150px] xl:w-[500px] xl:h-[250px] xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0">

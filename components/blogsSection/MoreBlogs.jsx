@@ -58,13 +58,24 @@ const MoreBlogs = ({ text }) => {
                   <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between mx-auto w-full flex gap-10 p-5 cursor-pointer py-2 pb-6">
                     {/* Image */}
                     <div className="flex w-[50%] h-[120px] relative">
-                      <Image
-                        src={`${blog?.blogImage}`}
-                        alt="blog1.png"
-                        fill
-                        className="object-cover rounded-xl"
-                        loading="lazy"
-                      />
+                      {blog?.blogImage ? (
+                        <Image
+                          // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          src={blog?.blogImage}
+                          alt="Blog Image"
+                          fill
+                          className="object-cover rounded-lg"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <Image
+                          src="/images/no_image_available.jpg"
+                          alt=""
+                          fill
+                          className="object-cover rounded-lg"
+                          loading="lazy"
+                        />
+                      )}
                     </div>
 
                     <div className="w-[50%] flex flex-col items-start justify-start mt-5 xl:mt-0">

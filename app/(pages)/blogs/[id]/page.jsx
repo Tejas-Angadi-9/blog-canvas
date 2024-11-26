@@ -52,7 +52,9 @@ const Blog = ({ params }) => {
   // Getting each blog data
   const getEachBlogData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}`,
+      );
       const output = await response.json();
       setBlogData(output?.blog);
       setUserData(output?.blog.userData);
@@ -85,7 +87,7 @@ const Blog = ({ params }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/blogs/${blogId}/likeBlog`,
+        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}/likeBlog`,
         {
           method: "POST",
         },
@@ -111,7 +113,7 @@ const Blog = ({ params }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/blogs/${blogId}/unlikeBlog`,
+        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}/unlikeBlog`,
         {
           method: "POST",
         },
@@ -139,7 +141,7 @@ const Blog = ({ params }) => {
   const confirmedDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/blogs/${blogId}`,
+        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}`,
         {
           method: "DELETE",
         },
@@ -298,14 +300,28 @@ const Blog = ({ params }) => {
               </section>
               <div className="flex flex-col w-full items-center justify-center mx-auto mt-5 xl:mt-0 xl:pr-0 xl:w-full">
                 <div className="relative w-[95%] xl:w-[800px] xl:h-full">
-                  <Image
-                    src={blogData?.blogImage}
-                    alt="blogImage"
-                    width={800}
-                    height={500}
-                    className="object-contain rounded-md"
-                    loading="lazy"
-                  />
+                  {blogData?.blogImage && (
+                    <Image
+                      src={blogData?.blogImage}
+                      alt=""
+                      width={800}
+                      height={500}
+                      className="object-contain rounded-md"
+                      loading="lazy"
+                    />
+                  )}
+                  {blogData?.blogImage === undefined && (
+                    <div className="flex w-full items-center justify-center">
+                      <Image
+                        src="/images/no_image_available.jpg"
+                        alt="/images/no-image-available.jpg"
+                        width={400}
+                        height={300}
+                        className="object-cover rounded-md"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="pt-6 xl:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] xl:w-[100%] text-left flex flex-col gap-4">
                   {blogArray?.map((eachLine, index) => (

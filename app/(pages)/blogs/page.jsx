@@ -36,14 +36,24 @@ const BlogsPage = () => {
     <div className="flex flex-col gap-12 p-5 xl:px-20 xl:py-10 items-center justify-center mx-auto">
       <div className="flex flex-col h-[250px] w-[90%] xl:h-[500px] relative cursor-pointer">
         <Link href={`/blogs/${blog?._id}`}>
-          <Image
-            // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            src={blog?.blogImage}
-            alt=""
-            fill
-            className="object-cover rounded-lg"
-            loading="lazy"
-          />
+          {blog?.blogImage ? (
+            <Image
+              // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={blog?.blogImage}
+              alt="Blog Image"
+              fill
+              className="object-cover rounded-lg"
+              loading="lazy"
+            />
+          ) : (
+            <Image
+              src="/images/no_image_available.jpg"
+              alt=""
+              fill
+              className="object-cover rounded-lg"
+              loading="lazy"
+            />
+          )}
           <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-black to-transparent rounded-b-[10px]"></div>
           <div className="absolute bottom-0 p-5 xl:p-10 left-0 text-white">
             <div className="flex flex-col items-start gap-2 xl:gap-5">
