@@ -17,7 +17,7 @@ const AboutPage = () => {
       {/* This div will contain big text with my name at left side and image at the right side */}
       <div className="flex relative mt-5 mb-5 xl:-mb-12">
         {/* Big text with name */}
-        <div className="h-[250px] xl:w-[50%] xl:left-[20%] xl:w-[48%] xl:h-[400px] bg-slate-200 p-5 absolute top-[45%] left-[24%] xl:left-[18%] z-1 opacity-80 rounded-md shadow-2xl flex flex-col justify-around">
+        <div className="h-[250px] xl:w-[48%] xl:h-[400px] bg-slate-200 p-5 absolute top-[45%] left-[24%] xl:left-[18%] z-1 opacity-80 rounded-md shadow-2xl flex flex-col justify-around">
           <h1 className="uppercase font-extrabold text-[22px] xl:text-[50px] flex flex-col items-center justify-center">
             Crafting BlogCanvas with creativity and connection.
           </h1>

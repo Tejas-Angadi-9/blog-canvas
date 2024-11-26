@@ -3,11 +3,14 @@ import React, { useEffect, useState } from "react";
 
 import { useAuth } from "@/app/contexts/AuthContext";
 import { MdOutlineModeEdit } from "react-icons/md";
-import Blogs from "@/components/Blogs";
 import toast from "react-hot-toast";
 
+import Blogs from "@/components/Blogs";
 import Spinner from "@/components/common/Spinner";
 import Loading from "@/components/common/Loading";
+
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const page = () => {
   const { isUserLoggedIn } = useAuth();
@@ -25,6 +28,18 @@ const page = () => {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState({
+    oldPassword: false,
+    newPassword: false,
+    confirmNewPassword: false,
+  });
+
+  const passwordTypeHandler = (fieldName) => {
+    setIsPasswordVisible((prevData) => ({
+      ...prevData,
+      [fieldName]: !prevData[fieldName],
+    }));
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -468,8 +483,6 @@ const page = () => {
                         onClick={nameHandler}>
                         {loading ? "Updating..." : "Update Name"}
                       </button>
-                      {/* </> */}
-                      {/* )} */}
                     </div>
                   )}
 
@@ -486,33 +499,96 @@ const page = () => {
                             Update Password
                           </h2>
                           <form onSubmit={updatePasswordHandler}>
-                            <input
-                              type="password"
-                              name="oldPassword"
-                              placeholder="Old Password"
-                              value={passwordState.oldPassword}
-                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                              onChange={passwordChangeHandler}
-                              required
-                            />
-                            <input
-                              type="password"
-                              name="newPassword"
-                              placeholder="New Password"
-                              value={passwordState.newPassword}
-                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                              onChange={passwordChangeHandler}
-                              required
-                            />
-                            <input
-                              type="password"
-                              name="confirmNewPassword"
-                              placeholder="Confirm Password"
-                              value={passwordState.confirmNewPassword}
-                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                              onChange={passwordChangeHandler}
-                              required
-                            />
+                            <div className="relative">
+                              <input
+                                type={
+                                  isPasswordVisible.oldPassword
+                                    ? "text"
+                                    : "password"
+                                }
+                                name="oldPassword"
+                                placeholder="Old Password"
+                                value={passwordState.oldPassword}
+                                className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                                onChange={passwordChangeHandler}
+                                required
+                              />
+                              {isPasswordVisible.oldPassword ? (
+                                <FaEyeSlash
+                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                  onClick={() =>
+                                    passwordTypeHandler("oldPassword")
+                                  }
+                                />
+                              ) : (
+                                <FaEye
+                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                  onClick={() =>
+                                    passwordTypeHandler("oldPassword")
+                                  }
+                                />
+                              )}
+                            </div>
+                            <div className="relative">
+                              <input
+                                type={
+                                  isPasswordVisible.newPassword
+                                    ? "text"
+                                    : "password"
+                                }
+                                name="newPassword"
+                                placeholder="New Password"
+                                value={passwordState.newPassword}
+                                className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                                onChange={passwordChangeHandler}
+                                required
+                              />
+                              {isPasswordVisible.newPassword ? (
+                                <FaEyeSlash
+                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                  onClick={() =>
+                                    passwordTypeHandler("newPassword")
+                                  }
+                                />
+                              ) : (
+                                <FaEye
+                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                  onClick={() =>
+                                    passwordTypeHandler("newPassword")
+                                  }
+                                />
+                              )}
+                            </div>
+                            <div className="relative">
+                              <input
+                                type={
+                                  isPasswordVisible.confirmNewPassword
+                                    ? "text"
+                                    : "password"
+                                }
+                                name="confirmNewPassword"
+                                placeholder="Confirm Password"
+                                value={passwordState.confirmNewPassword}
+                                className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                                onChange={passwordChangeHandler}
+                                required
+                              />
+                              {isPasswordVisible.confirmNewPassword ? (
+                                <FaEyeSlash
+                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                  onClick={() =>
+                                    passwordTypeHandler("confirmNewPassword")
+                                  }
+                                />
+                              ) : (
+                                <FaEye
+                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                  onClick={() =>
+                                    passwordTypeHandler("confirmNewPassword")
+                                  }
+                                />
+                              )}
+                            </div>
                             {warning && (
                               <div className="text-red-500">
                                 Passwords doesn't match
