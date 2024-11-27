@@ -1,6 +1,8 @@
 // We get the email as the request body. I need to first validate it and check if the user exists or not. After that I need to generate a JWT token, Store this JWT token in the Db and set expiration for 10 mins, Send the mail to the user with the UI link (http://localhost:3000/jwtToken). After opening pick the url and split it and verify the jwtToken from the url with the DB. If same, then allow the user to input the Password and confirmNewPassword. Do the validation, check if both passwords matches, then hash the password and update the DB for password and at the end send the mail to the user, about it.
 
+import connectToDB from "@/config/database";
 import User from "@/models/User";
+import Verification from "@/models/Verification";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer"
 
@@ -23,43 +25,94 @@ export const POST = async (req) => {
         }), { status: 400 })
     }
     try {
+        await connectToDB();
         const exisitingUser = await User.findOne({ email: email })
-        if (!exisitingUser) {
+        if (exisitingUser) {
             return new Response(JSON.stringify({
                 status: false,
-                message: "User not found!"
-            }), { status: 404 })
+                message: "User is already signed up!"
+            }), { status: 403 })
         }
 
-
         // Generate a JWT Token and store it in the DB
-        const validationToken = jwt.sign({ userId: exisitingUser._id }, process.env.JWT_SECRET, { expiresIn: "10m" })
+        const verificationToken = crypto.randomUUID();
 
-        exisitingUser.resetPasswordToken = validationToken;
-        localStorage.setItem("userToken", validationToken);
-        exisitingUser.resetPasswordExpires = Date.now() + 3 * 24 * 60 * 60 * 1000;
+        // exisitingUser.verificationToken = validationToken;
+        // localStorage.setItem("userToken", validationToken);
+        // exisitingUser.verificationTokenExpires = Date.now() + 10 * 60 * 1000;
 
-        await exisitingUser.save();
+        // await exisitingUser.save();
 
-        const resetLink = `http://localhost:3000/reset-password/${validationToken}`;
+        const verificationLink = `http://localhost:3000/verify-email?token=${verificationToken}`;
 
         // Send the mail to the user with a url along with this validation token at the end
         const transporter = createTransporter();
 
         const mailOptions = {
-            from: process.env.EMAIL,
+            from: `BlogCanvas ${process.env.EMAIL}`,
             to: email,
-            subject: "Password Reset Request",
-            text: "You requested a password reset. Please click the following link to reset your password: ${resetLink}",
-            html: `<p>You requested a password reset. Please click the following link to reset your password:</p><a href="${resetLink}">${resetLink}</a>`,
-        }
+            subject: "Welcome to BlogCanvas - Verify Your Email",
+            text: "Account Verification",
+            html: `
+              <!DOCTYPE html>
+              <html>
+              <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f9;">
+                <div style="max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                  <!-- Header -->
+                  <div style="background-color: #4a90e2; color: #ffffff; text-align: center; padding: 20px;">
+                    <h1 style="margin: 0; font-size: 24px;">Welcome to <span style="font-weight: 300">Blog</span>Canvas!</h1>
+                  </div>
+                  
+                  <!-- Body -->
+                  <div style="padding: 20px;">
+                    <h2 style="margin-top: 0; color: #333333;">Verify Your Email Address</h2>
+                    <p style="color: #555555; font-size: 16px;">Hi there,</p>
+                    <p style="color: #555555; font-size: 16px;">Thank you for signing up for BlogCanvas! Please verify your email address to get started.</p>
+                    <a href="${verificationLink}" target="_blank" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #4a90e2; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                      Verify My Email
+                    </a>
+                    <p style="color: #555555; font-size: 16px; margin-top: 20px;">If you did not sign up for BlogCanvas, please ignore this email.</p>
+                  </div>
+                  
+                  <!-- Footer -->
+                  <div style="text-align: center; padding: 10px; background-color: #f4f4f9; color: #888888; font-size: 14px;">
+                    <p>&copy; ${new Date().getFullYear()} BlogCanvas. All rights reserved.</p>
+                    <p>
+                      <a href="http://localhost:3000/contact" style="color: #4a90e2; text-decoration: none;">Contact Us</a> |
+                      <a href="http://localhost:3000/privacy" style="color: #4a90e2; text-decoration: none;">Privacy Policy</a>
+                    </p>
+                  </div>
+                </div>
+              </body>
+              </html>
+            `,
+        };
+
 
         await transporter.sendMail(mailOptions)
 
-        return new Response(JSON.stringify({
-            status: true,
-            message: "Successfully generated the token for validation and sent the reset link via email",
-        }));
+        const tokenAlreadyGenerated = await Verification.findOne({ email });
+
+        if (tokenAlreadyGenerated) {
+            tokenAlreadyGenerated.token = verificationToken;
+            tokenAlreadyGenerated.expiresAt = Date.now() + 10 * 60 * 1000
+            await tokenAlreadyGenerated.save();
+
+            return new Response(JSON.stringify({
+                status: true,
+                message: "User has generated the validation token again, Please check your email",
+                verificationToken
+            }))
+        }
+        else {
+            const verificationEntry = await Verification.create({ email, token: verificationToken, expiresAt: Date.now() + 10 * 60 * 1000 });
+
+            return new Response(JSON.stringify({
+                status: true,
+                message: "Successfully generated the token for validation and sent the reset link via email",
+                verificationEntry
+            }));
+        }
     }
     catch (err) {
         return new Response(

@@ -16,10 +16,10 @@ const userSchema = new Schema({
   profileImage: {
     type: String,
   },
-  resetPasswordToken: {
+  verificationToken: {
     type: String,
   },
-  resetPasswordExpires: {
+  verificationTokenExpires: {
     type: Date,
   },
   createdBlogs: [{
