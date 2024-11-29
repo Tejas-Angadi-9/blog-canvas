@@ -17,7 +17,7 @@ const createTransporter = () => {
 }
 
 export const POST = async (req) => {
-    const { email } = await req.json();
+    const { email, name } = await req.json();
     if (!email) {
         return new Response(JSON.stringify({
             status: false,
@@ -43,7 +43,7 @@ export const POST = async (req) => {
 
         // await exisitingUser.save();
 
-        const verificationLink = `http://localhost:3000/verify-email?token=${verificationToken}`;
+        const verificationLink = `http://localhost:3000/verify-email/${verificationToken}`;
 
         // Send the mail to the user with a url along with this validation token at the end
         const transporter = createTransporter();
@@ -66,7 +66,7 @@ export const POST = async (req) => {
                   <!-- Body -->
                   <div style="padding: 20px;">
                     <h2 style="margin-top: 0; color: #333333;">Verify Your Email Address</h2>
-                    <p style="color: #555555; font-size: 16px;">Hi there,</p>
+                    <p style="color: #555555; font-size: 16px;">Hi ${name},</p>
                     <p style="color: #555555; font-size: 16px;">Thank you for signing up for BlogCanvas! Please verify your email address to get started.</p>
                     <a href="${verificationLink}" target="_blank" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #4a90e2; border-radius: 5px; text-decoration: none; font-weight: bold;">
                       Verify My Email
@@ -76,10 +76,9 @@ export const POST = async (req) => {
                   
                   <!-- Footer -->
                   <div style="text-align: center; padding: 10px; background-color: #f4f4f9; color: #888888; font-size: 14px;">
-                    <p>&copy; ${new Date().getFullYear()} BlogCanvas. All rights reserved.</p>
+                    <p>&copy; ${new Date().getFullYear()} BlogCanvas.</p>
                     <p>
-                      <a href="http://localhost:3000/contact" style="color: #4a90e2; text-decoration: none;">Contact Us</a> |
-                      <a href="http://localhost:3000/privacy" style="color: #4a90e2; text-decoration: none;">Privacy Policy</a>
+                      <a href="http://localhost:3000/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
                     </p>
                   </div>
                 </div>

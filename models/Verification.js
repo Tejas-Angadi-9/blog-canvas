@@ -7,11 +7,12 @@ const verificationSchema = new Schema({
     },
     token: {
         type: String,
-        required: true,
+        // required: true,
     },
     expiresAt: {
         type: Date,
         required: true,
+        index: { expires: 0 }
     }
 })
 

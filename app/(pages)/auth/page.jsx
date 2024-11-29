@@ -103,11 +103,11 @@ const AuthPage = () => {
 
       if (response.status === 500) {
         toast.error("Internal server error while logging in...");
-      }
-      if (response.status === 403 || response.status === 404) {
+      } else if (response.status === 403) {
         toast.error("Bad Credentials");
-      }
-      if (response.status === 200) {
+      } else if (response.status === 404) {
+        toast.error("User not found");
+      } else if (response.status === 200) {
         const output = await response.json();
         toast.success("Logged In successfully!");
         setIsUserLoggedIn(true);
