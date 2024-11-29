@@ -1,21 +1,29 @@
-import connectToDB from "@/config/database";
-import Verification from "@/models/Verification";
+import connectToDB from "@/config/database"
+import User from "@/models/User"
+import Verification from "@/models/Verification"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt"
 
 export const POST = async (req) => {
+    const { token } = await req.json();
+
+    // Validate input
+    if (!token) {
+        return new Response(
+            JSON.stringify({
+                status: false,
+                message: "Email and token are required.",
+            }),
+            { status: 400 }
+        );
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const email = decoded.email;
+    const name = decoded.name;
+    const password = decoded.hashedPassword;
+
     try {
-        const { email } = await req.json();
-
-        // Validate input
-        if (!email || !token) {
-            return new Response(
-                JSON.stringify({
-                    status: false,
-                    message: "Email and token are required.",
-                }),
-                { status: 400 }
-            );
-        }
-
         await connectToDB();
 
         // Fetch the verification entry
@@ -53,6 +61,13 @@ export const POST = async (req) => {
             );
         }
 
+        await User.create({
+            name: name,
+            email: email,
+            password: password,
+            profileImage: `https://api.dicebear.com/9.x/initials/svg?seed=${name}`
+        })
+
         // Success: Token is valid
         await existingToken.deleteOne(); // Clean up the verification entry
         return new Response(
@@ -60,7 +75,7 @@ export const POST = async (req) => {
                 status: true,
                 message: "Email validated successfully.",
             }),
-            { status: 200 }
+            { status: 201 }
         );
     } catch (err) {
         console.error("Failed to verify email:", err.message);

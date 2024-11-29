@@ -69,7 +69,7 @@ const AuthPage = () => {
         toast.error("User Already exists!");
       }
       if (response.status === 200) {
-        toast.success("Signed up!");
+        toast.success("Verification E-mail sent. Please check your email");
         setOpenModal(true);
       }
       const output = await response.json();
