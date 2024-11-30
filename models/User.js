@@ -25,11 +25,12 @@ const userSchema = new Schema({
   createdBlogs: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Blog",
+    default: []
   }],
   likedBlogs: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Blog",
-    unique: true
+    
   }]
 });
 

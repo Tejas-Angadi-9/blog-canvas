@@ -126,8 +126,9 @@ const CreateBlogForm = () => {
           <div className="flex flex-col">
             <label
               htmlFor="blogImage"
-              className="text-lg font-semibold text-gray-700">
-              Blog Image:
+              className="text-lg font-semibold text-gray-700 flex items-center w-full justify-start gap-2">
+              Blog Image
+              {<span className="text-[12px] text-red-500">(Optional)</span>}
             </label>
             <input
               type="file"
@@ -171,8 +172,8 @@ const CreateBlogForm = () => {
         </div>
 
         <button
-          className="mt-10 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95"
-          type="submit"
+          className={`mt-10 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95"
+          type="submit ${isLoading && "pointer-events-none cursor-not-allowed"}`}
           disabled={isLoading}>
           {isLoading ? "Creating Blog..." : "Create Blog"}
         </button>

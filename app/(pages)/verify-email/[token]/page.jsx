@@ -27,7 +27,7 @@ const VerifyEmail = ({ params }) => {
       );
       const output = await response.json();
       if (response.ok) {
-        toast.success("Email verified successfully! Redirecting to login...");
+        toast.success("Email verified!");
         setTimeout(() => {
           window.location.href = "/auth";
         }, 2000); // Add slight delay
@@ -61,11 +61,12 @@ const VerifyEmail = ({ params }) => {
         </>
       ) : (
         <>
-          <p>Email verified successfully!</p>
+          <p>Email verified successfully! Redirecting to the login page...</p>
+          <span>Go to login</span>
           <Link
-            href={"/auth"}
-            className="bg-blue-500  text-[20px] text-white py-2 px-4 rounded hover:bg-blue-600">
-            Go to Login
+            href="/auth"
+            className="text-blue-500 text-[20px] font-semibold hover:text-blue-600">
+            Login Here
           </Link>
         </>
       )}

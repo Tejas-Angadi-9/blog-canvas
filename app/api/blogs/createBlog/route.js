@@ -113,6 +113,7 @@ export const POST = async (req) => {
                 { new: true }
             )
 
+            
             return new Response(JSON.stringify({
                 status: true,
                 message: "Blog post created successfully!",

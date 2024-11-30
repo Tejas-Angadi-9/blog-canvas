@@ -18,14 +18,14 @@ const Modal = ({
             </p>
             <div className="flex gap-4">
               <button
-                className="text-black border-2 py-2 px-4 rounded-md duration-300 transition-all hover:scale-95"
-                onClick={() => setDeleteModalOpen((prev) => !prev)}>
-                Cancel
-              </button>
-              <button
                 className="bg-red-500 text-white py-2 px-4 rounded-md duration-300 transition-all hover:scale-95"
                 onClick={confirmedDelete}>
                 Delete
+              </button>
+              <button
+                className="text-black border-2 py-2 px-4 rounded-md duration-300 transition-all hover:scale-95"
+                onClick={() => setDeleteModalOpen((prev) => !prev)}>
+                Cancel
               </button>
             </div>
           </>
@@ -33,14 +33,14 @@ const Modal = ({
 
         {type === "signup" && (
           <>
-            <p className="text-[18px] xl:text-[24px] font-bold text-gray-800">
+            <p className="text-[18px] xl:text-[22px] font-bold text-gray-800">
               Check Your Email!
             </p>
-            <p className="text-[16px] xl:text-[22px] font-medium text-gray-600 mt-2 text-center">
+            <p className="text-[16px] xl:text-[20px] font-medium text-gray-600 mt-2 text-center">
               A verification link has been sent to your email address. Please
               check your inbox to verify your account.
             </p>
-            <p className="text-[14px] xl:text-[20px] text-gray-500 mt-1 text-center">
+            <p className="text-[14px] xl:text-[18px] text-gray-500 mt-1 text-center">
               Didn't receive the email? Please check your spam folder or try
               again.
             </p>

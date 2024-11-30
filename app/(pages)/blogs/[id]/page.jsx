@@ -150,7 +150,7 @@ const Blog = ({ params }) => {
       const output = await response.json();
       if (response.ok) {
         toast.success("Blog Deleted");
-        router.push("/blogs");
+        window.location.href = "/";
       } else if (!response.ok) {
         toast.error("Server error please try again later");
       }

@@ -41,7 +41,7 @@ export const getMailOptions = (email, name, verificationLink) => {
               <div style="text-align: center; padding: 10px; background-color: #f4f4f9; color: #888888; font-size: 14px;">
                 <p>&copy; ${new Date().getFullYear()} BlogCanvas.</p>
                 <p>
-                  <a href="${NEXT_PUBLIC_URL}/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
+                  <a href="${process.env.NEXT_PUBLIC_URL}/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
                 </p>
               </div>
             </div>
