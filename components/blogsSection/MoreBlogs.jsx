@@ -5,6 +5,8 @@ import Loading from "@/components/common/Loading";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
+import { GoPerson } from "react-icons/go";
+
 const MoreBlogs = ({ text }) => {
   const [visible, setVisible] = useState(3);
 
@@ -102,24 +104,17 @@ const MoreBlogs = ({ text }) => {
                               loading="lazy"
                             />
                           ) : (
-                            <img
-                              src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
-                              alt={`${userData?.name}.svg`}
-                              width={20}
-                              height={20}
-                              className="w-6 h-6 xl:w-8 xl:h-8 rounded-full"
-                              loading="lazy"
-                            />
+                            <div className="border-2 rounded-full p-2">
+                              <GoPerson className="text-[20px]" />
+                            </div>
                           )}
-                          <div className="flex flex-col items-start justify-center">
+                          <div className="flex flex-col items-start justify-center gap-1">
                             {/* Author name */}
                             <p className="text-[11px] xl:text-[14px]">
-                              {/* Jason Francisco */}
-                              {userData?.name}
+                              {userData?.name || "BlogCanvas User"}
                             </p>
                             {/* Published date */}
                             <p className="text-slate-500 text-[11px] xl:text-[14px]">
-                              {/* August 20, 2022 */}
                               {formattedDate}
                             </p>
                           </div>

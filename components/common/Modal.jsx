@@ -7,7 +7,9 @@ const Modal = ({
   isDeleteModalOpen,
   setDeleteModalOpen,
   confirmedDelete,
+  postSignupData,
 }) => {
+  const handleResendVerificationLink = () => {};
   return (
     <div className="flex flex-col items-center justify-center absolute z-10 bg-white p-8 w-[72%] h-[40%] xl:w-[40%] xl:h-[60%] rounded-md shadow-2xl gap-5">
       {type === "deleteBlog" && (
@@ -30,21 +32,25 @@ const Modal = ({
         </>
       )}
 
-      {type === "login" && (
-        <>
-          <p className="text-[18px] xl:text-[30px] font-semibold">
-            User signed up successfully!
+      {type === "signup" && (
+        <div className="flex items-center justify-center w-full h-full flex-col gap-4 ">
+          <p className="text-[20px] xl:text-[26px] font-bold text-gray-800">
+            Check Your Email!
           </p>
-          <p className="text-[14px] xl:text-[22px] font-semibold">
-            Please Login
+          <p className="text-[16px] xl:text-[22px] font-medium text-gray-600 mt-2">
+            A verification link has been sent to your email address. Please
+            check your inbox to verify your account.
           </p>
-          <Link
-            href={"/auth"}
-            className="bg-blue-500 text-white py-2 px-4 w-fit rounded-md duration-300 transition-all hover:scale-95"
-            onClick={handleLoginAfterSignup}>
-            Go to Login
-          </Link>
-        </>
+          <p className="text-[14px] xl:text-[20px] text-gray-500 mt-1">
+            Didn't receive the email? Please check your spam folder or try
+            again.
+          </p>
+          <button
+            onClick={() => location.reload()}
+            className="bg-blue-500 text-white py-2 px-6 mt-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">
+            Sign up again
+          </button>
+        </div>
       )}
     </div>
   );

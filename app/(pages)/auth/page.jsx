@@ -23,6 +23,7 @@ const AuthPage = () => {
   });
 
   const changeFormFields = (e) => {
+    setErrorMessage(null);
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -65,14 +66,14 @@ const AuthPage = () => {
           body: JSON.stringify(requestData),
         },
       );
-      if (response.status === 403) {
-        toast.error("User Already exists!");
-      }
+      const output = await response.json();
       if (response.status === 200) {
         toast.success("Verification E-mail sent. Please check your email");
         setOpenModal(true);
       }
-      const output = await response.json();
+      if (response.status >= 400 && response.status <= 404) {
+        toast.error(output.message);
+      }
       toast.dismiss(toastId);
     } catch (err) {
       console.log("Failed to post sign-up details");
@@ -156,7 +157,13 @@ const AuthPage = () => {
           </button>
         </div>
       </div>
-      {openModal && <Modal handleLoginAfterSignup={handleLoginAfterSignup} />}
+      {openModal && (
+        <Modal
+          handleLoginAfterSignup={handleLoginAfterSignup}
+          type="signup"
+          postSignupData={postSignupData}
+        />
+      )}
     </div>
   );
 };

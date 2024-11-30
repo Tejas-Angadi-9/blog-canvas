@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Loading from "@/components/common/Loading";
 import { useState } from "react";
+import { GoPerson } from "react-icons/go";
 
 const Blogs = ({ text = "", blogsProp }) => {
   const [visible, setVisible] = useState(6);
@@ -107,20 +108,15 @@ const Blogs = ({ text = "", blogsProp }) => {
                             loading="lazy"
                           />
                         ) : (
-                          <img
-                            src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
-                            alt={`${userData?.name}.svg`}
-                            width={40}
-                            height={40}
-                            className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                            loading="lazy"
-                          />
+                          <div className="border-2 rounded-full p-2">
+                            <GoPerson className="text-[20px]" />
+                          </div>
                         )}
 
                         {/* Author name */}
                         <p className="text-[12px] xl:text-[14px]">
                           {/* Jason Francisco */}
-                          {userData?.name}
+                          {userData?.name || "BlogCanvas User"}
                         </p>
                       </div>
                       {/* Published date */}

@@ -654,7 +654,7 @@ const page = () => {
           </div>
           {/* Delete User Section */}
           <div className="w-full flex flex-col items-center justify-center gap-4 mt-8">
-            <div className="w-[90%] xl:w-[60%] bg-white shadow-md rounded-lg p-6 flex flex-col gap-4 items-start xl:items-center mx-auto">
+            <div className="w-[90%] xl:w-[60%] bg-white shadow-md  rounded-lg p-6 flex flex-col gap-4 items-start xl:items-center mx-auto">
               {/* Section Heading */}
               <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
                 Delete Your Account

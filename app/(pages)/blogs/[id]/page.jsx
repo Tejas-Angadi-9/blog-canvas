@@ -14,6 +14,7 @@ import { useAuth } from "@/app/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
+import { GoPerson } from "react-icons/go";
 
 import toast from "react-hot-toast";
 import MoreBlogs from "@/components/blogsSection/MoreBlogs";
@@ -244,19 +245,14 @@ const Blog = ({ params }) => {
                           loading="lazy"
                         />
                       ) : (
-                        <img
-                          src={`https://api.dicebear.com/9.x/initials/svg?seed=${userData?.name}`}
-                          alt=""
-                          width={40}
-                          height={40}
-                          className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
-                          loading="lazy"
-                        />
+                        <div className="border-2 rounded-full p-2">
+                          <GoPerson className="text-[20px]" />
+                        </div>
                       )}
                     </div>
                     <div className="flex flex-row justify-between gap-5">
                       <p className="text-[12px] xl:text-lg font-semibold">
-                        {userData?.name}
+                        {userData?.name || "BlogCanvas User"}
                       </p>
                       <p className="text-slate-500 text-[12px] xl:text-lg">
                         {formattedDate}
@@ -287,7 +283,7 @@ const Blog = ({ params }) => {
                           <Spinner />
                         ) : (
                           <>
-                            <CiHeart className="mr-0 text-[22px] xl:text-[22px]" />
+                            <CiHeart className="mr-0 text-[22px] xl:text-[28px]" />
                             <p>
                               {likedUsers?.length > 0 ? likedUsers?.length : 0}
                             </p>
@@ -300,27 +296,35 @@ const Blog = ({ params }) => {
               </section>
               <div className="flex flex-col w-full items-center justify-center mx-auto mt-5 xl:mt-0 xl:pr-0 xl:w-full">
                 <div className="relative w-[95%] xl:w-[800px] xl:h-full">
-                  {blogData?.blogImage && (
-                    <Image
-                      src={blogData?.blogImage}
-                      alt=""
-                      width={800}
-                      height={500}
-                      className="object-contain rounded-md"
-                      loading="lazy"
-                    />
-                  )}
-                  {blogData?.blogImage === undefined && (
-                    <div className="flex w-full items-center justify-center">
+                  {!blogData ? (
+                    <Loading />
+                  ) : (
+                    blogData?.blogImage && (
                       <Image
-                        src="/images/no_image_available.jpg"
-                        alt="/images/no-image-available.jpg"
-                        width={400}
-                        height={300}
-                        className="object-cover rounded-md"
+                        src={blogData?.blogImage}
+                        alt=""
+                        width={800}
+                        height={500}
+                        className="object-contain rounded-md"
                         loading="lazy"
                       />
-                    </div>
+                    )
+                  )}
+                  {!blogData ? (
+                    <Loading />
+                  ) : (
+                    blogData?.blogImage === undefined && (
+                      <div className="flex w-full items-center justify-center">
+                        <Image
+                          src="/images/no_image_available.jpg"
+                          alt="/images/no-image-available.jpg"
+                          width={400}
+                          height={300}
+                          className="object-cover rounded-md"
+                          loading="lazy"
+                        />
+                      </div>
+                    )
                   )}
                 </div>
                 <div className="pt-6 xl:pt-10 bg-white bg-opacity-90 backdrop-blur-md w-[90%] xl:w-[100%] text-left flex flex-col gap-4">
@@ -332,7 +336,7 @@ const Blog = ({ params }) => {
                     </p>
                   ))}
                   <div className="w-full">
-                    {canEditAndDelete && (
+                    {isUserLoggedIn && canEditAndDelete && (
                       <div className="w-[90%] flex items-center justify-start gap-5 xl:pt-10 h-full mt-5">
                         <button
                           className="flex border-2 border-slate-500 items-center justify-center text-[12px] xl:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"

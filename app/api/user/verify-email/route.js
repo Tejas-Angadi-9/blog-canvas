@@ -2,7 +2,6 @@ import connectToDB from "@/config/database"
 import User from "@/models/User"
 import Verification from "@/models/Verification"
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"
 
 export const POST = async (req) => {
     const { token } = await req.json();
@@ -12,7 +11,7 @@ export const POST = async (req) => {
         return new Response(
             JSON.stringify({
                 status: false,
-                message: "Email and token are required.",
+                message: "Token field is not present.",
             }),
             { status: 400 }
         );
@@ -32,7 +31,7 @@ export const POST = async (req) => {
             return new Response(
                 JSON.stringify({
                     status: false,
-                    message: "Verification entry not found.",
+                    message: "Verification Token not found. Please sign-up again.",
                 }),
                 { status: 404 }
             );

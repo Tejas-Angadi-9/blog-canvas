@@ -93,7 +93,7 @@ const HeroSection = () => {
                       {/* Author name */}
                       <p className="text-[9px] xl:text-lg font-semibold">
                         {/* Jason Francisco */}
-                        {blog?.userData?.name}
+                        {blog?.userData?.name || "BlogCanvas User"}
                       </p>
                     </div>
                     {/* Published date */}

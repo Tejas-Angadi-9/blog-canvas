@@ -12,7 +12,7 @@ const NavbarContents = ({ type }) => {
       router.push("/create-blog");
     } else {
       toast(
-        "Login before to create a blog",
+        "Login to create a blog",
         { duration: 4000 },
         { style: { fontSize: "17px", marginTop: "18px" } },
       );
