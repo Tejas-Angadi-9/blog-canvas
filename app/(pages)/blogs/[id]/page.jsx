@@ -95,7 +95,7 @@ const Blog = ({ params }) => {
       );
       const output = await response.json();
       setLoading(false);
-      toast.success("Blog Liked!");
+      toast.success("Liked!");
     } catch (err) {
       console.log("Failed to like the blog: ", err.message);
     }
@@ -121,7 +121,7 @@ const Blog = ({ params }) => {
       );
       const output = await response.json();
       setLoading(false);
-      toast.success("Blog Unliked!");
+      toast.success("Unliked!");
     } catch (err) {
       console.log("Failed to like the blog: ", err.message);
     }
@@ -129,7 +129,7 @@ const Blog = ({ params }) => {
 
   useEffect(() => {
     getEachBlogData();
-  }, [loading, 1000]);
+  }, [loading, 500]);
 
   const localData = localStorage.getItem("UserData");
   const userInfo = JSON.parse(localData);

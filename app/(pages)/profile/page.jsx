@@ -57,29 +57,36 @@ const page = () => {
     };
   }, [imagePreview]);
 
-  const uploadPhotoHanlder = async () => {
-    const formData = new FormData();
-    if (selectedImage) {
-      formData.append("profileImage", selectedImage);
+  const uploadPhotoHandler = async () => {
+    if (!selectedImage) {
+      toast.error("Please select an image before uploading.");
+      return;
     }
+
+    const formData = new FormData();
+    formData.append("profileImage", selectedImage);
+
     try {
       setLoading(true);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/user/updateUser`,
         { method: "PATCH", body: formData },
       );
+
       const output = await response.json();
 
       if (response.ok) {
-        toast.success(output.message);
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } else if (response.status === 404 || response.status === 500) {
-        toast.error(output.message);
+        toast.success(output.message || "Profile photo updated successfully!");
+        setTimeout(() => location.reload(), 500);
+      } else {
+        toast.error(
+          output.message || "Something went wrong. Please try again.",
+        );
       }
     } catch (err) {
-      console.log("Failed while uploading new profile photo");
+      console.error("Failed while uploading new profile photo:", err);
+      toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -124,10 +131,10 @@ const page = () => {
       if (response.ok) {
         localStorage.removeItem("UserData");
         // cookieStore.delete("authToken");
-        toast.success("Account deleted successfully!");
+        toast.success("Account deleted!");
         setTimeout(() => {
           window.location.href = "/";
-        }, 1000);
+        }, 500);
       }
     } catch (err) {
       console.log("Failed to delete the account: ", err.message);
@@ -148,10 +155,10 @@ const page = () => {
       const output = await response.json();
 
       if (response.ok) {
-        toast.success("Removed Photo successfully!");
+        toast.success("Removed Profile Photo!");
         setTimeout(() => {
           window.location.reload();
-        }, [1000]);
+        }, [500]);
       } else if (response.status === 404) {
         toast.error("Can't remove the photo, Please try again!");
       }
@@ -167,6 +174,7 @@ const page = () => {
   };
 
   const passwordChangeHandler = (e) => {
+    setWarning(false);
     e.preventDefault();
     const { name, value } = e.target;
     setPasswordState((prev) => ({ ...prev, [name]: value }));
@@ -193,10 +201,10 @@ const page = () => {
       );
       const output = await response.json();
       if (response.ok) {
-        toast.success("Password updated successfully!");
+        toast.success("Updated Password!");
         setTimeout(() => {
           window.location.reload();
-        }, [1000]);
+        }, [500]);
       } else if (response.status === 404 || response.status === 400) {
         toast.error(output.message);
       }
@@ -256,9 +264,9 @@ const page = () => {
       const output = await response.json();
 
       if (response.ok) {
-        toast.success("Name updated successfully!");
+        toast.success("Updated Name!");
         checkProfileImage();
-        setTimeout(() => location.reload(), [1000]);
+        setTimeout(() => location.reload(), [500]);
       } else if (response?.status === 404) {
         toast.error(output.message);
       }
@@ -324,7 +332,7 @@ const page = () => {
               {/* User Details */}
               <div className="w-full flex flex-col gap-4">
                 {/* Name Section */}
-                <div className="flex items-center w-[20%] gap-5">
+                <div className="flex items-center w-[20%] xl:w-full gap-5">
                   <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
                     {userData?.name}
                   </h2>
@@ -363,7 +371,7 @@ const page = () => {
 
             {/* Modals */}
             {(showPhotoModal || showNameModal || showPasswordModal) && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
                 <div className="bg-white w-11/12 sm:w-1/3 rounded-lg shadow-lg p-6 flex flex-col gap-4">
                   {/* Close Button */}
                   <button
@@ -417,11 +425,17 @@ const page = () => {
                                         className="h-32 object-cover rounded-md mb-2"
                                         loading="lazy"
                                       />
-                                      <button
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit"
-                                        onClick={uploadPhotoHanlder}>
-                                        Upload Photo
-                                      </button>
+                                      {loading ? (
+                                        <div className="w-full h-[150px] flex items-center justify-center mx-auto">
+                                          <Spinner />
+                                        </div>
+                                      ) : (
+                                        <button
+                                          className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit"
+                                          onClick={uploadPhotoHanlder}>
+                                          Upload Photo
+                                        </button>
+                                      )}
                                     </>
                                   ) : (
                                     <p>Click to choose an image</p>
@@ -470,137 +484,145 @@ const page = () => {
                       <h2 className="text-xl font-semibold text-gray-800">
                         Update Name
                       </h2>
-                      <input
-                        type="text"
-                        placeholder="Enter new name"
-                        value={newName}
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                        onChange={(e) => setNewName(e.target.value)}
-                        required
-                      />
-                      <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                        onClick={nameHandler}>
-                        {loading ? "Updating..." : "Update Name"}
-                      </button>
-                    </div>
-                  )}
-
-                  {/* Password Modal Content */}
-                  {showPasswordModal && (
-                    <div>
                       {loading ? (
                         <div className="w-full h-[150px] flex items-center justify-center mx-auto">
                           <Spinner />
                         </div>
                       ) : (
                         <>
-                          <h2 className="text-xl font-semibold text-gray-800">
-                            Update Password
-                          </h2>
-                          <form onSubmit={updatePasswordHandler}>
-                            <div className="relative">
-                              <input
-                                type={
-                                  isPasswordVisible.oldPassword
-                                    ? "text"
-                                    : "password"
-                                }
-                                name="oldPassword"
-                                placeholder="Old Password"
-                                value={passwordState.oldPassword}
-                                className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                                onChange={passwordChangeHandler}
-                                required
-                              />
-                              {isPasswordVisible.oldPassword ? (
-                                <FaEyeSlash
-                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                                  onClick={() =>
-                                    passwordTypeHandler("oldPassword")
-                                  }
-                                />
-                              ) : (
-                                <FaEye
-                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                                  onClick={() =>
-                                    passwordTypeHandler("oldPassword")
-                                  }
-                                />
-                              )}
-                            </div>
-                            <div className="relative">
-                              <input
-                                type={
-                                  isPasswordVisible.newPassword
-                                    ? "text"
-                                    : "password"
-                                }
-                                name="newPassword"
-                                placeholder="New Password"
-                                value={passwordState.newPassword}
-                                className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                                onChange={passwordChangeHandler}
-                                required
-                              />
-                              {isPasswordVisible.newPassword ? (
-                                <FaEyeSlash
-                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                                  onClick={() =>
-                                    passwordTypeHandler("newPassword")
-                                  }
-                                />
-                              ) : (
-                                <FaEye
-                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                                  onClick={() =>
-                                    passwordTypeHandler("newPassword")
-                                  }
-                                />
-                              )}
-                            </div>
-                            <div className="relative">
-                              <input
-                                type={
-                                  isPasswordVisible.confirmNewPassword
-                                    ? "text"
-                                    : "password"
-                                }
-                                name="confirmNewPassword"
-                                placeholder="Confirm Password"
-                                value={passwordState.confirmNewPassword}
-                                className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                                onChange={passwordChangeHandler}
-                                required
-                              />
-                              {isPasswordVisible.confirmNewPassword ? (
-                                <FaEyeSlash
-                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                                  onClick={() =>
-                                    passwordTypeHandler("confirmNewPassword")
-                                  }
-                                />
-                              ) : (
-                                <FaEye
-                                  className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                                  onClick={() =>
-                                    passwordTypeHandler("confirmNewPassword")
-                                  }
-                                />
-                              )}
-                            </div>
-                            {warning && (
-                              <div className="text-red-500">
-                                Passwords doesn't match
-                              </div>
-                            )}
-                            <button
-                              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                              type="submit">
-                              Update Password
-                            </button>
-                          </form>
+                          <input
+                            type="text"
+                            placeholder="Enter new name"
+                            value={newName}
+                            className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                            onChange={(e) => setNewName(e.target.value)}
+                            required
+                          />
+                          <button
+                            className={`bg-blue-500 text-white px-4 py-2 rounded-md mt-4 ${
+                              loading &&
+                              "pointer-events-none cursor-not-allowed"
+                            }`}>
+                            {loading ? "Updating..." : "Update Name"}
+                          </button>
                         </>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Password Modal Content */}
+                  {showPasswordModal && (
+                    <div>
+                      <h2 className="text-xl font-semibold text-gray-800">
+                        Update Password
+                      </h2>
+                      {loading ? (
+                        <div className="w-full h-[150px] flex items-center justify-center mx-auto">
+                          <Spinner />
+                        </div>
+                      ) : (
+                        <form onSubmit={updatePasswordHandler}>
+                          <div className="relative">
+                            <input
+                              type={
+                                isPasswordVisible.oldPassword
+                                  ? "text"
+                                  : "password"
+                              }
+                              name="oldPassword"
+                              placeholder="Old Password"
+                              value={passwordState.oldPassword}
+                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                              onChange={passwordChangeHandler}
+                              required
+                            />
+                            {isPasswordVisible.oldPassword ? (
+                              <FaEyeSlash
+                                className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                onClick={() =>
+                                  passwordTypeHandler("oldPassword")
+                                }
+                              />
+                            ) : (
+                              <FaEye
+                                className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                onClick={() =>
+                                  passwordTypeHandler("oldPassword")
+                                }
+                              />
+                            )}
+                          </div>
+                          <div className="relative">
+                            <input
+                              type={
+                                isPasswordVisible.newPassword
+                                  ? "text"
+                                  : "password"
+                              }
+                              name="newPassword"
+                              placeholder="New Password"
+                              value={passwordState.newPassword}
+                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                              onChange={passwordChangeHandler}
+                              required
+                            />
+                            {isPasswordVisible.newPassword ? (
+                              <FaEyeSlash
+                                className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                onClick={() =>
+                                  passwordTypeHandler("newPassword")
+                                }
+                              />
+                            ) : (
+                              <FaEye
+                                className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                onClick={() =>
+                                  passwordTypeHandler("newPassword")
+                                }
+                              />
+                            )}
+                          </div>
+                          <div className="relative">
+                            <input
+                              type={
+                                isPasswordVisible.confirmNewPassword
+                                  ? "text"
+                                  : "password"
+                              }
+                              name="confirmNewPassword"
+                              placeholder="Confirm Password"
+                              value={passwordState.confirmNewPassword}
+                              className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                              onChange={passwordChangeHandler}
+                              required
+                            />
+                            {isPasswordVisible.confirmNewPassword ? (
+                              <FaEyeSlash
+                                className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                onClick={() =>
+                                  passwordTypeHandler("confirmNewPassword")
+                                }
+                              />
+                            ) : (
+                              <FaEye
+                                className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                                onClick={() =>
+                                  passwordTypeHandler("confirmNewPassword")
+                                }
+                              />
+                            )}
+                          </div>
+                          {warning && (
+                            <div className="text-red-500">
+                              Passwords doesn't match
+                            </div>
+                          )}
+                          <button
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                            type="submit">
+                            Update Password
+                          </button>
+                        </form>
                       )}
                     </div>
                   )}

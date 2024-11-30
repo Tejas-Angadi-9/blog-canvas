@@ -34,8 +34,8 @@ const AuthPage = () => {
 
   const signupSubmitHandler = (e) => {
     e.preventDefault();
-    if (formData.password != formData.confirmPassword) {
-      setErrorMessage("Passwords doesn't match");
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage("Passwords don't match");
       return;
     }
     postSignupData(formData);
@@ -47,12 +47,6 @@ const AuthPage = () => {
   };
 
   const postSignupData = async (formData) => {
-    const requestData = {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      confirmPassword: formData.confirmPassword,
-    };
     try {
       const toastId = toast.loading("Loading...");
       const response = await fetch(
@@ -60,71 +54,58 @@ const AuthPage = () => {
         {
           method: "POST",
           headers: {
-            Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(requestData),
+          body: JSON.stringify(formData),
         },
       );
       const output = await response.json();
       if (response.status === 200) {
-        toast.success("Verification E-mail sent. Please check your email");
+        // toast.success("Verification E-mail sent. Please check your email");
         setOpenModal(true);
-      }
-      if (response.status >= 400 && response.status <= 404) {
-        toast.error(output.message);
-      }
-      toast.dismiss(toastId);
-    } catch (err) {
-      console.log("Failed to post sign-up details");
-      console.error(err.message);
-    }
-  };
-
-  const postLoginData = async (formData) => {
-    try {
-      const toastId = toast.loading("Logging in...");
-
-      const requestBody = {
-        email: formData.email,
-        password: formData.password,
-      };
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/login`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        },
-      );
-
-      if (response.status === 500) {
-        toast.error("Internal server error while logging in...");
-      } else if (response.status === 403) {
-        toast.error("Bad Credentials");
-      } else if (response.status === 404) {
-        toast.error("User not found");
-      } else if (response.status === 200) {
-        const output = await response.json();
-        toast.success("Logged In successfully!");
-        setIsUserLoggedIn(true);
-        const userData = JSON.stringify(output);
-        localStorage.setItem("UserData", userData);
-        window.location.href = "/";
+      } else {
+        toast.error(output.message || "Signup failed");
       }
       toast.dismiss(toastId);
     } catch (err) {
-      console.log("Server issue during logging in! ", err.message);
+      console.error("Error during signup", err);
     }
   };
 
   const loginSubmitHandler = (e) => {
     e.preventDefault();
     postLoginData(formData);
+  };
+
+  const postLoginData = async (formData) => {
+    try {
+      const toastId = toast.loading("Logging in...");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        },
+      );
+      if (response.ok) {
+        const output = await response.json();
+        toast.success("You’re logged in!");
+        setIsUserLoggedIn(true);
+        localStorage.setItem("UserData", JSON.stringify(output));
+        router.push("/");
+      } else {
+        toast.error("Login failed");
+      }
+      toast.dismiss(toastId);
+    } catch (err) {
+      console.error("Login error:", err);
+    }
   };
 
   return (
@@ -158,11 +139,7 @@ const AuthPage = () => {
         </div>
       </div>
       {openModal && (
-        <Modal
-          handleLoginAfterSignup={handleLoginAfterSignup}
-          type="signup"
-          postSignupData={postSignupData}
-        />
+        <Modal handleLoginAfterSignup={handleLoginAfterSignup} type="signup" />
       )}
     </div>
   );

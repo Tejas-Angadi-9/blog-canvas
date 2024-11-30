@@ -183,14 +183,22 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
           </div>
           <div className="flex items-center justify-start gap-5">
             <button
-              className="mt-5 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95"
+              className={`mt-5 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95 ${
+                isLoading && "pointer-events-none"
+              }`}
               type="submit"
               disabled={isLoading}>
               {isLoading ? "Updating Blog..." : "Update Blog"}
             </button>
             <button
-              className="mt-5 w-fit text-black border-2 px-4 py-2 rounded-md shadow-md transition duration-200 hover:scale-95"
-              onClick={() => setIsEditModalOpen((prev) => !prev)}>
+              className={`mt-5 w-fit text-black border-2 px-4 py-2 rounded-md shadow-md transition duration-200 hover:scale-95${
+                isLoading && "pointer-events-none cursor-not-allowed disabled"
+              }`}
+              onClick={() => {
+                if (!isLoading) {
+                  setIsEditModalOpen((prev) => !prev);
+                }
+              }}>
               Cancel
             </button>
           </div>

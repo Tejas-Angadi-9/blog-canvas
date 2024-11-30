@@ -4,6 +4,7 @@ import Blogs from "@/components/Blogs";
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "@/components/common/Loading";
+import { GoPerson } from "react-icons/go";
 
 const BlogsPage = () => {
   const { allBlogsData } = useAuth();
@@ -70,7 +71,7 @@ const BlogsPage = () => {
                   {blog?.title}
                 </h1>
                 <div className="flex items-center justify-center gap-2 xl:gap-4">
-                  {blog?.userData?.profileImage && (
+                  {blog?.userData?.profileImage ? (
                     <img
                       // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       src={blog?.userData?.profileImage}
@@ -80,11 +81,15 @@ const BlogsPage = () => {
                       className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
                       loading="lazy"
                     />
+                  ) : (
+                    <div className="border-2 rounded-full p-2">
+                      <GoPerson className="text-[20px]" />
+                    </div>
                   )}
                   {/* Author name */}
                   <p className="text-[11px] xl:text-lg font-semibold ">
                     {/* Sarah Thompson */}
-                    {blog?.userData?.name}
+                    {blog?.userData?.name || "BlogCanvas User"}
                   </p>
                   <p className=" text-[11px] xl:text-lg">{formattedDate}</p>
                 </div>

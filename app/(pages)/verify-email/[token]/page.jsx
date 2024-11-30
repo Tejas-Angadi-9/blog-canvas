@@ -27,7 +27,7 @@ const VerifyEmail = ({ params }) => {
       );
       const output = await response.json();
       if (response.ok) {
-        toast.success("Email verified successfully! Redirecting...");
+        toast.success("Email verified successfully! Redirecting to login...");
         setTimeout(() => {
           window.location.href = "/auth";
         }, 2000); // Add slight delay

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useAuth } from "@/app/contexts/AuthContext";
 
 import Loading from "./common/Loading";
+import { GoPerson } from "react-icons/go";
 
 const HeroSection = () => {
   const { allBlogsData } = useAuth();
@@ -79,7 +80,7 @@ const HeroSection = () => {
                   {/* Author image, name and date of blog published */}
                   <div className="flex gap-2 items-center justify-between">
                     <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
-                      {blog?.userData?.profileImage && (
+                      {blog?.userData?.profileImage ? (
                         <img
                           // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                           src={blog?.userData?.profileImage}
@@ -89,6 +90,10 @@ const HeroSection = () => {
                           className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
                           loading="lazy"
                         />
+                      ) : (
+                        <div className="border-2 rounded-full p-2">
+                          <GoPerson className="text-[20px]" />
+                        </div>
                       )}
                       {/* Author name */}
                       <p className="text-[9px] xl:text-lg font-semibold">
