@@ -67,7 +67,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
       } else if (response?.status === 404) {
         // toast.error(`Error: ${output.message || "Unable to create blog"}`);
         localStorage.removeItem("UserData");
-        toast.error("Session Expired, Please login again");
+        toast.error("Session expired Please log in again");
         router.push("/auth");
         return;
       }

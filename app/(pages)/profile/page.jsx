@@ -160,14 +160,14 @@ const page = () => {
           window.location.reload();
         }, [500]);
       } else if (response.status === 404) {
-        toast.error("Can't remove the photo, Please try again!");
+        toast.error("Unable to remove photo please try again");
       }
     } catch (err) {
       console.log(
         "Internal server issue while removing the photo: ",
         err.message,
       );
-      toast.error("Error while removing the profile photo");
+      toast.error("Failed to remove profile photo try again");
     } finally {
       setLoading(false);
     }
@@ -206,7 +206,7 @@ const page = () => {
           window.location.reload();
         }, [500]);
       } else if (response.status === 404 || response.status === 400) {
-        toast.error(output.message);
+        toast.error("Unable to update password");
       }
       setWarning(false);
     } catch (err) {
@@ -268,7 +268,7 @@ const page = () => {
         checkProfileImage();
         setTimeout(() => location.reload(), [500]);
       } else if (response?.status === 404) {
-        toast.error(output.message);
+        toast.error("Unable to update name");
       }
     } catch (error) {
       toast.error(`Error: ${error.message || "Something went wrong"}`);

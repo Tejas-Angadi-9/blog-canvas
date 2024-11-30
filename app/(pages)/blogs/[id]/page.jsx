@@ -152,7 +152,7 @@ const Blog = ({ params }) => {
         toast.success("Blog Deleted");
         router.push("/blogs");
       } else if (!response.ok) {
-        toast.error("Server Error, Please try again");
+        toast.error("Server error please try again later");
       }
     } catch (err) {
       console.log("Error occured during deleting the blog: ", err.message);
