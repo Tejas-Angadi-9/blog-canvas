@@ -8,7 +8,7 @@ import { GoPerson } from "react-icons/go";
 const HeroSection = () => {
   const { allBlogsData } = useAuth();
   const blogs = allBlogsData?.blogs;
-  const blogLength = allBlogsData?.blogs.length;
+  const blogLength = allBlogsData?.blogs?.length;
   const getRandomIndex = (blogLength) => {
     if (allBlogsData) {
       if (blogLength === 0) return null;

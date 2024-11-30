@@ -18,7 +18,7 @@ const VerifyEmail = ({ params }) => {
     setIsLoading(true); // Show loading state
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/verify-email`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/verify-email`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

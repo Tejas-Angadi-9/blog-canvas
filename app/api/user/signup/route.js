@@ -39,7 +39,7 @@ export const POST = async (req) => {
         const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: tokenExpiresAt });
 
         const transporter = createTransporter();
-        const verificationLink = `http://localhost:3000/verify-email/${jwtToken}`;
+        const verificationLink = `${NEXT_PUBLIC_URL}/verify-email/${jwtToken}`;
         const mailOptions = getMailOptions(email, name, verificationLink);
         await transporter.sendMail(mailOptions)
 

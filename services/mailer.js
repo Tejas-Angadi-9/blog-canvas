@@ -1,22 +1,22 @@
 import nodemailer from "nodemailer";
 
 export const createTransporter = () => {
-    return nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD,
-        },
-    });
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
 };
 
 export const getMailOptions = (email, name, verificationLink) => {
-    return {
-        from: `BlogCanvas ${process.env.EMAIL}`,
-        to: email,
-        subject: "Welcome to BlogCanvas - Verify Your Email",
-        text: "Account Verification",
-        html: `
+  return {
+    from: `BlogCanvas ${process.env.EMAIL}`,
+    to: email,
+    subject: "Welcome to BlogCanvas - Verify Your Email",
+    text: "Account Verification",
+    html: `
           <!DOCTYPE html>
           <html>
           <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f9;">
@@ -41,12 +41,12 @@ export const getMailOptions = (email, name, verificationLink) => {
               <div style="text-align: center; padding: 10px; background-color: #f4f4f9; color: #888888; font-size: 14px;">
                 <p>&copy; ${new Date().getFullYear()} BlogCanvas.</p>
                 <p>
-                  <a href="http://localhost:3000/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
+                  <a href="${NEXT_PUBLIC_URL}/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
                 </p>
               </div>
             </div>
           </body>
           </html>
         `,
-    };
+  };
 };

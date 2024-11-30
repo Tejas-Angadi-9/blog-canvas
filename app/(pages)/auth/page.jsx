@@ -50,7 +50,7 @@ const AuthPage = () => {
     try {
       const toastId = toast.loading("Loading...");
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/signup`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/signup`,
         {
           method: "POST",
           headers: {
@@ -81,7 +81,7 @@ const AuthPage = () => {
     try {
       const toastId = toast.loading("Logging in...");
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/login`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/login`,
         {
           method: "POST",
           headers: {
@@ -98,7 +98,7 @@ const AuthPage = () => {
         toast.success("You’re logged in!");
         setIsUserLoggedIn(true);
         localStorage.setItem("UserData", JSON.stringify(output));
-        router.push("/");
+        window.location.href = "/";
       } else {
         toast.error("Login failed");
       }

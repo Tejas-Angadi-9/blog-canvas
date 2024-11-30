@@ -1,5 +1,3 @@
-// We get the email as the request body. I need to first validate it and check if the user exists or not. After that I need to generate a JWT token, Store this JWT token in the Db and set expiration for 10 mins, Send the mail to the user with the UI link (http://localhost:3000/jwtToken). After opening pick the url and split it and verify the jwtToken from the url with the DB. If same, then allow the user to input the Password and confirmNewPassword. Do the validation, check if both passwords matches, then hash the password and update the DB for password and at the end send the mail to the user, about it.
-
 import connectToDB from "@/config/database";
 import User from "@/models/User";
 import Verification from "@/models/Verification";
@@ -43,7 +41,7 @@ export const POST = async (req) => {
 
         // await exisitingUser.save();
 
-        const verificationLink = `http://localhost:3000/verify-email/${verificationToken}`;
+        const verificationLink = `${process.env.NEXT_PUBLIC_URL}/api/verify-email/${verificationToken}`;
 
         // Send the mail to the user with a url along with this validation token at the end
         const transporter = createTransporter();
@@ -78,7 +76,7 @@ export const POST = async (req) => {
                   <div style="text-align: center; padding: 10px; background-color: #f4f4f9; color: #888888; font-size: 14px;">
                     <p>&copy; ${new Date().getFullYear()} BlogCanvas.</p>
                     <p>
-                      <a href="http://localhost:3000/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
+                      <a href="${NEXT_PUBLIC_URL}/about" style="color: #4a90e2; text-decoration: none;">Contact Us</a>
                     </p>
                   </div>
                 </div>

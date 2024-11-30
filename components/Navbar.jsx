@@ -27,7 +27,7 @@ const Navbar = () => {
   const logoutHandler = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/logout`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/logout`,
         {
           method: "POST",
         },
@@ -55,7 +55,7 @@ const Navbar = () => {
 
   const getEachUserDetails = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
       const output = await response.json();
 
       setUserData(output?.userData);
@@ -98,7 +98,7 @@ const Navbar = () => {
               </button>
               {openDropdown && (
                 <div
-                  className={`absolute top-12 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2
+                  className={`absolute top-10 -left-10 w-[150px] h-fit bg-white border-2 flex-col items-start justify-between rounded-md px-2
                   }`}>
                   <div className="flex flex-col items-start justify-center z-10">
                     <Link

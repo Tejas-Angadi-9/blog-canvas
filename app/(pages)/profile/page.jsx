@@ -70,7 +70,7 @@ const page = () => {
       setLoading(true);
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/updateUser`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/updateUser`,
         { method: "PATCH", body: formData },
       );
 
@@ -100,7 +100,9 @@ const page = () => {
 
   const getCreatedandLikedBlogs = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user/blogs`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/user/blogs`,
+      );
       const output = await response.json();
       setCreatedBlogs(output?.userData?.createdBlogs);
       setLikedBlogs(output?.userData?.likedBlogs);
@@ -111,7 +113,7 @@ const page = () => {
 
   const getEachUserDetails = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
       const output = await response.json();
       setUserData(output?.userData);
       setNewName(output?.userData?.name);
@@ -123,7 +125,7 @@ const page = () => {
   const handleDeleteAccount = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/user`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`, {
         method: "DELETE",
       });
       const output = await response.json();
@@ -148,7 +150,7 @@ const page = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/removeProfileImage`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/removeProfileImage`,
         { method: "PATCH" },
       );
 
@@ -189,7 +191,7 @@ const page = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/updatePassword`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/updatePassword`,
         {
           method: "PATCH",
           body: JSON.stringify({
@@ -231,7 +233,7 @@ const page = () => {
   const checkProfileImage = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/checkProfilePhoto`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/checkProfilePhoto`,
         {
           method: "PATCH",
           body: JSON.stringify({
@@ -255,7 +257,7 @@ const page = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/updateUser`,
+        `${process.env.NEXT_PUBLIC_URL}/api/user/updateUser`,
         {
           method: "PATCH",
           body: formData,
@@ -332,7 +334,7 @@ const page = () => {
               {/* User Details */}
               <div className="w-full flex flex-col gap-4">
                 {/* Name Section */}
-                <div className="flex items-center w-[20%] xl:w-full gap-5">
+                <div className="flex items-center w-full gap-5">
                   <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
                     {userData?.name}
                   </h2>
@@ -696,7 +698,7 @@ const page = () => {
 
             {/* Delete Account Modal */}
             {showModal && (
-              <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 backdrop-blur-sm">
                 <div className="bg-white w-10/12 sm:w-1/3 rounded-xl shadow-lg p-8 relative">
                   {/* Close Button */}
                   <button
@@ -725,8 +727,8 @@ const page = () => {
                         </h2>
                         {/* Message */}
                         <p className="text-sm text-gray-600 text-center">
-                          Are you sure you want to delete your account? This
-                          action is permanent and cannot be undone.
+                          This action will permanently erase your personal data,
+                          but your created content will remain.
                         </p>
 
                         {/* Action Buttons */}

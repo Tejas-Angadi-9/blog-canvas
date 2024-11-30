@@ -54,7 +54,7 @@ const Blog = ({ params }) => {
   const getEachBlogData = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/blogs/${blogId}`,
       );
       const output = await response.json();
       setBlogData(output?.blog);
@@ -88,7 +88,7 @@ const Blog = ({ params }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}/likeBlog`,
+        `${process.env.NEXT_PUBLIC_URL}/api/blogs/${blogId}/likeBlog`,
         {
           method: "POST",
         },
@@ -114,7 +114,7 @@ const Blog = ({ params }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}/unlikeBlog`,
+        `${process.env.NEXT_PUBLIC_URL}/api/blogs/${blogId}/unlikeBlog`,
         {
           method: "POST",
         },
@@ -142,7 +142,7 @@ const Blog = ({ params }) => {
   const confirmedDelete = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/blogs/${blogId}`,
         {
           method: "DELETE",
         },

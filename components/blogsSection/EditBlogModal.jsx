@@ -48,7 +48,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/blogs/${blogId}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/blogs/${blogId}`,
         {
           method: "PATCH",
           body: formData,
