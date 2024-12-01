@@ -205,7 +205,7 @@ const Blog = ({ params }) => {
                 (isEditModalOpen && setIsEditModalOpen(false));
             }}>
             <section className="xl:flex flex-col items-start justify-start xl:pr-10 w-full xl:border-r-2 rounded-s-lg gap-4 xl:gap-5">
-              <section className="flex flex-col xl:p-5 justify-center item w-full">
+              <section className="flex flex-col xl:p-5 p-2 justify-center item w-full">
                 <div className="flex w-full justify-between items-center">
                   <TagButton text={blogData?.tag} />
                   <button
