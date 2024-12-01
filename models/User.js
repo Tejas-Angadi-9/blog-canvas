@@ -30,9 +30,9 @@ const userSchema = new Schema({
   likedBlogs: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Blog",
-    
+
   }]
 });
 
-const User = models.User || model("User", userSchema);
+const User = model("User", userSchema);
 export default User;

@@ -31,5 +31,5 @@ const blogSchema = new Schema({
   }]
 });
 
-const Blog = models.Blog || model("Blog", blogSchema);
+const Blog = model("Blog", blogSchema);
 export default Blog;
