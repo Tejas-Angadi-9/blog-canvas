@@ -99,6 +99,13 @@ const AuthPage = () => {
         setIsUserLoggedIn(true);
         localStorage.setItem("UserData", JSON.stringify(output));
         window.location.href = "/";
+        return;
+      } else if (response.status === 404) {
+        toast.error("User not found!");
+        return;
+      } else if (response.status === 403) {
+        toast.error("Bad credentials");
+        return;
       } else {
         toast.error("Login failed");
       }
