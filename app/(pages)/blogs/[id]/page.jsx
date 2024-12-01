@@ -251,7 +251,7 @@ const Blog = ({ params }) => {
                       )}
                     </div>
                     <div className="flex flex-row justify-between gap-5">
-                      <p className="text-[12px] xl:text-lg font-semibold">
+                      <p className="text-[12px] xl:text-lg">
                         {userData?.name || "BlogCanvas User"}
                       </p>
                       <p className="text-slate-500 text-[12px] xl:text-lg">

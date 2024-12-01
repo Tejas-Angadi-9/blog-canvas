@@ -65,7 +65,7 @@ const BlogsPage = () => {
                   {blog?.tag}
                 </h4>
                 {/* Blog Title in bold */}
-                <h1 className="text-[16px] font-medium xl:text-[24px] xl:font-semibold text-white w-full">
+                <h1 className="text-[14px] font-medium xl:text-[24px] xl:font-semibold text-white w-full">
                   {/* Serenity by the Snowy Peaks: Exploring the Beauty of a Mountain
               Lake */}
                   {blog?.title}

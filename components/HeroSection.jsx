@@ -71,7 +71,7 @@ const HeroSection = () => {
                       {blog?.tag}
                     </h4>
                     {/* Blog Title in bold */}
-                    <h1 className="text-[16px] font-medium xl:text-[24px] xl:font-semibold">
+                    <h1 className="text-[14px] font-medium xl:text-[24px] xl:font-semibold">
                       {/* The Impact of Technology on the Workplace: How Technology is
               Changing */}
                       {blog?.title}
