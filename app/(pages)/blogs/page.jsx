@@ -35,7 +35,7 @@ const BlogsPage = () => {
   });
 
   return (
-    <div className="flex flex-col gap-12 p-5 xl:px-20 xl:py-10 items-center justify-center mx-auto">
+    <div className="flex flex-col gap-12 p-5 xl:px-20 xl:py-10 items-center justify-center mx-auto mb-10">
       <div className="flex flex-col h-[250px] w-[90%] xl:h-[500px] relative cursor-pointer">
         {blogs ? (
           <Link href={`/blogs/${blog?._id}`}>
@@ -65,7 +65,7 @@ const BlogsPage = () => {
                   {blog?.tag}
                 </h4>
                 {/* Blog Title in bold */}
-                <h1 className="text-[14px] font-medium xl:text-[24px] xl:font-semibold text-white w-full">
+                <h1 className="text-[16px] font-medium xl:text-[24px] xl:font-semibold text-white w-full">
                   {/* Serenity by the Snowy Peaks: Exploring the Beauty of a Mountain
               Lake */}
                   {blog?.title}
@@ -76,9 +76,9 @@ const BlogsPage = () => {
                       // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       src={blog?.userData?.profileImage}
                       alt="userImage.png"
-                      width={40}
-                      height={40}
-                      className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
+                      width={36}
+                      height={36}
+                      className="w-9 h-9 object-cover xl:w-11 xl:h-11 rounded-full"
                       loading="lazy"
                     />
                   ) : (
@@ -87,11 +87,11 @@ const BlogsPage = () => {
                     </div>
                   )}
                   {/* Author name */}
-                  <p className="text-[11px] xl:text-lg font-semibold ">
+                  <p className="text-[12px] xl:text-lg">
                     {/* Sarah Thompson */}
                     {blog?.userData?.name || "BlogCanvas User"}
                   </p>
-                  <p className=" text-[11px] xl:text-lg">{formattedDate}</p>
+                  <p className="text-[12px] xl:text-lg">{formattedDate}</p>
                 </div>
               </div>
             </div>

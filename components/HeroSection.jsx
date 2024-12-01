@@ -66,12 +66,12 @@ const HeroSection = () => {
                 <div className="bg-[#E8E8EA] shadow-xl p-3 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20  xl:w-[500px] xl:h-fit xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0 w-[80%]">
                   <div className="flex flex-col items-start gap-2">
                     {/* Tag */}
-                    <h4 className="text-[9px] xl:text-[16px] w-fit px-2 py-1 xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
+                    <h4 className="text-[10px] xl:text-[16px] w-fit px-2 py-1 xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
                       {/* Technology */}
                       {blog?.tag}
                     </h4>
                     {/* Blog Title in bold */}
-                    <h1 className="text-[12px] font-medium xl:text-[24px] xl:font-semibold">
+                    <h1 className="text-[16px] font-medium xl:text-[24px] xl:font-semibold">
                       {/* The Impact of Technology on the Workplace: How Technology is
               Changing */}
                       {blog?.title}
@@ -96,7 +96,7 @@ const HeroSection = () => {
                         </div>
                       )}
                       {/* Author name */}
-                      <p className="text-[10px] xl:text-lg font-semibold">
+                      <p className="text-[10px] xl:text-lg">
                         {/* Jason Francisco */}
                         {blog?.userData?.name || "BlogCanvas User"}
                       </p>
