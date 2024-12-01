@@ -45,7 +45,7 @@ export const PATCH = async (req) => {
             const buffer = Buffer.from(await profileImage.arrayBuffer());
             // Directly upload the image to Cloudinary
             const imageUploadResult = await cloudinaryUploader(buffer, "Blog-Canvas");
-
+            console.log("Image Upload Result: ", imageUploadResult)
             await existingUser.updateOne(
                 {
                     profileImage: imageUploadResult.secure_url,
