@@ -84,12 +84,13 @@ export const POST = async (req) => {
         else {
             // If blog image is found then save the image to the local server with a path and then upload it to cloudinary
             const buffer = Buffer.from(await blogImage.arrayBuffer());
-            const uploadPath = path.join(process.cwd(), 'image-uploads', blogImage.name);
-            await fs.writeFile(uploadPath, buffer);
-
-            const imageUploadResult = await cloudinaryUploader(uploadPath, "Blog-Canvas");
-
-            await fs.unlink(uploadPath, buffer);
+            const imageUploadResult = await cloudinaryUploader(buffer, "Blog-Canvas");
+            if (!imageUploadResult || !imageUploadResult.secure_url) {
+                return new Response(JSON.stringify({
+                    status: false,
+                    message: "Image upload failed",
+                }), { status: 400 });
+            }
             const blogData = {
                 title: title,
                 description: description,

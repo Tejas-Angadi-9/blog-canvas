@@ -43,24 +43,9 @@ export const PATCH = async (req) => {
         }
 
         if (profileImage) {
-            const cloudinaryUploaderr = async (buffer, folder) => {
-                return new Promise((resolve, reject) => {
-                    cloudinary.uploader.upload_stream(
-                        { folder },
-                        (error, result) => {
-                            if (error) {
-                                reject(error);
-                            } else {
-                                resolve(result);
-                            }
-                        }
-                    ).end(buffer); // Stream the buffer to Cloudinary
-                });
-            };
-
             const buffer = Buffer.from(await profileImage.arrayBuffer());
             // Directly upload the image to Cloudinary
-            const imageUploadResult = await cloudinaryUploaderr(buffer, "Blog-Canvas");
+            const imageUploadResult = await cloudinaryUploader(buffer, "Blog-Canvas");
             if (!imageUploadResult || !imageUploadResult.secure_url) {
                 return new Response(JSON.stringify({
                     status: false,

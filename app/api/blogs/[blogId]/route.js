@@ -132,13 +132,17 @@ export const PATCH = async (req, { params }) => {
             await existingBlog.updateOne({ tag: tag })
         }
         if (blogImage) {
-            const buffer = Buffer.from(await blogImage.arrayBuffer());
-            const uploadPath = path.join(process.cwd(), 'image-uploads', blogImage.name);
-            await fs.writeFile(uploadPath, buffer);
-
-            const imageUploadResult = await cloudinaryUploader(uploadPath, "Blog-Canvas");
+            const buffer = Buffer.from(await profileImage.arrayBuffer());
+            // Directly upload the image to Cloudinary
+            const imageUploadResult = await cloudinaryUploader(buffer, "Blog-Canvas");
+            if (!imageUploadResult || !imageUploadResult.secure_url) {
+                return new Response(JSON.stringify({
+                    status: false,
+                    message: "Image upload failed",
+                }), { status: 400 });
+            }
+            console.log("Image Upload Result: ", imageUploadResult)
             await existingBlog.updateOne({ blogImage: imageUploadResult.secure_url });
-            await fs.unlink(uploadPath, buffer);
         }
 
         const updatedBlogData = await Blog.findById(blogId);
