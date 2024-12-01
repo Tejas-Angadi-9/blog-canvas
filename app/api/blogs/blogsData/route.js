@@ -4,7 +4,7 @@ import Blog from "@/models/Blog"
 export const GET = async (req) => {
     try {
         const connectedToDb = await connectToDB();
-        if (!connectToDB) {
+        if (!connectedToDb) {
             return new Response(JSON.stringify({
                 status: false,
                 message: "Failed to connect to DB"

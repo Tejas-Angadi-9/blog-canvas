@@ -27,7 +27,6 @@ const blogSchema = new Schema({
   likedUsers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    default: []
   }]
 });
 

@@ -83,14 +83,6 @@ export const POST = async (req) => {
         }
         else {
             // If blog image is found then save the image to the local server with a path and then upload it to cloudinary
-            //! Check this repeated part.
-            if (!blogImage) {
-                return new Response(JSON.stringify({
-                    status: true,
-                    message: "Image file not found. Please try again"
-                }))
-            }
-
             const buffer = Buffer.from(await blogImage.arrayBuffer());
             const uploadPath = path.join(process.cwd(), 'image-uploads', blogImage.name);
             await fs.writeFile(uploadPath, buffer);
@@ -113,7 +105,6 @@ export const POST = async (req) => {
                 { new: true }
             )
 
-            
             return new Response(JSON.stringify({
                 status: true,
                 message: "Blog post created successfully!",
