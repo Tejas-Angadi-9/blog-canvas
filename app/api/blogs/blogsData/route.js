@@ -21,9 +21,15 @@ export const GET = async (req) => {
 
         return new Response(JSON.stringify({
             status: true,
-            message: "Fetched all the blogs",
-            allBlogs
-        }), { status: 200 })
+            message: "Blogs found",
+            totalBlogs: blogs.length,
+            blogs: allBlogs
+        }), {
+            status: 200,
+            headers: {
+                'Cache-Control': 'no-store', // Prevents caching
+            },
+        });
     }
     catch (err) {
         return new Response(JSON.stringify({

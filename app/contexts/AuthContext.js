@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     const getAllBlogs = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/blogs`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/blogs`, { method: "GET", cache: 'no-store' });
             const output = await response.json();
 
             if (output) setAllBlogsData(output);
