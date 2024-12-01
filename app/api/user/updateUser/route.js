@@ -3,6 +3,7 @@ import User from "@/models/User";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import cloudinaryUploader from "@/services/cloudinaryUploader";
+import { v2 as cloudinary } from "cloudinary";
 
 export const PATCH = async (req) => {
     const cookieStore = cookies();
