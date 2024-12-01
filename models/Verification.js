@@ -16,5 +16,5 @@ const verificationSchema = new Schema({
     }
 })
 
-const Verification = model("Verification", verificationSchema);
+const Verification = models.Verification || model("Verification", verificationSchema);
 export default Verification;
