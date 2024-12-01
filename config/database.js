@@ -1,21 +1,20 @@
 import mongoose from "mongoose";
 
-let isConnected = false;
 const connectToDB = async () => {
-  if (isConnected) {
-    return console.log("Already connected to DB")
+  if (mongoose.connection.readyState === 1) {
+    console.log("MongoDB already connected");
+    return;
   }
   try {
-    mongoose.connect(process.env.MONGODB_URI, {
-      dbName: "blog-canvas",
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 30000, // 30 seconds
     });
-    isConnected = true;
-    console.log("Connected to DB Successfully!");
+    console.log("Successfully connected to MongoDB");
   } catch (err) {
-    console.log(err);
-    process.exit(1);
+    console.error("Failed to connect to MongoDB:", err.message);
+    throw new Error("Database connection failed");
   }
 };
 
