@@ -63,15 +63,15 @@ const HeroSection = () => {
 
                 <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black to-transparent rounded-b-[10px]"></div>
                 {/* Blog title, tag and other stuff */}
-                <div className="bg-[#E8E8EA] shadow-xl p-2 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20  xl:w-[500px] xl:h-fit xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0">
+                <div className="bg-[#E8E8EA] shadow-xl p-3 xl:p-5 border-2 absolute -bottom-10 left-5 xl:-bottom-20  xl:w-[500px] xl:h-fit xl:m-10 rounded-xl flex flex-col gap-3 xl:gap-5 z-0 w-[80%]">
                   <div className="flex flex-col items-start gap-2">
                     {/* Tag */}
-                    <h4 className="text-[8px] xl:text-[16px] w-fit px-[5px] py-[2px] xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
+                    <h4 className="text-[9px] xl:text-[16px] w-fit px-2 py-1 xl:px-4 xl:py-2 bg-[#4B6BFB] inline text-white rounded-xl">
                       {/* Technology */}
                       {blog?.tag}
                     </h4>
                     {/* Blog Title in bold */}
-                    <h1 className="text-[11px] font-medium xl:text-[24px] xl:font-semibold">
+                    <h1 className="text-[12px] font-medium xl:text-[24px] xl:font-semibold">
                       {/* The Impact of Technology on the Workplace: How Technology is
               Changing */}
                       {blog?.title}
@@ -85,18 +85,18 @@ const HeroSection = () => {
                           // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                           src={blog?.userData?.profileImage}
                           alt="userImage.png"
-                          width={40}
-                          height={40}
-                          className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
+                          width={36}
+                          height={36}
+                          className="w-9 h-9 object-cover xl:w-11 xl:h-11 rounded-full"
                           loading="lazy"
                         />
                       ) : (
-                        <div className="border-2 rounded-full p-2">
+                        <div className="border-2 border-gray-300 rounded-full p-2">
                           <GoPerson className="text-[20px]" />
                         </div>
                       )}
                       {/* Author name */}
-                      <p className="text-[9px] xl:text-lg font-semibold">
+                      <p className="text-[10px] xl:text-lg font-semibold">
                         {/* Jason Francisco */}
                         {blog?.userData?.name || "BlogCanvas User"}
                       </p>

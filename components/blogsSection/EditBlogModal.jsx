@@ -130,7 +130,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Write your blog content here..."
                 value={blogData.description}
                 onChange={handleInputChange}
-                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light xl:font-normal"
+                className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light xl:font-normal"
               />
             </div>
 
@@ -184,7 +184,8 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
           <div className="flex items-center justify-start gap-5">
             <button
               className={`mt-5 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95 ${
-                isLoading && "pointer-events-none"
+                isLoading &&
+                "pointer-events-none bg-blue-400 cursor-not-allowed disabled"
               }`}
               type="submit"
               disabled={isLoading}>

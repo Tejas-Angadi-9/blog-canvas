@@ -89,8 +89,8 @@ const Navbar = () => {
                 <div className="flex gap-1 items-center justify-center">
                   <img
                     src={userData.profileImage}
-                    width={40}
-                    className="w-7 h-7 object-cover xl:w-11 xl:h-11 rounded-full"
+                    width={36}
+                    className="w-9 h-9 object-cover xl:w-11 xl:h-11 rounded-full"
                     loading="lazy"
                     alt="User Profile"
                   />

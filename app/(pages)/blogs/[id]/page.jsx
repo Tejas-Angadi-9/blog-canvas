@@ -170,7 +170,7 @@ const Blog = ({ params }) => {
         <div className="flex flex-col w-full xl:flex-row relative items-center justify-center">
           {/* This section contains the image and the blog description */}
           {isDeleteModalOpen && (
-            <div className="flex items-center fixed z-10 top-[5%] left-0 justify-center w-full h-screen">
+            <div className="flex items-center fixed z-10 top-[5%] left-0 justify-center w-full h-screen gap-10 xl:gap-0">
               {/* This section will be blurred when the modal is open */}
               <Modal
                 type="deleteBlog"
@@ -339,19 +339,17 @@ const Blog = ({ params }) => {
                     {isUserLoggedIn && canEditAndDelete && (
                       <div className="w-[90%] flex items-center justify-start gap-5 xl:pt-10 h-full mt-5">
                         <button
-                          className="flex border-2 border-slate-500 items-center justify-center text-[12px] xl:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"
+                          className="flex border-2 border-gray-300 items-center justify-center text-[12px] xl:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"
                           onClick={() => {
                             setIsEditModalOpen((prev) => !prev);
                             window.scrollTo(0, 0);
                           }}>
-                          <p>Edit Blog</p>
-                          <FaRegEdit className="text-[14px]" />
+                          <p>Edit</p>
                         </button>
                         <button
                           onClick={() => setIsDeleteModalOpen((prev) => !prev)}
                           className="flex items-center justify-center text-[12px] xl:text-[14px] p-1 w-fit px-4 py-2 rounded-md bg-red-500 text-white outline-none gap-2">
-                          <p>Delete blog</p>
-                          <MdDelete className="text-[16px]" />
+                          <p>Delete</p>
                         </button>
                       </div>
                     )}

@@ -8,7 +8,7 @@ export default function Home() {
   const { allBlogsData } = useAuth();
   const blogs = allBlogsData?.blogs;
   return (
-    <div className="xl:w-11/12 w-full h-100% flex flex-col mx-auto p-5 xl:p-10 gap-10 relative">
+    <div className="xl:w-11/12 w-full h-100% flex flex-col mx-auto p-5 xl:p-10 gap-10 relative mb-10">
       {!allBlogsData ? (
         <Loading />
       ) : blogs?.length === 0 ? (
@@ -21,7 +21,7 @@ export default function Home() {
             <HeroSection />
           </section>
           {/* 2nd Section where all blogs are displayed in grid */}
-          <section className="flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
+          <section className="flex flex-col gap-4 w-[95%] items-center justify-center mx-auto">
             <Blogs page="homePage" />
           </section>
         </>

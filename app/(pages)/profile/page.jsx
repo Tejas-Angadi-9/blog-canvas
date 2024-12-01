@@ -310,7 +310,7 @@ const page = () => {
             {/* Profile Info Section */}
             <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 sm:gap-16">
               {/* Profile Photo */}
-              <div className="flex flex-col items-center justify-center gap-4">
+              <div className="flex flex-col items-start justify-center gap-4 w-full xl:w-fit">
                 <div className="relative">
                   <img
                     src={userData?.profileImage}
@@ -457,7 +457,7 @@ const page = () => {
                               <h2 className="text-xl font-semibold text-gray-800">
                                 Update Profile Photo
                               </h2>
-                              <div className="flex items-center justify-start gap-2 mt-4">
+                              <div className="flex items-center justify-start gap-2 mt-4 text-[14px] xl:text-lg">
                                 <button
                                   className="bg-red-500 text-white px-4 py-2 rounded-md"
                                   onClick={removePhotoHandler}>

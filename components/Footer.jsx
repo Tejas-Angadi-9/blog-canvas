@@ -20,7 +20,7 @@ const Footer = () => {
             </span>
           </p>
         </div>
-        <div className="flex flex-col text-slate-600 gap-1 sm:gap-2">
+        <div className="flex flex-col text-slate-500 gap-1 sm:gap-2 text-[14px] xl:text-lg">
           <p id="contact">
             <b>Email:</b>{" "}
             <Link
@@ -45,9 +45,9 @@ const Footer = () => {
       <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-1">
         <p className="font-bold text-[14px] sm:text-[16px] xl:text-[18px]">
           <span className="font-normal">Blog</span>Canvas
-        </p>
-        <p className="text-[12px] sm:text-[14px] xl:text-[16px]">
-          © 2024 Tejas Angadi.
+          <span className="text-[12px] sm:text-[14px] xl:text-[16px] font-normal">
+            © 2024 Tejas Angadi.
+          </span>
         </p>
       </div>
     </div>

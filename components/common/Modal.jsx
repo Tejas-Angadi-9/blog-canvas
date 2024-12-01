@@ -18,14 +18,14 @@ const Modal = ({
             </p>
             <div className="flex gap-4">
               <button
-                className="bg-red-500 text-white py-2 px-4 rounded-md duration-300 transition-all hover:scale-95"
-                onClick={confirmedDelete}>
-                Delete
-              </button>
-              <button
                 className="text-black border-2 py-2 px-4 rounded-md duration-300 transition-all hover:scale-95"
                 onClick={() => setDeleteModalOpen((prev) => !prev)}>
                 Cancel
+              </button>
+              <button
+                className="bg-red-500 text-white py-2 px-4 rounded-md duration-300 transition-all hover:scale-95"
+                onClick={confirmedDelete}>
+                Delete
               </button>
             </div>
           </>
