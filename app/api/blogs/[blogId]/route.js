@@ -132,7 +132,7 @@ export const PATCH = async (req, { params }) => {
             await existingBlog.updateOne({ tag: tag })
         }
         if (blogImage) {
-            const buffer = Buffer.from(await profileImage.arrayBuffer());
+            const buffer = Buffer.from(await blogImage.arrayBuffer());
             // Directly upload the image to Cloudinary
             const imageUploadResult = await cloudinaryUploader(buffer, "Blog-Canvas");
             if (!imageUploadResult || !imageUploadResult.secure_url) {
