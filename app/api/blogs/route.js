@@ -1,5 +1,5 @@
-import Blog from "@/models/Blog"
 import connectToDB from "@/config/database";
+import Blog from "@/models/Blog";
 import User from "@/models/User";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
@@ -8,20 +8,27 @@ import { cookies } from "next/headers";
 export const GET = async (req) => {
     try {
         await connectToDB();
-        const blogs = await Blog.find({}).populate("userData").exec();
-        if (blogs.length === 0) {
-            return new Response(JSON.stringify({
-                status: false,
-                message: 'No blogs found'
-            }), { status: 404 })
-        }
+        console.log("Connected to database:", process.env.MONGODB_URI);
+        const blogs = await Blog.find()
+            .populate("userData").exec();
+        // if (blogs.length === 0) {
+        //     return new Response(JSON.stringify({
+        //         status: false,
+        //         message: 'No blogs found'
+        //     }), { status: 200 })
+        // }
 
         return new Response(JSON.stringify({
             status: true,
             message: 'Blogs found',
             totalBlogs: blogs.length,
             blogs
-        }))
+        }), {
+            status: 200,
+            headers: {
+                'Cache-Control': 'no-store',
+            },
+        });
     }
     catch (err) {
         return new Response(JSON.stringify({
