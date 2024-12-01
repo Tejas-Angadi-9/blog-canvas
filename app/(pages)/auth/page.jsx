@@ -79,7 +79,7 @@ const AuthPage = () => {
 
   const postLoginData = async (formData) => {
     try {
-      const toastId = toast.loading("Logging in...");
+      var toastId = toast.loading("Logging in...");
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/user/login`,
         {
@@ -94,6 +94,7 @@ const AuthPage = () => {
         },
       );
       if (response.ok) {
+        toast(toastId);
         const output = await response.json();
         toast.success("You’re logged in!");
         setIsUserLoggedIn(true);
@@ -109,9 +110,10 @@ const AuthPage = () => {
       } else {
         toast.error("Login failed");
       }
-      toast.dismiss(toastId);
     } catch (err) {
       console.error("Login error:", err);
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 
