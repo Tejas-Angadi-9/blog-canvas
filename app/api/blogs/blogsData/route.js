@@ -22,7 +22,7 @@ export const GET = async (req) => {
         return new Response(JSON.stringify({
             status: true,
             message: "Blogs found",
-            totalBlogs: blogs.length,
+            totalBlogs: allBlogs.length,
             blogs: allBlogs
         }), {
             status: 200,
