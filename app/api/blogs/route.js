@@ -9,7 +9,7 @@ export const GET = async (req) => {
     try {
         await connectToDB();
         console.log("Connected to database:", process.env.MONGODB_URI);
-        const blogs = await Blog.find()
+        const blogs = await Blog.find({})
             .populate("userData").exec();
         // if (blogs.length === 0) {
         //     return new Response(JSON.stringify({
