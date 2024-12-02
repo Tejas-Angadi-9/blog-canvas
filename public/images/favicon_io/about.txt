@@ -1,6 +1,6 @@
 This favicon was generated using the following font:
 
-- Font Title: Poppins
+- Font Title: Leckerli One
 - Font Author: undefined
-- Font Source: https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf
+- Font Source: https://fonts.gstatic.com/s/leckerlione/v20/V8mCoQH8VCsNttEnxnGQ-1itLZxcBtItFw.ttf
 - Font License: undefined)

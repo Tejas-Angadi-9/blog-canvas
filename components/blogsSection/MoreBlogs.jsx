@@ -59,7 +59,7 @@ const MoreBlogs = ({ text }) => {
                 <div className="flex w-full h-fit gap-5" key={blog._id}>
                   <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between mx-auto w-full flex xl:gap-10 gap-5 cursor-pointer py-2 pb-6">
                     {/* Image */}
-                    <div className="flex lg:w-[40%] xl:w-[50%] h-[120px] relative">
+                    <div className="flex w-[50%] h-[120px] relative">
                       {blog?.blogImage ? (
                         <Image
                           // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -84,7 +84,7 @@ const MoreBlogs = ({ text }) => {
                       {/* Tag and paragraph */}
                       <div className="flex flex-col w-full">
                         {/* Author image, title and date */}
-                        <h3 className="font-semibold text-[13px] xl:text-[16px]">
+                        <h3 className="font-semibold text-[12px] xl:text-[16px]">
                           {blog?.title}
                           {/* The Impact of Technology on the Workplace: How Technology is Changing */}
                         </h3>
@@ -98,9 +98,9 @@ const MoreBlogs = ({ text }) => {
                             <img
                               src={`${userData?.profileImage}`}
                               alt=""
-                              width={20}
-                              height={20}
-                              className="w-6 h-6 xl:w-8 xl:h-8 rounded-full"
+                              // width={20}
+                              // height={20}
+                              className="w-9 h-9 xl:w-11 xl:h-11 object-cover rounded-full"
                               loading="lazy"
                             />
                           ) : (
