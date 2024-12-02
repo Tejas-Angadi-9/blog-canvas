@@ -25,14 +25,14 @@ const Blogs = ({ text = "", blogsProp }) => {
   return (
     <>
       {/* Heading */}
-      <div className="font-bold text-[28px] xl:block text-center flex items-center w-full justify-center xl:text-[32px]">
+      <div className="font-bold text-[26px] xl:block text-center flex items-center w-full justify-center xl:text-[32px]">
         {text && text} Blogs
       </div>
 
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit xl:p-6 rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
+        className={`w-full h-fit rounded-xl gap-10 items-center flex flex-col overflow-x-hidden ${
           blogs && "xl:grid md:grid xl:grid-cols-3 md:grid-cols-2"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {blogs === null ? (
@@ -58,7 +58,7 @@ const Blogs = ({ text = "", blogsProp }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex w-full h-full gap-5 rounded-xl">
+                className="flex w-full h-full gap-5 rounded-xl mb-2">
                 <div
                   className="flex w-full h-full gap-5 rounded-xl px-3"
                   key={blog._id}>
@@ -102,9 +102,9 @@ const Blogs = ({ text = "", blogsProp }) => {
                           <img
                             src={`${userData?.profileImage}`}
                             alt=""
-                            width={40}
-                            height={40}
-                            className="w-6 h-6 xl:w-10 xl:h-10 rounded-full"
+                            width={36}
+                            height={36}
+                            className="w-9 h-9 object-cover rounded-full"
                             loading="lazy"
                           />
                         ) : (

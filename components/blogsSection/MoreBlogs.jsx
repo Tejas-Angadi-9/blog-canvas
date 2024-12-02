@@ -59,7 +59,7 @@ const MoreBlogs = ({ text }) => {
                 <div className="flex w-full h-fit gap-5" key={blog._id}>
                   <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between mx-auto w-full flex xl:gap-10 gap-5 cursor-pointer py-2 pb-6">
                     {/* Image */}
-                    <div className="flex w-[50%] h-[120px] relative">
+                    <div className="flex lg:w-[40%] xl:w-[50%] h-[120px] relative">
                       {blog?.blogImage ? (
                         <Image
                           // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -82,7 +82,7 @@ const MoreBlogs = ({ text }) => {
 
                     <div className="w-[50%] flex flex-col items-start justify-start mt-5 xl:mt-0">
                       {/* Tag and paragraph */}
-                      <div className="flex flex-col xl:w-[120%]">
+                      <div className="flex flex-col w-full">
                         {/* Author image, title and date */}
                         <h3 className="font-semibold text-[13px] xl:text-[16px]">
                           {blog?.title}

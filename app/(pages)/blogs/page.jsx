@@ -37,7 +37,7 @@ const BlogsPage = () => {
   return (
     <div className="flex flex-col gap-12 p-5 xl:px-20 xl:py-10 items-center justify-center mx-auto mb-10">
       <div className="flex flex-col h-[250px] w-[90%] xl:h-[500px] relative cursor-pointer">
-        {blogs ? (
+        {blog ? (
           <Link href={`/blogs/${blog?._id}`}>
             {blog?.blogImage ? (
               <Image
@@ -70,27 +70,29 @@ const BlogsPage = () => {
               Lake */}
                   {blog?.title}
                 </h1>
-                <div className="flex items-center justify-center gap-2 xl:gap-4">
-                  {blog?.userData?.profileImage ? (
-                    <img
-                      // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      src={blog?.userData?.profileImage}
-                      alt="userImage.png"
-                      width={36}
-                      height={36}
-                      className="w-9 h-9 object-cover xl:w-11 xl:h-11 rounded-full"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="border-2 rounded-full p-2">
-                      <GoPerson className="text-[20px]" />
-                    </div>
-                  )}
-                  {/* Author name */}
-                  <p className="text-[12px] xl:text-lg">
-                    {/* Sarah Thompson */}
-                    {blog?.userData?.name || "BlogCanvas User"}
-                  </p>
+                <div className="w-full flex items-center lg:justify-start justify-between gap-2 xl:gap-4">
+                  <div className="flex items-center justify-center gap-2">
+                    {blog?.userData?.profileImage ? (
+                      <img
+                        // src="https://images.pexels.com/photos/23522528/pexels-photo-23522528/free-photo-of-portrait-of-a-young-man-with-short-curly-hair-wearing-a-black-jacket.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        src={blog?.userData?.profileImage}
+                        alt="userImage.png"
+                        width={36}
+                        height={36}
+                        className="w-9 h-9 object-cover xl:w-11 xl:h-11 rounded-full"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="border-2 rounded-full p-2">
+                        <GoPerson className="text-[20px]" />
+                      </div>
+                    )}
+                    {/* Author name */}
+                    <p className="text-[12px] xl:text-lg">
+                      {/* Sarah Thompson */}
+                      {blog?.userData?.name || "BlogCanvas User"}
+                    </p>
+                  </div>
                   <p className="text-[12px] xl:text-lg">{formattedDate}</p>
                 </div>
               </div>

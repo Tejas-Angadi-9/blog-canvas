@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { GoPerson } from "react-icons/go";
+import NoPageFound from "@/app/not-found";
 
 import toast from "react-hot-toast";
 import MoreBlogs from "@/components/blogsSection/MoreBlogs";
@@ -32,6 +33,7 @@ const Blog = ({ params }) => {
   const [loading, setLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isBlogFound, setIsBlogFound] = useState(false);
 
   const handleCopy = () => {
     const linkToCopy = window.location.href; // or any specific URL you want to copy
@@ -57,6 +59,7 @@ const Blog = ({ params }) => {
         `${process.env.NEXT_PUBLIC_URL}/api/blogs/${blogId}`,
       );
       const output = await response.json();
+      if (!response.ok) setIsBlogFound(true);
       setBlogData(output?.blog);
       setUserData(output?.blog.userData);
       setLikedUsers(output?.blog.likedUsers);
@@ -159,6 +162,10 @@ const Blog = ({ params }) => {
     }
   };
 
+  if (isBlogFound) {
+    return <NoPageFound />;
+  }
+
   return (
     <div
       className={`w-11/12 flex flex-col items-start xl:items-center gap-2 mx-auto h-full mb-10 xl:mb-20 mt-5`}>
@@ -196,7 +203,7 @@ const Blog = ({ params }) => {
 
           {/* Wrapper that can be blurred when delete modal is open */}
           <div
-            className={`flex flex-col xl:flex-row relative w-full ${
+            className={`flex flex-col lg:flex-row relative w-full gap-5 xl:gap-10 ${
               (isDeleteModalOpen && "blur-md pointer-events-none") ||
               (isEditModalOpen && "blur-md pointer-events-none")
             }`}
@@ -204,8 +211,8 @@ const Blog = ({ params }) => {
               (isDeleteModalOpen && setIsDeleteModalOpen(false)) ||
                 (isEditModalOpen && setIsEditModalOpen(false));
             }}>
-            <section className="xl:flex flex-col items-start justify-start xl:pr-10 w-full xl:border-r-2 rounded-s-lg gap-4 xl:gap-5">
-              <section className="flex flex-col xl:p-5 p-2 justify-center item w-full">
+            <section className="xl:flex flex-col items-start justify-start w-full rounded-s-lg gap-4 xl:gap-10">
+              <section className="flex flex-col justify-center items-center w-full">
                 <div className="flex w-full justify-between items-center">
                   <TagButton text={blogData?.tag} />
                   <button
@@ -227,7 +234,7 @@ const Blog = ({ params }) => {
                     )}
                   </button>
                 </div>
-                <div>
+                <div className="flex w-full h-fit items-start">
                   <h1 className="text-[20px] xl:text-[45px] w-full font-bold mt-5">
                     {blogData?.title}
                   </h1>
@@ -239,9 +246,9 @@ const Blog = ({ params }) => {
                         <img
                           src={`${userData?.profileImage}`}
                           alt=""
-                          width={40}
-                          height={40}
-                          className="w-8 h-8 xl:w-10 xl:h-10 rounded-full"
+                          width={42}
+                          height={42}
+                          className="w-8 h-8 xl:w-11 xl:h-11 object-cover rounded-full"
                           loading="lazy"
                         />
                       ) : (
@@ -337,7 +344,7 @@ const Blog = ({ params }) => {
                   ))}
                   <div className="w-full">
                     {isUserLoggedIn && canEditAndDelete && (
-                      <div className="w-[90%] flex items-center justify-start gap-5 xl:pt-10 h-full mt-5">
+                      <div className="w-full flex items-center justify-start gap-5 h-full mt-2">
                         <button
                           className="flex border-2 border-gray-300 items-center justify-center text-[12px] xl:text-[14px] w-fit px-4 py-2 rounded-md outline-none gap-2 text-slate-700 font-light"
                           onClick={() => {
@@ -357,6 +364,7 @@ const Blog = ({ params }) => {
                 </div>
               </div>
             </section>
+            <div className="lg:border-r-2"></div>
             <aside className="flex flex-col mt-5">
               <MoreBlogs text="Featured Blogs" />
             </aside>

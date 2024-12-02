@@ -22,7 +22,7 @@ const AboutPage = () => {
             Crafting BlogCanvas with creativity and connection.
           </h1>
           <h3
-            className={`${cedarvilleCursive.className} text-[15px] xl:text-[44px] font-semibold ml-2 xl:ml-7`}>
+            className={`${cedarvilleCursive.className} text-[24px] xl:text-[48px] font-semibold ml-2 xl:ml-7`}>
             - Tejas Angadi
           </h3>
         </div>
@@ -78,33 +78,38 @@ const AboutPage = () => {
         </div>
 
         {/* Description */}
-        <div className="flex flex-col items-center p-6 xl:p-12 bg-white text-gray-800 rounded-lg shadow-lg gap-4">
+        <div className="flex flex-col items-center text-center lg:text-left p-6 xl:p-12 bg-white text-gray-800 rounded-lg shadow-lg gap-4">
           <h1 className="text-2xl xl:text-3xl font-bold text-gray-900 mb-4">
             Welcome to BlogCanvas! 🌟
           </h1>
           <p className="text-sm xl:text-base text-center leading-relaxed mb-4">
             Created by <span className="font-semibold">Tejas Angadi</span>, a
-            23-year-old Automation Test Engineer at Cognizant with a passion for
-            Web-Dev. This project is a personal endeavor to explore and showcase
-            my skills in building applications. At <b>BlogCanvas</b>, you'll
-            find a collection of insightful content crafted with dedication.
+            23-year-old{" "}
+            <span className="font-semibold">
+              Automation Test and Full Stack Engineer at{" "}
+              <span className="text-[#000048]">Cognizant</span> {"  "}
+            </span>
+            with a passion for Web-Dev. This project is a personal endeavor to
+            explore and showcase my skills in building applications. At{" "}
+            <b>BlogCanvas</b>, you'll find a collection of insightful content
+            crafted with dedication.
           </p>
           <div className="flex flex-col items-center gap-3">
-            <p className="text-sm xl:text-base text-center">
+            <p className="text-[12px] xl:text-base text-center">
               For inquiries or feedback, feel free to reach out:
             </p>
             <Link
               href="mailto:tejasangadi456@gmail.com"
-              className="text-blue-600 font-medium text-sm xl:text-base hover:underline">
+              className="text-blue-600 font-medium text-[13px] xl:text-base hover:underline">
               Email: tejasangadi456@gmail.com
             </Link>
             <Link
               href="tel:+919353423811"
-              className="text-blue-600 font-medium text-sm xl:text-base hover:underline">
+              className="text-blue-600 font-medium text-[13px] xl:text-base hover:underline">
               Phone: +91 - 9353423811
             </Link>
           </div>
-          <p className="font-semibold text-lg xl:text-xl text-center mt-4">
+          <p className="font-semibold text-md xl:text-xl text-center mt-4">
             Dive in and enjoy the journey! 🚀
           </p>
         </div>

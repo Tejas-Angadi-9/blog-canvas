@@ -457,7 +457,7 @@ const page = () => {
                               <h2 className="text-xl font-semibold text-gray-800">
                                 Update Profile Photo
                               </h2>
-                              <div className="flex items-center justify-start gap-2 mt-4 text-[14px] xl:text-lg">
+                              <div className="flex items-center justify-start gap-2 mt-4 text-[12px] xl:text-lg">
                                 <button
                                   className="bg-red-500 text-white px-4 py-2 rounded-md"
                                   onClick={removePhotoHandler}>
@@ -648,7 +648,7 @@ const page = () => {
               </p>
             </div>
             <div className="w-full py-2">
-              <div className="flex w-fit  items-center justify-between gap-5 py-2 text-[16px]">
+              <div className="flex w-fit items-center justify-between gap-5 py-2 text-[14px] lg:text-[16px]">
                 <button
                   className={`px-4 py-2 rounded-md shadow-lg hover:scale-95 transition-all duration-200 ${
                     switcher && "bg-gray-200"
@@ -666,11 +666,11 @@ const page = () => {
               </div>
               <div className="flex flex-col w-full  py-6 items-center justify-between gap-5">
                 {switcher ? (
-                  <div className="flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
+                  <div className="w-full flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
                     <Blogs text="Created" blogsProp={createdBlogs} />
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
+                  <div className="w-full flex flex-col gap-4 xl:items-center xl:justify-center xl:mx-auto">
                     <Blogs text="Liked" blogsProp={likedBlogs} />
                   </div>
                 )}
