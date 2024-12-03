@@ -37,44 +37,9 @@ const AuthPage = () => {
     setIsLogin((prev) => !prev);
   };
 
-  const signupSubmitHandler = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      setErrorMessage("Passwords don't match");
-      return;
-    }
-    postSignupData(formData);
-  };
-
   const handleLoginAfterSignup = () => {
     setIsLogin(true);
     setOpenModal(false);
-  };
-
-  const postSignupData = async (formData) => {
-    try {
-      const toastId = toast.loading("Loading...");
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/user/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        },
-      );
-      const output = await response.json();
-      if (response.status === 200) {
-        // toast.success("Verification E-mail sent. Please check your email");
-        setOpenModal(true);
-      } else {
-        toast.error(output.message || "Signup failed");
-      }
-      toast.dismiss(toastId);
-    } catch (err) {
-      console.error("Error during signup", err);
-    }
   };
 
   const loginSubmitHandler = (e) => {
@@ -104,9 +69,7 @@ const AuthPage = () => {
         localStorage.setItem("UserData", JSON.stringify(output));
         window.location.href = "/";
         toast.success("You’re logged in!");
-      } else if (response.status === 404) {
-        toast.error("User not found!");
-      } else if (response.status === 403) {
+      } else if (response.status === 403 || response.status === 404) {
         toast.error("Bad credentials");
       } else {
         toast.error("Login failed");
@@ -132,10 +95,11 @@ const AuthPage = () => {
           />
         ) : (
           <SignUpForm
-            signupSubmitHandler={signupSubmitHandler}
             formData={formData}
             changeFormFields={changeFormFields}
             errorMessage={errorMessage}
+            setOpenModal={setOpenModal}
+            setErrorMessage={setErrorMessage}
           />
         )}
         <div className="text-center mt-4">
