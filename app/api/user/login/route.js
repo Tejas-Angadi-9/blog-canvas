@@ -43,10 +43,6 @@ export const POST = async (req) => {
 
     const payload = {
       userId: exisitingUser._id,
-      name: exisitingUser.name,
-      email: exisitingUser.email,
-      password: exisitingUser.password,
-      profileImage: exisitingUser.profileImage
     }
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3d' })

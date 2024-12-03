@@ -15,7 +15,7 @@ export const PATCH = async (req) => {
         }), { status: 404 })
     }
     const { oldPassword, newPassword, confirmNewPassword } = await req.json();
-    
+
     try {
         await connectToDB();
         const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
@@ -46,11 +46,17 @@ export const PATCH = async (req) => {
         if (newPassword !== confirmNewPassword) {
             return new Response(JSON.stringify({
                 status: false,
-                message: "New Passwords doesn't match, Retry"
+                message: "New password and cofirm password doesn't match"
             }), { status: 404 })
         }
 
-
+        const sameAsOldPassword = await bcrypt.compare(newPassword, exisitingUser.password);
+        if (sameAsOldPassword === true) {
+            return new Response(JSON.stringify({
+                status: false,
+                message: "New Password can't be same as old password"
+            }), { status: 403 })
+        }
 
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
         console.log("New Hashed Password: ", newHashedPassword);
