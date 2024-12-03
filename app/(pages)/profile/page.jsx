@@ -207,8 +207,8 @@ const page = () => {
         setTimeout(() => {
           window.location.reload();
         }, [500]);
-      } else if (response.status === 404 || response.status === 400) {
-        toast.error("Unable to update password");
+      } else if (response.status >= 400 && response.status <= 404) {
+        toast.error(output.message);
       }
       setWarning(false);
     } catch (err) {

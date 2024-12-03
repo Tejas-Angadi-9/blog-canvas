@@ -39,14 +39,14 @@ export const PATCH = async (req) => {
         if (!passwordMatches) {
             return new Response(JSON.stringify({
                 status: false,
-                message: "Doesn't match the old password. Please retry"
+                message: "Doesn't match the old password"
             }), { status: 404 })
         }
 
         if (newPassword !== confirmNewPassword) {
             return new Response(JSON.stringify({
                 status: false,
-                message: "New password and cofirm password doesn't match"
+                message: "New password and confirm password doesn't match"
             }), { status: 404 })
         }
 
@@ -54,12 +54,11 @@ export const PATCH = async (req) => {
         if (sameAsOldPassword === true) {
             return new Response(JSON.stringify({
                 status: false,
-                message: "New Password can't be same as old password"
+                message: "New password can't be same as old password"
             }), { status: 403 })
         }
 
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
-        console.log("New Hashed Password: ", newHashedPassword);
 
         await exisitingUser.updateOne({ password: newHashedPassword });
 

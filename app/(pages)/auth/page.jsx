@@ -6,12 +6,13 @@ import Modal from "@/components/common/Modal";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/contexts/AuthContext";
+import NoPageFound from "@/app/not-found";
 
 const AuthPage = () => {
-  const { setIsUserLoggedIn } = useAuth();
+  const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
   const router = useRouter();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoginSwitcher, setIsLogin] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -21,6 +22,10 @@ const AuthPage = () => {
     password: "",
     confirmPassword: "",
   });
+
+  if (isUserLoggedIn) {
+    return <NoPageFound />;
+  }
 
   const changeFormFields = (e) => {
     setErrorMessage(null);
@@ -94,19 +99,15 @@ const AuthPage = () => {
         },
       );
       if (response.ok) {
-        toast(toastId);
         const output = await response.json();
-        toast.success("You’re logged in!");
         setIsUserLoggedIn(true);
         localStorage.setItem("UserData", JSON.stringify(output));
         window.location.href = "/";
-        return;
+        toast.success("You’re logged in!");
       } else if (response.status === 404) {
         toast.error("User not found!");
-        return;
       } else if (response.status === 403) {
         toast.error("Bad credentials");
-        return;
       } else {
         toast.error("Login failed");
       }
@@ -121,9 +122,9 @@ const AuthPage = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100 p-5">
       <div className="bg-white rounded-lg shadow-2xl p-10 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">
-          {isLogin ? "Login" : "Sign Up"}
+          {isLoginSwitcher ? "Login" : "Sign Up"}
         </h2>
-        {isLogin ? (
+        {isLoginSwitcher ? (
           <LoginForm
             formData={formData}
             changeFormFields={changeFormFields}
@@ -141,7 +142,7 @@ const AuthPage = () => {
           <button
             onClick={handleSwitch}
             className="text-blue-500 hover:underline text-[14px] xl:text-normal">
-            {isLogin
+            {isLoginSwitcher
               ? "Don't have an account? Sign Up"
               : "Already have an account? Login"}
           </button>
