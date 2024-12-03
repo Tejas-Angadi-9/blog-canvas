@@ -35,7 +35,7 @@ const MoreBlogs = ({ text }) => {
       {/* All Blogs Cards */}
       {/* Blog 1 card */}
       <div
-        className={`w-full h-fit xl:p-6 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
+        className={`w-full h-fit xl:p-2 rounded-xl gap-5 items-center flex flex-col overflow-x-hidden ${
           blogs && "flex flex-col"
         }  ${!blogs && "flex items-center justify-center"}`}>
         {!blogs ? (
@@ -55,11 +55,11 @@ const MoreBlogs = ({ text }) => {
               <Link
                 key={index}
                 href={`/blogs/${blog?._id}`}
-                className="flex xl:w-[450px] w-full h-full gap-2">
+                className="flex w-full h-full gap-2">
                 <div className="flex w-full h-fit gap-5" key={blog._id}>
-                  <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between mx-auto w-full flex xl:gap-10 gap-5 cursor-pointer py-2 pb-6">
+                  <div className="h-fit items-center border-b-2 border-b-slate-200 justify-between mx-auto w-full flex gap-6 cursor-pointer py-2 pb-6">
                     {/* Image */}
-                    <div className="flex w-[50%] h-[120px] relative">
+                    <div className="flex w-[200px] h-[120px] relative">
                       {blog?.blogImage ? (
                         <Image
                           // src="https://images.pexels.com/photos/2104152/pexels-photo-2104152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -100,7 +100,7 @@ const MoreBlogs = ({ text }) => {
                               alt=""
                               // width={20}
                               // height={20}
-                              className="w-9 h-9 xl:w-11 xl:h-11 object-cover rounded-full"
+                              className="w-9 h-9 xl:w-10 xl:h-10 object-cover rounded-full"
                               loading="lazy"
                             />
                           ) : (
@@ -110,11 +110,11 @@ const MoreBlogs = ({ text }) => {
                           )}
                           <div className="flex flex-col items-start justify-center gap-1">
                             {/* Author name */}
-                            <p className="text-[11px] xl:text-[14px]">
+                            <p className="text-[11px] xl:text-[13px]">
                               {userData?.name || "BlogCanvas User"}
                             </p>
                             {/* Published date */}
-                            <p className="text-slate-500 text-[11px] xl:text-[14px]">
+                            <p className="text-slate-500 text-[11px] xl:text-[13px]">
                               {formattedDate}
                             </p>
                           </div>

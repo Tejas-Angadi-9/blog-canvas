@@ -203,7 +203,7 @@ const Blog = ({ params }) => {
 
           {/* Wrapper that can be blurred when delete modal is open */}
           <div
-            className={`flex flex-col lg:flex-row relative w-full gap-5 xl:gap-10 ${
+            className={`flex flex-col lg:flex-row relative w-full gap-5 lg:gap-7 ${
               (isDeleteModalOpen && "blur-md pointer-events-none") ||
               (isEditModalOpen && "blur-md pointer-events-none")
             }`}
@@ -211,7 +211,7 @@ const Blog = ({ params }) => {
               (isDeleteModalOpen && setIsDeleteModalOpen(false)) ||
                 (isEditModalOpen && setIsEditModalOpen(false));
             }}>
-            <section className="xl:flex flex-col items-start justify-start w-full rounded-s-lg gap-4 xl:gap-10">
+            <section className="xl:flex flex-col items-start justify-start w-full lg:w-[80%] rounded-s-lg gap-4 xl:gap-10">
               <section className="flex flex-col justify-center items-center w-full">
                 <div className="flex w-full justify-between items-center">
                   <TagButton text={blogData?.tag} />
@@ -302,7 +302,7 @@ const Blog = ({ params }) => {
                 </div>
               </section>
               <div className="flex flex-col w-full items-center justify-center mx-auto mt-5 xl:mt-0 xl:pr-0 xl:w-full">
-                <div className="relative w-[95%] xl:w-[800px] xl:h-full">
+                <div className="relative w-[95%] xl:h-full">
                   {!blogData ? (
                     <Loading />
                   ) : (
