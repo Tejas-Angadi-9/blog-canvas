@@ -103,7 +103,7 @@ const CreateBlogForm = () => {
               placeholder="Enter your blog title"
               value={blogData.title}
               onChange={handleInputChange}
-              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200"
+              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light"
             />
           </div>
 
@@ -119,7 +119,7 @@ const CreateBlogForm = () => {
               placeholder="Write your blog content here..."
               value={blogData.description}
               onChange={handleInputChange}
-              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200"
+              className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light"
             />
           </div>
 
@@ -166,14 +166,16 @@ const CreateBlogForm = () => {
               placeholder="Add relevant tags"
               value={blogData.tag}
               onChange={handleInputChange}
-              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200"
+              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light"
             />
           </div>
         </div>
 
         <button
           className={`mt-10 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95"
-          type="submit ${isLoading && "pointer-events-none cursor-not-allowed"}`}
+          type="submit ${
+            isLoading && "pointer-events-none cursor-not-allowed"
+          }`}
           disabled={isLoading}>
           {isLoading ? "Creating Blog..." : "Create Blog"}
         </button>

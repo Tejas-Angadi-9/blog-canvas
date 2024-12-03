@@ -40,7 +40,7 @@ const Blogs = ({ text = "", blogsProp }) => {
             <Loading />
           </div>
         ) : blogs?.length === 0 ? (
-          <div className="flex w-full h-fit xl:translate-x-[120%] py-5 lg:py-10">
+          <div className="flex w-full h-fit xl:translate-x-[105%] items-center justify-center  py-5 lg:py-10">
             <h1 className="text-[22px] xl:text font-semibold">
               No Blogs {text}
             </h1>

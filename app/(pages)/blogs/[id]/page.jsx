@@ -16,6 +16,7 @@ import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { GoPerson } from "react-icons/go";
 import NoPageFound from "@/app/not-found";
+import { GoDotFill } from "react-icons/go";
 
 import toast from "react-hot-toast";
 import MoreBlogs from "@/components/blogsSection/MoreBlogs";
@@ -240,7 +241,7 @@ const Blog = ({ params }) => {
                   </h1>
                 </div>
                 <div className="flex gap-2 items-center mt-5 justify-between w-full">
-                  <div className="flex flex-row items-center justify-center gap-2">
+                  <div className="flex flex-row items-center justify-center gap-3">
                     <div className="flex items-center justify-center gap-2 xl:gap-5 text-slate-500">
                       {userData?.profileImage ? (
                         <img
@@ -257,10 +258,11 @@ const Blog = ({ params }) => {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-row justify-between gap-5">
+                    <div className="flex flex-row items-center justify-between gap-2 xl:gap-5">
                       <p className="text-[12px] xl:text-lg">
                         {userData?.name || "BlogCanvas User"}
                       </p>
+                      <GoDotFill className="text-slate-400 text-[6px] lg:text-[8px] font-light" />
                       <p className="text-slate-500 text-[12px] xl:text-lg">
                         {formattedDate}
                       </p>

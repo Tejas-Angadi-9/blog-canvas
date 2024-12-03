@@ -113,7 +113,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Enter your blog title"
                 value={blogData.title}
                 onChange={handleInputChange}
-                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light xl:font-normal"
+                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light font-light lg:font-light"
               />
             </div>
 
@@ -130,7 +130,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Write your blog content here..."
                 value={blogData.description}
                 onChange={handleInputChange}
-                className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light xl:font-normal"
+                className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light"
               />
             </div>
 
@@ -177,7 +177,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Add relevant tags"
                 value={blogData.tag}
                 onChange={handleInputChange}
-                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light xl:font-normal"
+                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light font-light lg:font-light"
               />
             </div>
           </div>

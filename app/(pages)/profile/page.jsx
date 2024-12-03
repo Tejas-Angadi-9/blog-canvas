@@ -363,7 +363,7 @@ const page = () => {
                 {/* Update Password Button */}
                 <div>
                   <button
-                    className="bg-blue-500 text-white text-sm sm:text-base px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-200"
+                    className="bg-blue-500 text-white text-[14px] px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-200"
                     onClick={() => setShowPasswordModal(true)}>
                     Update Password
                   </button>
@@ -501,7 +501,7 @@ const page = () => {
                             required
                           />
                           <button
-                            className={`bg-blue-500 text-white px-4 py-2 rounded-md mt-4 ${
+                            className={`bg-blue-500 text-white px-4 py-2 rounded-md mt-4 text-[14px] ${
                               loading &&
                               "pointer-events-none cursor-not-allowed"
                             }`}
@@ -621,7 +621,7 @@ const page = () => {
                             </div>
                           )}
                           <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 text-[14px]"
                             type="submit">
                             Update Password
                           </button>
