@@ -15,19 +15,9 @@ const AboutPage = () => {
     <div className="w-11/12 h-full mx-auto flex flex-col p-3 xl:px-10 mb-[5%] gap-10">
       <h1 className="text-[24px] xl:text-[36px] font-bold">About</h1>
       {/* This div will contain big text with my name at left side and image at the right side */}
-      <div className="flex relative mt-5 mb-5 xl:-mb-12">
-        {/* Big text with name */}
-        <div className="h-[250px] xl:w-[48%] xl:h-[400px] bg-slate-200 p-5 absolute top-[45%] left-[24%] xl:left-[18%] z-1 opacity-80 rounded-md shadow-2xl flex flex-col justify-around">
-          <h1 className="uppercase font-extrabold text-[22px] xl:text-[50px] flex flex-col items-center justify-center">
-            Crafting BlogCanvas with creativity and connection.
-          </h1>
-          <h3
-            className={`${cedarvilleCursive.className} text-[24px] xl:text-[48px] font-semibold ml-2 xl:ml-7`}>
-            - Tejas Angadi
-          </h3>
-        </div>
+      <div className="flex mt-5 mb-5 xl:-mb-12">
         {/* Image */}
-        <div className="">
+        <div className="relative">
           <Image
             src="/images/my_photo.jpg"
             alt="my_photo.jpg"
@@ -35,6 +25,16 @@ const AboutPage = () => {
             height={600}
             className="w-[200px] h-[300px] xl:w-[400px] xl:h-[600px] object-cover  rounded-2xl shadow-2xl"
           />
+          {/* Big text with name */}
+          <div className="h-fit w-[110%] lg:w-[150%] xl:h-fit bg-slate-200 p-5 absolute top-[55%] left-[50%] lg:left-[60%] z-1 opacity-80 rounded-md shadow-2xl flex flex-col justify-around">
+            <h1 className="font-normal text-[22px] xl:text-[50px] flex flex-col items-center justify-center">
+              Bringing stories to life with creativity and connection.
+            </h1>
+            <h3
+              className={`${cedarvilleCursive.className} text-[20px] xl:text-[45px] w-full flex items-center justify-end`}>
+              - Tejas Angadi
+            </h3>
+          </div>
         </div>
       </div>
       <div className="flex flex-col-reverse xl:flex-row items-center justify-between mt-[15%] h-full w-full gap-10 xl:gap-24">

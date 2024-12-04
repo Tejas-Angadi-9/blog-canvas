@@ -16,12 +16,6 @@ const userSchema = new Schema({
   profileImage: {
     type: String,
   },
-  verificationToken: {
-    type: String,
-  },
-  verificationTokenExpires: {
-    type: Date,
-  },
   createdBlogs: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Blog",

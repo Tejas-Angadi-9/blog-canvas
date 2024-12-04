@@ -685,8 +685,8 @@ const page = () => {
                 Delete Your Account
               </h2>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                Deleting your account will permanently erase all your data and
-                activity. This action cannot be undone.
+                Deleting your account removes your data. Created content stays,
+                and this action is permanent
               </p>
               {/* Delete Button */}
               <button

@@ -97,7 +97,7 @@ const Blogs = ({ text = "", blogsProp }) => {
                       </h3>
                     </div>
                     <div className="flex gap-2 items-center justify-between">
-                      <div className="flex items-center justify-center gap-4 text-slate-500">
+                      <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
                         {userData?.profileImage ? (
                           <img
                             src={`${userData?.profileImage}`}

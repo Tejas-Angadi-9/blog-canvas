@@ -5,6 +5,19 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import { createTransporter, getMailOptions } from "@/services/mailer";
 
+const checkPasswordValidation = (password) => {
+    const isLowerCase = /[a-z]/.test(password)
+    const isUpperCase = /[A-Z]/.test(password)
+    const isNumber = /[0-9]/.test(password)
+    const isSpecialChar = /[a-z]/.test(password)
+    const islength = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+    if (!isLowerCase || !isUpperCase || !isNumber || !isSpecialChar || !islength)
+        return false;
+    return true;
+}
+
+
 export const POST = async (req) => {
     const { name, email, password, confirmPassword } = await req.json();
     if (!name || !email || !password || !confirmPassword) {
@@ -20,6 +33,15 @@ export const POST = async (req) => {
             message: "Passwords doesn't match",
         }), { status: 400 })
     }
+
+    const isPasswordValid = checkPasswordValidation(password);
+    if (isPasswordValid === false) {
+        return new Response(JSON.stringify({
+            status: false,
+            message: "Check for password requirements"
+        }), { status: 403 })
+    }
+
     try {
         await connectToDB();
 
@@ -53,16 +75,14 @@ export const POST = async (req) => {
             return new Response(JSON.stringify({
                 status: true,
                 message: "User has generated the validation token again, Please check your email",
-                tokenAlreadyGenerated
             }))
         }
         else {
-            const verificationEntry = await Verification.create({ email, token: jwtToken, expiresAt: Date.now() + 10 * 60 * 1000 });
+            await Verification.create({ email, token: jwtToken, expiresAt: Date.now() + 10 * 60 * 1000 });
 
             return new Response(JSON.stringify({
                 status: true,
                 message: "Successfully generated the token for validation and sent the reset link via email",
-                verificationEntry
             }));
         }
     }

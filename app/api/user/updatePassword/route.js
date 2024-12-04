@@ -4,6 +4,18 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import connectToDB from "@/config/database";
 
+const checkPasswordValidation = (password) => {
+    const isLowerCase = /[a-z]/.test(password)
+    const isUpperCase = /[A-Z]/.test(password)
+    const isNumber = /[0-9]/.test(password)
+    const isSpecialChar = /[a-z]/.test(password)
+    const islength = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+    if (!isLowerCase || !isUpperCase || !isNumber || !isSpecialChar || !islength)
+        return false;
+    return true;
+}
+
 export const PATCH = async (req) => {
     const cookieStore = cookies();
     const token = cookieStore.get("authToken");
@@ -16,16 +28,33 @@ export const PATCH = async (req) => {
     }
     const { oldPassword, newPassword, confirmNewPassword } = await req.json();
 
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+        return new Response(JSON.stringify({
+            status: false,
+            message: "Fill all the required fields"
+        }), { status: 400 })
+    }
+
+    if (newPassword !== confirmNewPassword) {
+        return new Response(JSON.stringify({
+            status: false,
+            message: "New password and confirm password doesn't match"
+        }), { status: 404 })
+    }
+
+    // Password validation
+    const isPasswordValid = checkPasswordValidation(newPassword);
+    if (isPasswordValid === false) {
+        return new Response(JSON.stringify({
+            status: false,
+            message: "Check for password requirements"
+        }), { status: 403 })
+    }
+
     try {
         await connectToDB();
         const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
         const userId = decoded.userId;
-        if (!oldPassword || !newPassword || !confirmNewPassword) {
-            return new Response(JSON.stringify({
-                status: false,
-                message: "Fill all the required fields"
-            }), { status: 400 })
-        }
 
         const exisitingUser = await User.findById(userId);
 
@@ -40,13 +69,6 @@ export const PATCH = async (req) => {
             return new Response(JSON.stringify({
                 status: false,
                 message: "Doesn't match the old password"
-            }), { status: 404 })
-        }
-
-        if (newPassword !== confirmNewPassword) {
-            return new Response(JSON.stringify({
-                status: false,
-                message: "New password and confirm password doesn't match"
             }), { status: 404 })
         }
 

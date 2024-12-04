@@ -93,7 +93,7 @@ const MoreBlogs = ({ text }) => {
                         </p>
                       </div>
                       <div className="flex gap-2 items-center justify-between mt-5">
-                        <div className="flex items-center justify-center gap-4 text-slate-500">
+                        <div className="flex items-center justify-center gap-2 xl:gap-4 text-slate-500">
                           {userData?.profileImage ? (
                             <img
                               src={`${userData?.profileImage}`}
@@ -114,7 +114,7 @@ const MoreBlogs = ({ text }) => {
                               {userData?.name || "BlogCanvas User"}
                             </p>
                             {/* Published date */}
-                            <p className="text-slate-500 text-[11px] xl:text-[13px]">
+                            <p className="text-slate-500 text-[9px] xl:text-[13px]">
                               {formattedDate}
                             </p>
                           </div>

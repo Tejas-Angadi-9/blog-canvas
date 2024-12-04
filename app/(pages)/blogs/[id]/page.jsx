@@ -241,7 +241,7 @@ const Blog = ({ params }) => {
                   </h1>
                 </div>
                 <div className="flex gap-2 items-center mt-5 justify-between w-full">
-                  <div className="flex flex-row items-center justify-center gap-3">
+                  <div className="flex flex-row items-center justify-center gap-2 lg:gap-3">
                     <div className="flex items-center justify-center gap-2 xl:gap-5 text-slate-500">
                       {userData?.profileImage ? (
                         <img
