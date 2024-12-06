@@ -12,9 +12,8 @@ const checkPasswordValidation = (password) => {
   const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
   const length = password.length >= 8;
 
-  if (!lowerCase || !upperCase || !number || !specialChar || !length) {
+  if (!isLowerCase || !isUpperCase || !isNumber || !isSpecialChar || !islength)
     return false;
-  }
   return true;
 };
 

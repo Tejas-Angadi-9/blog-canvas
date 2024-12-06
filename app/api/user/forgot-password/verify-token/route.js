@@ -3,13 +3,16 @@ import Verification from "@/models/Verification";
 import jwt from "jsonwebtoken";
 
 export const POST = async (req) => {
-    const { token } = await req.json();
-    if (!token) {
-        return new Response(JSON.stringify({
-            status: false,
-            message: "Token not found"
-        }), { status: 400 })
-    }
+  const { token } = await req.json();
+  if (!token) {
+    return new Response(
+      JSON.stringify({
+        status: false,
+        message: "Token not found",
+      }),
+      { status: 400 }
+    );
+  }
 
     try {
         await connectToDB();

@@ -1,48 +1,72 @@
 "use client";
 import React, { useEffect, useState } from "react";
+
+import FailedToValidateToken from "@/components/forgotPasswordSection/FailedToValidateToken";
+import ForgotPasswordFields from "@/components/forgotPasswordSection/ForgotPasswordFields";
+import VerifyingLink from "@/components/forgotPasswordSection/VerifyingLink";
 import toast from "react-hot-toast";
 
 const ValidatingToken = async ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [tokenValidated, setTokenValidated] = useState(false);
+  const [isTokenVerified, setIsTokenVerified] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const token = params?.token;
-
-  const verifyToken = async(token) => {
-    try{
+  console.log("token: ", token);
+  // Function to check the token
+  const checkToken = async () => {
+    try {
       setIsLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/forgot-password/verify-token`, {
-        method: "POST",
-        body: JSON.stringify({
-          token: token
-        })
-      })
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/user/forgot-password/verify-token`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            token: token,    
+          }),
+        }
+      );
 
       const output = await response.json();
-      if(!response.ok){
+      if (!response.ok) {
+        setErrorMessage(output.message);
         toast.error(output.message);
+        setIsTokenVerified(false);
         return;
-      }
-      if(response.ok){
+      } else if (response.ok) {
         toast.success(output.message);
+        setIsTokenVerified(true);
         return;
       }
-    }
-    catch(err){
+    } catch (err) {
       toast.error(err.message);
-      return;
-    }
-    finally{
+    } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    verifyToken(token);
-  }, [])
+    // checkToken();
+  }, []);
 
   return (
-    <div>{tokenValidated ? <p>Enter password</p> : <p>Incorrect token</p>}</div>
+    <div className="w-full h-screen py-5  md:py-10">
+      <div className="w-11/12 h-full flex flex-col items-center justify-center mx-auto">
+        {isLoading ? (
+          <div className="">
+            <VerifyingLink />
+          </div>
+        ) : isTokenVerified ? (
+          <div>
+            <ForgotPasswordFields token={token} />
+          </div>
+        ) : (
+          <div>
+            <FailedToValidateToken message={errorMessage} />
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
