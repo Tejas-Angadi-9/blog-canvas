@@ -22,7 +22,7 @@ const ValidatingToken = async ({ params }) => {
         {
           method: "POST",
           body: JSON.stringify({
-            token: token,
+            token: token,    
           }),
         }
       );
