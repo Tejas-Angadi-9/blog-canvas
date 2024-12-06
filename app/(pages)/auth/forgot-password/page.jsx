@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/components/common/Loading";
+import FailedToValidateToken from "@/components/forgotPasswordSection/FailedToValidateToken";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 

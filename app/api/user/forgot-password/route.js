@@ -1,6 +1,7 @@
 import connectToDB from "@/config/database";
 import User from "@/models/User";
 import Verification from "@/models/Verification";
+import { createTransporter, getMailOptions } from "@/services/mailer";
 import jwt from "jsonwebtoken";
 
 export const POST = async (req) => {
@@ -59,6 +60,12 @@ export const POST = async (req) => {
                 }), { status: 404 })
             }
         }
+
+        const transporter = createTransporter();
+        const forgotPasswordLink = `${process.env.NEXT_PUBLIC_URL}/auth/forgot-password/${forgotPasswordToken}`;
+        const mailOptions = getMailOptions(email, "TEST", forgotPasswordLink);
+
+        await transporter.sendMail(mailOptions);
 
         return new Response(JSON.stringify({
             status: true,

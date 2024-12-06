@@ -8,11 +8,10 @@ import toast from "react-hot-toast";
 
 const ValidatingToken = async ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isTokenVerified, setIsTokenVerified] = useState(true);
+  const [isTokenVerified, setIsTokenVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const token = params?.token;
-  console.log("token: ", token);
   // Function to check the token
   const checkToken = async () => {
     try {
@@ -22,12 +21,12 @@ const ValidatingToken = async ({ params }) => {
         {
           method: "POST",
           body: JSON.stringify({
-            token: token,    
+            token: token,
           }),
-        }
+        },
       );
-
       const output = await response.json();
+      console.log("OUTPUT: ", output);
       if (!response.ok) {
         setErrorMessage(output.message);
         toast.error(output.message);
@@ -46,7 +45,7 @@ const ValidatingToken = async ({ params }) => {
   };
 
   useEffect(() => {
-    // checkToken();
+    checkToken();
   }, []);
 
   return (
