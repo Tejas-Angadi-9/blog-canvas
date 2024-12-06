@@ -1,11 +1,44 @@
 "use client";
+import Loading from "@/components/common/Loading";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const forgotPasswordSubmitter = (e) => {
     e.preventDefault();
+    submitHandler();
+  };
+
+  const submitHandler = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/user/forgot-password`,
+        {
+          body: JSON.stringify({
+            email: email,
+          }),
+          method: "POST",
+        },
+      );
+      const output = await response.json();
+      if (!response.ok) {
+        toast.error(output.message);
+        return;
+      }
+      if (response.ok) {
+        toast.success(output.message);
+        return;
+      }
+    } catch (err) {
+      toast.error(err.message);
+      return;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -33,9 +66,14 @@ const ForgotPassword = () => {
             className="border p-2 mb-1 w-full"
           />
           <button
-            className="bg-blue-500 text-white p-2 w-full rounded-md duration-300 transition-all hover:scale-95"
+            className={` text-white p-2 w-full rounded-md duration-300 transition-all hover:scale-95 ${
+              isLoading
+                ? "pointer-events-none cursor-not-allowed bg-blue-400"
+                : "pointer-events-auto cursor-pointer bg-blue-500"
+            }`}
             type="submit">
-            Reset Password
+            {isLoading ? "Loading..." : "Reset Password"}
+            {/* Reset Password */}
           </button>
         </form>
       </div>

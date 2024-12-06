@@ -13,16 +13,16 @@ export const POST = async (req) => {
 
     try {
         await connectToDB();
+        console.log("HELLO")
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const email = decoded.email;
-        if (!decoded) {
+        if (!decoded || !email) {
             return new Response(JSON.stringify({
                 status: false,
                 message: "Token has expired"
             }), { status: 404 })
         }
         const tokenAlreadyGenerated = await Verification.findOne({ email: email });
-
         if (!tokenAlreadyGenerated) {
             return new Response(JSON.stringify({
                 status: false,
@@ -37,18 +37,18 @@ export const POST = async (req) => {
                     status: false,
                     message: "Token has expired.",
                 }),
-                { status: 401 } // Unauthorized
+                { status: 404 } // Unauthorized
             );
         }
 
         if (tokenAlreadyGenerated.token !== token) {
             return new Response(JSON.stringify({
                 status: false,
-                message: "Mismatch is forgot password token"
+                message: "Incorrect forgot link"
             }), { status: 400 })
         }
 
-        await tokenAlreadyGenerated.deleteOne();
+        // await tokenAlreadyGenerated.deleteOne();
 
         return new Response(JSON.stringify({
             status: true,
