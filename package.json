@@ -9,9 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@nextui-org/tooltip": "^2.0.41",
+    "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.1.0",
+    "cloudinary": "^2.5.1",
+    "cookie": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.4",
+    "next": "14.2.5",
+    "nodemailer": "^6.9.16",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.4.0",
+    "react-use": "^17.5.1"
   },
   "devDependencies": {
     "postcss": "^8",

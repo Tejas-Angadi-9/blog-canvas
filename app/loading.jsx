@@ -1,0 +1,12 @@
+import React from "react";
+
+const loading = () => {
+  return (
+    <div className="w-full h-[70vh] text-[20px] xl:text-[30px] flex flex-col items-center justify-center mx-auto gap-5">
+      <span className="loader"></span>
+      <h1 className="font-semibold">Loading....</h1>
+    </div>
+  );
+};
+
+export default loading;
