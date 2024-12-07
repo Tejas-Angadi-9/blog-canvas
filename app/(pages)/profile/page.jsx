@@ -2,11 +2,6 @@
 import React, { useEffect, useState } from "react";
 
 import { useAuth } from "@/app/contexts/AuthContext";
-
-import toast from "react-hot-toast";
-
-import Blogs from "@/components/Blogs";
-import Spinner from "@/components/common/Spinner";
 import Loading from "@/components/common/Loading";
 
 import ProfileTopPart from "@/components/profilePage/profileSection/profileTopPart";
