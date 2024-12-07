@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import FailedToValidateToken from "@/components/forgotPasswordSection/FailedToValidateToken";
 import ForgotPasswordFields from "@/components/forgotPasswordSection/ForgotPasswordFields";
 import VerifyingLink from "@/components/forgotPasswordSection/VerifyingLink";
 import toast from "react-hot-toast";
 import InvalidToken from "@/components/common/InvalidToken";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 const ValidatingToken = async ({ params }) => {
+  const { isUserLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [isTokenVerified, setIsTokenVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -45,6 +46,9 @@ const ValidatingToken = async ({ params }) => {
   };
 
   useEffect(() => {
+    if (isUserLoggedIn) {
+      window.location.href = "/";
+    }
     checkToken();
   }, []);
 

@@ -1,11 +1,11 @@
 "use client";
-import Loading from "@/components/common/Loading";
+import { useAuth } from "@/app/contexts/AuthContext";
 import Modal from "@/components/common/Modal";
-import FailedToValidateToken from "@/components/forgotPasswordSection/FailedToValidateToken";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
+  const { isUserLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,6 +44,13 @@ const ForgotPassword = () => {
       setIsLoading(false);
     }
   };
+
+  //* UseEffect to check if user is logged in?
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      window.location.href = "/";
+    }
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100 p-5">

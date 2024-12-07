@@ -100,7 +100,7 @@ const AboutPage = () => {
           </p>
 
           <div className="flex flex-col items-center gap-3 text-sm md:text-lg text-center">
-            <p className="text-[11px] md:text-lg">
+            <p className="text-sm md:text-lg">
               For inquiries or feedback, feel free to reach out:
             </p>
             <Link
