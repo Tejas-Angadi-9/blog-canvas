@@ -15,7 +15,7 @@ import ActivityHeading from "@/components/profilePage/activitySection/ActivityHe
 import ActivitySection from "@/components/profilePage/activitySection/ActivitySection";
 import DeleteYourAccount from "@/components/profilePage/deleteSection/DeleteYourAccount";
 
-const page = () => {
+const page = () => {  
   const { isUserLoggedIn } = useAuth();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
