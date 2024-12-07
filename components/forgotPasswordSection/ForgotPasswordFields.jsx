@@ -91,7 +91,7 @@ const ForgotPasswordFields = ({ token }) => {
       ) : isTokenInvalid ? (
         <InvalidToken type="forgot-password" />
       ) : (
-        <div className="w-full h-full flex flex-col items-center justify-between gap-5 mx-auto">
+        <div className="w-full h-screen flex flex-col items-center justify-between gap-5 mx-auto">
           <div>
             <h2 className="text-[24px] font-medium">Enter your new password</h2>
           </div>
