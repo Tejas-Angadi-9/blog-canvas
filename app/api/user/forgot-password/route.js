@@ -63,7 +63,7 @@ export const POST = async (req) => {
 
         const transporter = createTransporter();
         const forgotPasswordLink = `${process.env.NEXT_PUBLIC_URL}/auth/forgot-password/${forgotPasswordToken}`;
-        const mailOptions = getMailOptions(email, "TEST", forgotPasswordLink);
+        const mailOptions = getMailOptions(email, exisitingUser.name, forgotPasswordLink);
 
         await transporter.sendMail(mailOptions);
 

@@ -88,7 +88,7 @@ const SignUpForm = ({
       passwordValidation.specialChar === false ||
       passwordValidation.uppercase === false
     ) {
-      toast.error("Check for password validations");
+      toast.error("Check for password requirements");
       return;
     }
     console.log("FORM DATA: ", formData);
@@ -221,7 +221,7 @@ const SignUpForm = ({
         </div>
       </div>
       {errorMessage && (
-        <p className="flex items-center justify-center mx-auto text-red-500 text-[14px] font-normal my-4">
+        <p className="flex items-center justify-center mx-auto text-red-500 text-[16px] font-normal my-4">
           {errorMessage}
         </p>
       )}

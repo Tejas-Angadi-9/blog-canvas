@@ -2,11 +2,10 @@ import React from "react";
 
 const Modal = ({
   handleLoginAfterSignup,
-  type = "login",
-  isDeleteModalOpen,
+  type = "signup",
   setDeleteModalOpen,
   confirmedDelete,
-  postSignupData,
+  setIsModalOpen,
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
@@ -31,14 +30,17 @@ const Modal = ({
           </>
         )}
 
-        {type === "signup" && (
+        {(type === "signup" || type === "forgot-password") && (
           <>
             <p className="text-[18px] xl:text-[22px] font-bold text-gray-800">
               Check Your Email!
             </p>
             <p className="text-[16px] xl:text-[20px] font-medium text-gray-600 mt-2 text-center">
-              A verification link has been sent to your email address. Please
-              check your inbox to verify your account.
+              A {type === "signup" ? "verification" : "password reset"} link has
+              been sent to your email address. Please check your inbox to{" "}
+              {type === "signup"
+                ? "verify your account."
+                : "reset your password."}
             </p>
             <p className="text-[14px] xl:text-[18px] text-gray-500 mt-1 text-center">
               Didn't receive the email? Please check your spam folder or try
@@ -47,19 +49,15 @@ const Modal = ({
             <button
               onClick={() => location.reload()}
               className="bg-blue-500 text-white py-2 px-6 mt-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">
-              Sign up again
+              {type === "signup" ? "Sign up " : "Send Link "}Again
+            </button>
+            <button
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+              onClick={() => setIsModalOpen(false)}>
+              ✕
             </button>
           </>
         )}
-        <button
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
-          onClick={() =>
-            type === "deleteBlog"
-              ? setDeleteModalOpen(false)
-              : handleLoginAfterSignup()
-          }>
-          ✕
-        </button>
       </div>
     </div>
   );

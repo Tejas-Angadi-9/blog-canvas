@@ -5,9 +5,9 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import Loading from "../common/Loading";
 import FailedToValidateToken from "./FailedToValidateToken";
+import InvalidToken from "../common/InvalidToken";
 
 const ForgotPasswordFields = ({ token }) => {
-  console.log("Token: ", token);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
@@ -17,6 +17,7 @@ const ForgotPasswordFields = ({ token }) => {
     newPassword: "",
     confirmNewPassword: "",
   });
+  const [isTokenInvalid, setIsTokenInvalid] = useState(false);
 
   // Check for password validation
   const checkPasswordValidations = (password) => {
@@ -38,7 +39,6 @@ const ForgotPasswordFields = ({ token }) => {
   };
 
   const submitHandler = async (e) => {
-    //! STILL NEED TO COMPLETE THIS SECTION BY CALLING THE
     e.preventDefault();
     try {
       setIsLoading(true);
@@ -68,15 +68,13 @@ const ForgotPasswordFields = ({ token }) => {
       const output = await response.json();
 
       if (!response.ok) {
-        toast.error(output.message);
-        window.location.href = "/auth/forgot-password";
-        return <FailedToValidateToken message={output.message} />;
+        setIsTokenInvalid(true);
       }
       if (response.ok) {
         toast.success(output.message);
         setTimeout(() => {
           window.location.href = "/";
-        }, 500)        
+        }, 500);
         return;
       }
     } catch (err) {
@@ -90,6 +88,8 @@ const ForgotPasswordFields = ({ token }) => {
     <>
       {isLoading ? (
         <Loading />
+      ) : isTokenInvalid ? (
+        <InvalidToken type="forgot-password" />
       ) : (
         <div className="w-full h-full flex flex-col items-center justify-between gap-5 mx-auto">
           <div>

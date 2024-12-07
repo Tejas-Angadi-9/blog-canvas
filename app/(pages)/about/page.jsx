@@ -23,10 +23,10 @@ const AboutPage = () => {
             alt="my_photo.jpg"
             width={400}
             height={600}
-            className="w-[200px] h-[300px] xl:w-[400px] xl:h-[600px] object-cover  rounded-2xl shadow-2xl"
+            className="w-[200px] h-[300px] xl:w-[350px] xl:h-[500px] object-cover  rounded-2xl shadow-2xl"
           />
           {/* Big text with name */}
-          <div className="h-fit w-[110%] lg:w-[150%] xl:h-fit bg-slate-200 p-5 absolute top-[55%] left-[50%] lg:left-[60%] z-1 opacity-80 rounded-md shadow-2xl flex flex-col justify-around">
+          <div className="h-fit w-[110%] lg:w-[170%] xl:h-fit bg-slate-200 p-5 absolute top-[55%] left-[50%] lg:left-[60%] z-1 opacity-90 rounded-md shadow-2xl flex flex-col justify-around">
             <h1 className="font-normal text-[22px] xl:text-[50px] flex flex-col items-center justify-center">
               Bringing stories to life with creativity and connection.
             </h1>
@@ -39,7 +39,7 @@ const AboutPage = () => {
       </div>
       <div className="flex flex-col-reverse xl:flex-row items-center justify-between mt-[15%] h-full w-full gap-10 xl:gap-24">
         {/* Social media links */}
-        <div className="flex flex-col p-6 w-full xl:w-[50%] shadow-lg rounded-lg bg-white">
+        <div className="flex flex-col p-6 w-[90%] shadow-lg rounded-lg bg-white">
           <h2 className="text-lg xl:text-xl font-semibold mb-6 text-center xl:text-start text-gray-800">
             Social Media Links
           </h2>
@@ -82,20 +82,25 @@ const AboutPage = () => {
           <h1 className="text-2xl xl:text-3xl font-bold text-gray-900 mb-4">
             Welcome to BlogCanvas! 🌟
           </h1>
-          <p className="text-sm xl:text-base text-center leading-relaxed mb-4">
-            Created by <span className="font-semibold">Tejas Angadi</span>, a
-            23-year-old{" "}
+          <p className="text-sm lg:text-lg text-center leading-relaxed mb-4">
+            Created by <span className="font-semibold">Tejas Angadi</span>,{" "}
             <span className="font-semibold">
               Automation Test and Full Stack Engineer at{" "}
               <span className="text-[#000048]">Cognizant</span> {"  "}
-            </span>
-            with a passion for Web-Dev. This project is a personal endeavor to
-            explore and showcase my skills in building applications. At{" "}
-            <b>BlogCanvas</b>, you'll find a collection of insightful content
-            crafted with dedication.
+            </span>{" "}
+            Passionate about web development, DSA problem-solving, and crafting
+            scalable solutions using tools like React, Next.js, and Tailwind
+            CSS. Proficient in testing with Selenium and Robot Framework, and
+            coding in Python, Java, C++, JavaScript and TypeScript.
+            <br />
+            <br />
+            <p className="font-medium text-sm lg:text-lg">
+              I also do freelance work. Contact for more info.
+            </p>
           </p>
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-[12px] xl:text-base text-center">
+
+          <div className="flex flex-col items-center gap-3 text-sm md:text-lg text-center">
+            <p className="text-[11px] md:text-lg">
               For inquiries or feedback, feel free to reach out:
             </p>
             <Link
@@ -109,7 +114,7 @@ const AboutPage = () => {
               Phone: +91 - 9353423811
             </Link>
           </div>
-          <p className="font-semibold text-md xl:text-xl text-center mt-4">
+          <p className="font-medium text-md xl:text-xl text-center mt-4">
             Dive in and enjoy the journey! 🚀
           </p>
         </div>

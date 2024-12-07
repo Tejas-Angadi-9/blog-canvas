@@ -42,7 +42,6 @@ const LoginForm = ({ formData, changeFormFields, loginSubmitHandler }) => {
       </div>
       <Link
         href={"/auth/forgot-password"}
-        target="_blank"
         className="w-full h-fit flex items-center justify-end text-blue-500 font-normal text-[14px] xl:text-normal hover:underline">
         Forgot Password?
       </Link>

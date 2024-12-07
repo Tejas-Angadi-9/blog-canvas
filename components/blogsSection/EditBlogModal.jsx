@@ -87,7 +87,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
   }, [imagePreview]);
 
   return (
-    <div className="flex flex-col items-center justify-center xl:absolute left-[50%] top-0 xl:-translate-x-[50%] bg-white z-10 p-2 xl:p-5 w-11/12 max-w-md xl:max-w-[60%] h-fit py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 xl:ml-0">
+    <div className="flex flex-col items-center justify-center xl:absolute left-[50%] top-0 xl:-translate-x-[50%] bg-white z-10 p-2 xl:p-5 w-11/12 max-w-md xl:max-w-[60%] h-full py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 xl:ml-0">
       <div className="px-4 w-full flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <h2 class="text-[18px] xl:text-[24px] font-semibold text-gray-800">

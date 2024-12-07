@@ -178,7 +178,7 @@ const Blog = ({ params }) => {
         <div className="flex flex-col w-full xl:flex-row relative items-center justify-center">
           {/* This section contains the image and the blog description */}
           {isDeleteModalOpen && (
-            <div className="flex items-center fixed z-10 top-[5%] left-0 justify-center w-full h-screen gap-10 xl:gap-0">
+            <div className="flex items-center fixed z-10 top-[5%] left-0 justify-center w-full h-full gap-10 xl:gap-0">
               {/* This section will be blurred when the modal is open */}
               <Modal
                 type="deleteBlog"
@@ -258,7 +258,7 @@ const Blog = ({ params }) => {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-row items-center justify-between gap-2 xl:gap-5">
+                    <div className="flex flex-row items-center justify-between gap-2">
                       <p className="text-[12px] xl:text-lg">
                         {userData?.name || "BlogCanvas User"}
                       </p>

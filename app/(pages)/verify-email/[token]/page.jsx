@@ -3,6 +3,7 @@ import Loading from "@/components/common/Loading";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import InvalidToken from "@/components/common/InvalidToken";
 
 const VerifyEmail = ({ params }) => {
   const token = params?.token;
@@ -47,18 +48,13 @@ const VerifyEmail = ({ params }) => {
   }, []);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center text-center mx-auto text-[24px] xl:text-[30px] font-medium space-y-4">
+    <div className="w-full h-full flex flex-col items-center justify-center text-center mx-auto text-[24px] xl:text-[30px] font-medium space-y-4">
       {isLoading ? (
         <Loading />
       ) : error ? (
-        <>
-          <p>{error}</p>
-          <Link
-            href={"/auth"}
-            className="bg-red-500 w-fit text-[20px] text-white py-2 px-4 rounded hover:bg-red-600">
-            Sign up again
-          </Link>
-        </>
+        <div className="w-full lg:w-[50%] flex flex-col items-center justify-center">
+          <InvalidToken type="signup" />
+        </div>
       ) : (
         <>
           <p>Email verified successfully! Redirecting to the login page...</p>

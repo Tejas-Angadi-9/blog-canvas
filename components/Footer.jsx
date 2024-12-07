@@ -10,11 +10,15 @@ const Footer = () => {
             About Me
           </h3>
           <p className="text-[14px] sm:text-[15px] xl:text-[18px] font-light text-slate-500">
-            Hi, I'm <b>Tejas Angadi</b>, a passionate <b>web developer</b> with
-            expertise in{" "}
-            <b>React.js, Express.js, MongoDB, Node.js, and Next.js</b>. I
-            specialize in building responsive and efficient web applications
-            while solving challenging problems...
+            Hi, I'm <b>Tejas Angadi</b>, a passionate{" "}
+            <b> full stack developer</b> and <b>problem solver</b> with
+            expertise in
+            <b>
+              {" "}
+              React.js, Next.js, Express.js, Node.js, MongoDB, and Tailwind CSS
+            </b>
+            . I specialize in building full-stack applications and tackling DSA
+            problems...
             <span className="text-blue-500">
               <Link href="/about"> Read More</Link>
             </span>

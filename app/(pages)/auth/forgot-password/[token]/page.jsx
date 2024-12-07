@@ -5,10 +5,11 @@ import FailedToValidateToken from "@/components/forgotPasswordSection/FailedToVa
 import ForgotPasswordFields from "@/components/forgotPasswordSection/ForgotPasswordFields";
 import VerifyingLink from "@/components/forgotPasswordSection/VerifyingLink";
 import toast from "react-hot-toast";
+import InvalidToken from "@/components/common/InvalidToken";
 
 const ValidatingToken = async ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isTokenVerified, setIsTokenVerified] = useState(false);
+  const [isTokenVerified, setIsTokenVerified] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const token = params?.token;
@@ -29,16 +30,15 @@ const ValidatingToken = async ({ params }) => {
       console.log("OUTPUT: ", output);
       if (!response.ok) {
         setErrorMessage(output.message);
-        toast.error(output.message);
         setIsTokenVerified(false);
         return;
       } else if (response.ok) {
-        toast.success(output.message);
+        toast.success("Reset link is verified.");
         setIsTokenVerified(true);
         return;
       }
     } catch (err) {
-      toast.error(err.message);
+      console.error("Failed to verify the reset link");
     } finally {
       setIsLoading(false);
     }
@@ -49,7 +49,7 @@ const ValidatingToken = async ({ params }) => {
   }, []);
 
   return (
-    <div className="w-full h-screen py-5  md:py-10">
+    <div className="w-full h-full py-5  md:py-10">
       <div className="w-11/12 h-full flex flex-col items-center justify-center mx-auto">
         {isLoading ? (
           <div className="">
@@ -60,8 +60,8 @@ const ValidatingToken = async ({ params }) => {
             <ForgotPasswordFields token={token} />
           </div>
         ) : (
-          <div>
-            <FailedToValidateToken message={errorMessage} />
+          <div className="w-full lg:w-[50%] flex flex-col items-center justify-center">
+            <InvalidToken type="forgot-password" />
           </div>
         )}
       </div>

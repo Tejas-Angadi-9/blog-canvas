@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/components/common/Loading";
+import Modal from "@/components/common/Modal";
 import FailedToValidateToken from "@/components/forgotPasswordSection/FailedToValidateToken";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -7,6 +8,7 @@ import toast from "react-hot-toast";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const forgotPasswordSubmitter = (e) => {
     e.preventDefault();
@@ -31,7 +33,7 @@ const ForgotPassword = () => {
         return;
       }
       if (response.ok) {
-        toast.success(output.message);
+        setIsModalOpen(true);
         return;
       }
     } catch (err) {
@@ -43,7 +45,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100 p-5">
+    <div className="flex justify-center items-center h-full bg-gray-100 p-5">
       <div className="bg-white rounded-lg shadow-2xl p-10 w-full max-w-md flex flex-col gap-5">
         <div className="flex flex-col w-full h-full gap-2">
           <h2 className="text-xl lg:text-2xl font-semibold text-center">
@@ -77,6 +79,9 @@ const ForgotPassword = () => {
             {/* Reset Password */}
           </button>
         </form>
+        {isModalOpen && (
+          <Modal type="forgot-password" setIsModalOpen={setIsModalOpen} />
+        )}
       </div>
     </div>
   );
