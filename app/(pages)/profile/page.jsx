@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import Loading from "@/components/common/Loading";
 
-import ProfileTopPart from "@/components/profilePage/profileSection/profileTopPart";
-import ProfileInfo from "@/components/profilePage/profileSection/ProfileInfo";
-import ActivityHeading from "@/components/profilePage/activitySection/ActivityHeading";
-import ActivitySection from "@/components/profilePage/activitySection/ActivitySection";
-import DeleteYourAccount from "@/components/profilePage/deleteSection/DeleteYourAccount";
+import ProfileTopPart from "@/components/profilePage/ProfileTopPart";
+import ProfileInfo from "@/components/profilePage/ProfileInfo";
+import ActivityHeading from "@/components/profilePage/ActivityHeading";
+import ActivitySection from "@/components/profilePage/ActivitySection";
+import DeleteYourAccount from "@/components/profilePage/DeleteYourAccount";
 
 const page = () => {  
   const { isUserLoggedIn } = useAuth();
