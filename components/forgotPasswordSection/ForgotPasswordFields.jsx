@@ -6,6 +6,9 @@ import toast from "react-hot-toast";
 import Loading from "../common/Loading";
 import FailedToValidateToken from "./FailedToValidateToken";
 import InvalidToken from "../common/InvalidToken";
+// import { checkPasswordValidations } from "@/services/checkPasswordValidations";
+
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 const ForgotPasswordFields = ({ token }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -13,29 +16,37 @@ const ForgotPasswordFields = ({ token }) => {
     useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTokenInvalid, setIsTokenInvalid] = useState(false);
   const [passwordSection, setPasswordSection] = useState({
     newPassword: "",
     confirmNewPassword: "",
   });
-  const [isTokenInvalid, setIsTokenInvalid] = useState(false);
 
-  // Check for password validation
+  const [passwordValidation, setPasswordValidation] = useState({
+    length: false,
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    specialChar: false,
+  });
+
   const checkPasswordValidations = (password) => {
-    const lowerCase = /[a-z]/.test(password);
-    const upperCase = /[A-Z]/.test(password);
-    const number = /[0-9]/.test(password);
-    const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    const length = password.length >= 8;
-
-    if (!lowerCase || !upperCase || !number || !specialChar || !length)
-      return false;
-    return true;
+    setPasswordValidation({
+      length: password.length >= 8,
+      lowercase: /[a-z]/.test(password),
+      uppercase: /[A-Z]/.test(password),
+      number: /\d/.test(password),
+      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    });
   };
 
   const passwordHandler = (e) => {
     const { name, value } = e.target;
     setErrorMessage(false);
     setPasswordSection((prev) => ({ ...prev, [name]: value }));
+    if (name === "newPassword") {
+      checkPasswordValidations(value);
+    }
   };
 
   const submitHandler = async (e) => {
@@ -46,14 +57,16 @@ const ForgotPasswordFields = ({ token }) => {
         setErrorMessage("Passwords doesn't match");
         return;
       }
-      const isPasswordValid = checkPasswordValidations(
-        passwordSection.newPassword,
-      );
-      if (isPasswordValid === false) {
-        setErrorMessage("Check for password requirements");
+      if (
+        passwordValidation.length === false ||
+        passwordValidation.lowercase === false ||
+        passwordValidation.number === false ||
+        passwordValidation.specialChar === false ||
+        passwordValidation.uppercase === false
+      ) {
+        toast.error("Check for password requirements");
         return;
       }
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/user/forgot-password/updatePassword`,
         {
@@ -69,16 +82,18 @@ const ForgotPasswordFields = ({ token }) => {
 
       if (!response.ok) {
         setIsTokenInvalid(true);
+        return;
       }
       if (response.ok) {
         toast.success(output.message);
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/auth";
         }, 500);
         return;
       }
     } catch (err) {
       toast.error("Failed to update password");
+      return;
     } finally {
       setIsLoading(false);
     }
@@ -141,6 +156,73 @@ const ForgotPasswordFields = ({ token }) => {
                     onClick={() => setIsConfirmPasswordVisible((prev) => !prev)}
                   />
                 )}
+              </div>
+              <div className="text-sm mb-4">
+                <div
+                  className={`flex items-center ${
+                    passwordValidation.length
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }`}>
+                  {passwordValidation.length ? (
+                    <AiOutlineCheckCircle className="mr-2" />
+                  ) : (
+                    <AiOutlineCloseCircle className="mr-2" />
+                  )}
+                  At least 8 characters
+                </div>
+                <div
+                  className={`flex items-center ${
+                    passwordValidation.lowercase
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }`}>
+                  {passwordValidation.lowercase ? (
+                    <AiOutlineCheckCircle className="mr-2" />
+                  ) : (
+                    <AiOutlineCloseCircle className="mr-2" />
+                  )}
+                  At least 1 lowercase letter
+                </div>
+                <div
+                  className={`flex items-center ${
+                    passwordValidation.uppercase
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }`}>
+                  {passwordValidation.uppercase ? (
+                    <AiOutlineCheckCircle className="mr-2" />
+                  ) : (
+                    <AiOutlineCloseCircle className="mr-2" />
+                  )}
+                  At least 1 uppercase letter
+                </div>
+                <div
+                  className={`flex items-center ${
+                    passwordValidation.number
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }`}>
+                  {passwordValidation.number ? (
+                    <AiOutlineCheckCircle className="mr-2" />
+                  ) : (
+                    <AiOutlineCloseCircle className="mr-2" />
+                  )}
+                  At least 1 number
+                </div>
+                <div
+                  className={`flex items-center ${
+                    passwordValidation.specialChar
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }`}>
+                  {passwordValidation.specialChar ? (
+                    <AiOutlineCheckCircle className="mr-2" />
+                  ) : (
+                    <AiOutlineCloseCircle className="mr-2" />
+                  )}
+                  At least 1 special character
+                </div>
               </div>
               {errorMessage && (
                 <p className="text-red-500 font-light text-[16px]">
