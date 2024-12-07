@@ -82,7 +82,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full bg-gray-100 p-5">
+    <div className="flex justify-center items-center h-screen bg-gray-100 p-5">
       <div className="bg-white rounded-lg shadow-2xl p-10 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">
           {isLoginSwitcher ? "Login" : "Sign Up"}
