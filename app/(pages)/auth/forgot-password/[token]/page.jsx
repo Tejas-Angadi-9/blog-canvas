@@ -9,7 +9,7 @@ import InvalidToken from "@/components/common/InvalidToken";
 
 const ValidatingToken = async ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isTokenVerified, setIsTokenVerified] = useState(true);
+  const [isTokenVerified, setIsTokenVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const token = params?.token;
@@ -52,7 +52,7 @@ const ValidatingToken = async ({ params }) => {
     <div className="w-full h-screen py-5  md:py-10">
       <div className="w-11/12 h-full flex flex-col items-center justify-center mx-auto">
         {isLoading ? (
-          <div className="">
+          <div className="w-full h-full flex flex-col items-center justify-center mx-auto">
             <VerifyingLink />
           </div>
         ) : isTokenVerified ? (

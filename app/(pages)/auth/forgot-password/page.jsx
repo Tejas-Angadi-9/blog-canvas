@@ -14,9 +14,9 @@ const ForgotPassword = () => {
     e.preventDefault();
     submitHandler();
   };
-
   const submitHandler = async () => {
     try {
+      var toastId = toast.loading("Sending Link...");
       setIsLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/user/forgot-password`,
@@ -40,6 +40,7 @@ const ForgotPassword = () => {
       toast.error(err.message);
       return;
     } finally {
+      toast.dismiss(toastId);
       setIsLoading(false);
     }
   };
@@ -75,7 +76,7 @@ const ForgotPassword = () => {
                 : "pointer-events-auto cursor-pointer bg-blue-500"
             }`}
             type="submit">
-            {isLoading ? "Loading..." : "Reset Password"}
+            {isLoading ? "Sending Link..." : "Reset Password"}
             {/* Reset Password */}
           </button>
         </form>
