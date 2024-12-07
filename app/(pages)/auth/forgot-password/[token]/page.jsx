@@ -49,7 +49,7 @@ const ValidatingToken = async ({ params }) => {
   }, []);
 
   return (
-    <div className="w-full h-full py-5  md:py-10">
+    <div className="w-full h-screen py-5  md:py-10">
       <div className="w-11/12 h-full flex flex-col items-center justify-center mx-auto">
         {isLoading ? (
           <div className="">
