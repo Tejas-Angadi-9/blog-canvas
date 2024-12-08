@@ -115,7 +115,7 @@ const CreateBlogForm = () => {
               id="description"
               name="description"
               rows={6}
-              placeholder="Write your blog content here..."
+              placeholder="Write your blog content here. You can add line breaks or extra spaces between paragraphs, and they will be displayed exactly as you write...."
               value={blogData.description}
               onChange={handleInputChange}
               className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light"

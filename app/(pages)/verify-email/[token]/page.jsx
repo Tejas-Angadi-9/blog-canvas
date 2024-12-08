@@ -32,7 +32,7 @@ const VerifyEmail = ({ params }) => {
         toast.success("Email verified!");
         setTimeout(() => {
           window.location.href = "/auth";
-        }, 2000); // Add slight delay
+        }, 500); // Add slight delay
       } else {
         setError(output.message || "Verification failed.");
       }

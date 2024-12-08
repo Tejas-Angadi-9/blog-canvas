@@ -86,7 +86,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
   }, [imagePreview]);
 
   return (
-    <div className="flex flex-col items-center justify-center xl:absolute left-[50%] top-0 xl:-translate-x-[50%] bg-white z-10 p-2 xl:p-5 w-11/12 max-w-md xl:max-w-[60%] h-full py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 xl:ml-0">
+    <div className="flex flex-col items-center justify-center xl:absolute left-[50%] top-0 xl:-translate-x-[50%] bg-white z-10 p-2 xl:p-5 w-11/12 max-w-md xl:max-w-[60%] h-fit py-5 rounded-md shadow-2xl gap-5 overflow-y-auto -ml-2 xl:ml-0">
       <div className="px-4 w-full flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <h2 class="text-[18px] xl:text-[24px] font-semibold text-gray-800">
@@ -126,7 +126,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 id="description"
                 name="description"
                 rows={10}
-                placeholder="Write your blog content here..."
+                placeholder="Write your blog content here. You can add line breaks or extra spaces between paragraphs, and they will be displayed exactly as you write...."
                 value={blogData.description}
                 onChange={handleInputChange}
                 className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light"
@@ -182,7 +182,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
           </div>
           <div className="flex items-center justify-start gap-5">
             <button
-              className={`mt-5 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95 ${
+              className={`mt-5 w-fit bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-200 hover:scale-95 text-base lg:text-lg ${
                 isLoading &&
                 "pointer-events-none bg-blue-400 cursor-not-allowed disabled"
               }`}
