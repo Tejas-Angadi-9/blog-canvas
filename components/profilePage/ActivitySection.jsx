@@ -15,7 +15,6 @@ const ActivitySection = () => {
         `${process.env.NEXT_PUBLIC_URL}/api/user/blogs`,
       );
       const output = await response.json();
-      console.log("OUTPUT: ", output);
       setCreatedBlogs(output?.userData?.createdBlogs);
       setLikedBlogs(output?.userData?.likedBlogs);
     } catch (err) {

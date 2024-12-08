@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DeleteYourAccount = ({ loading }) => {
+const DeleteYourAccount = ({ loading, setLoading }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleDeleteAccount = async () => {

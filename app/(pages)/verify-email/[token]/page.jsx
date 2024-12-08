@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import InvalidToken from "@/components/common/InvalidToken";
+import EmailVerified from "@/components/common/EmailVerified";
 
 const VerifyEmail = ({ params }) => {
   const token = params?.token;
@@ -11,7 +12,7 @@ const VerifyEmail = ({ params }) => {
   const [error, setError] = useState(null);
 
   if (!token) {
-    toast.error("Verification token not found!");
+    toast.error("Invalid verification link");
     return <p>Invalid verification link.</p>;
   }
 
@@ -44,11 +45,11 @@ const VerifyEmail = ({ params }) => {
   };
 
   useEffect(() => {
-    verifyToken();
+    // verifyToken();
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center text-center mx-auto text-[24px] xl:text-[30px] font-medium space-y-4">
+    <div className="w-full h-screen flex flex-col items-center justify-center text-center mx-auto text-[24px] xl:text-[30px] font-medium space-y-4">
       {isLoading ? (
         <Loading />
       ) : error ? (
@@ -56,15 +57,7 @@ const VerifyEmail = ({ params }) => {
           <InvalidToken type="signup" />
         </div>
       ) : (
-        <>
-          <p>Email verified successfully! Redirecting to the login page...</p>
-          <span>Go to login</span>
-          <Link
-            href="/auth"
-            className="text-blue-500 text-[20px] font-semibold hover:text-blue-600">
-            Login Here
-          </Link>
-        </>
+        <EmailVerified />
       )}
     </div>
   );

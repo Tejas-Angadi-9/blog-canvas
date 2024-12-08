@@ -66,7 +66,6 @@ const CreateBlogForm = () => {
         window.location.href = "/";
         return;
       } else if (response?.status === 404) {
-        // toast.error(`Error: ${output.message || "Unable to create blog"}`);
         localStorage.removeItem("UserData");
         toast.error("Session Expired, Please login again");
         router.push("/auth");

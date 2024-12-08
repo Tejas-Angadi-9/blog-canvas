@@ -62,7 +62,7 @@ export const POST = async (req) => {
 
         const transporter = createTransporter();
         const verificationLink = `${process.env.NEXT_PUBLIC_URL}/verify-email/${jwtToken}`;
-        const mailOptions = getMailOptions(email, name, verificationLink);
+        const mailOptions = getMailOptions(email, name, verificationLink, "signup");
         await transporter.sendMail(mailOptions)
 
         const tokenAlreadyGenerated = await Verification.findOne({ email });

@@ -28,7 +28,6 @@ const ValidatingToken = async ({ params }) => {
         },
       );
       const output = await response.json();
-      console.log("OUTPUT: ", output);
       if (!response.ok) {
         setErrorMessage(output.message);
         setIsTokenVerified(false);

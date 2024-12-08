@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 const ProfileInfo = ({ userData, loading, setLoading }) => {
   //* Use States
@@ -27,6 +28,24 @@ const ProfileInfo = ({ userData, loading, setLoading }) => {
     newPassword: "",
     confirmNewPassword: "",
   });
+
+  const [passwordValidation, setPasswordValidation] = useState({
+    length: false,
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    specialChar: false,
+  });
+
+  const checkPasswordValidations = (password) => {
+    setPasswordValidation({
+      length: password.length >= 8,
+      lowercase: /[a-z]/.test(password),
+      uppercase: /[A-Z]/.test(password),
+      number: /\d/.test(password),
+      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    });
+  };
 
   //* Name Handlers
   const nameHandler = (e) => {
@@ -204,6 +223,9 @@ const ProfileInfo = ({ userData, loading, setLoading }) => {
     setWarning(false);
     e.preventDefault();
     const { name, value } = e.target;
+    if (name === "newPassword") {
+      checkPasswordValidations(value);
+    }
     setPasswordState((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -436,84 +458,153 @@ const ProfileInfo = ({ userData, loading, setLoading }) => {
                     <Spinner />
                   </div>
                 ) : (
-                  <form onSubmit={updatePasswordHandler}>
-                    <div className="relative">
-                      <input
-                        type={
-                          isPasswordVisible.oldPassword ? "text" : "password"
-                        }
-                        name="oldPassword"
-                        placeholder="Old Password"
-                        value={passwordState.oldPassword}
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                        onChange={passwordChangeHandler}
-                        required
-                      />
-                      {isPasswordVisible.oldPassword ? (
-                        <FaEyeSlash
-                          className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                          onClick={() => passwordTypeHandler("oldPassword")}
-                        />
-                      ) : (
-                        <FaEye
-                          className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                          onClick={() => passwordTypeHandler("oldPassword")}
-                        />
-                      )}
-                    </div>
-                    <div className="relative">
-                      <input
-                        type={
-                          isPasswordVisible.newPassword ? "text" : "password"
-                        }
-                        name="newPassword"
-                        placeholder="New Password"
-                        value={passwordState.newPassword}
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                        onChange={passwordChangeHandler}
-                        required
-                      />
-                      {isPasswordVisible.newPassword ? (
-                        <FaEyeSlash
-                          className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                          onClick={() => passwordTypeHandler("newPassword")}
-                        />
-                      ) : (
-                        <FaEye
-                          className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                          onClick={() => passwordTypeHandler("newPassword")}
-                        />
-                      )}
-                    </div>
-                    <div className="relative">
-                      <input
-                        type={
-                          isPasswordVisible.confirmNewPassword
-                            ? "text"
-                            : "password"
-                        }
-                        name="confirmNewPassword"
-                        placeholder="Confirm Password"
-                        value={passwordState.confirmNewPassword}
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
-                        onChange={passwordChangeHandler}
-                        required
-                      />
-                      {isPasswordVisible.confirmNewPassword ? (
-                        <FaEyeSlash
-                          className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                          onClick={() =>
-                            passwordTypeHandler("confirmNewPassword")
+                  <form onSubmit={updatePasswordHandler} className="flex flex-col gap-2">
+                    <div>
+                      <div className="relative">
+                        <input
+                          type={
+                            isPasswordVisible.oldPassword ? "text" : "password"
                           }
+                          name="oldPassword"
+                          placeholder="Old Password"
+                          value={passwordState.oldPassword}
+                          className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                          onChange={passwordChangeHandler}
+                          required
                         />
-                      ) : (
-                        <FaEye
-                          className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
-                          onClick={() =>
-                            passwordTypeHandler("confirmNewPassword")
+                        {isPasswordVisible.oldPassword ? (
+                          <FaEyeSlash
+                            className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                            onClick={() => passwordTypeHandler("oldPassword")}
+                          />
+                        ) : (
+                          <FaEye
+                            className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                            onClick={() => passwordTypeHandler("oldPassword")}
+                          />
+                        )}
+                      </div>
+                      <div className="relative">
+                        <input
+                          type={
+                            isPasswordVisible.newPassword ? "text" : "password"
                           }
+                          name="newPassword"
+                          placeholder="New Password"
+                          value={passwordState.newPassword}
+                          className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                          onChange={passwordChangeHandler}
+                          required
                         />
-                      )}
+                        {isPasswordVisible.newPassword ? (
+                          <FaEyeSlash
+                            className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                            onClick={() => passwordTypeHandler("newPassword")}
+                          />
+                        ) : (
+                          <FaEye
+                            className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                            onClick={() => passwordTypeHandler("newPassword")}
+                          />
+                        )}
+                      </div>
+                      <div className="relative">
+                        <input
+                          type={
+                            isPasswordVisible.confirmNewPassword
+                              ? "text"
+                              : "password"
+                          }
+                          name="confirmNewPassword"
+                          placeholder="Confirm Password"
+                          value={passwordState.confirmNewPassword}
+                          className="w-full border border-gray-300 rounded-md px-4 py-2 mt-2"
+                          onChange={passwordChangeHandler}
+                          required
+                        />
+                        {isPasswordVisible.confirmNewPassword ? (
+                          <FaEyeSlash
+                            className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                            onClick={() =>
+                              passwordTypeHandler("confirmNewPassword")
+                            }
+                          />
+                        ) : (
+                          <FaEye
+                            className="absolute right-4 top-5 text-slate-400 cursor-pointer text-[16px]"
+                            onClick={() =>
+                              passwordTypeHandler("confirmNewPassword")
+                            }
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-sm">
+                      <div
+                        className={`flex items-center ${
+                          passwordValidation.length
+                            ? "text-green-600"
+                            : "text-red-500"
+                        }`}>
+                        {passwordValidation.length ? (
+                          <AiOutlineCheckCircle className="mr-2" />
+                        ) : (
+                          <AiOutlineCloseCircle className="mr-2" />
+                        )}
+                        At least 8 characters
+                      </div>
+                      <div
+                        className={`flex items-center ${
+                          passwordValidation.lowercase
+                            ? "text-green-600"
+                            : "text-red-500"
+                        }`}>
+                        {passwordValidation.lowercase ? (
+                          <AiOutlineCheckCircle className="mr-2" />
+                        ) : (
+                          <AiOutlineCloseCircle className="mr-2" />
+                        )}
+                        At least 1 lowercase letter
+                      </div>
+                      <div
+                        className={`flex items-center ${
+                          passwordValidation.uppercase
+                            ? "text-green-600"
+                            : "text-red-500"
+                        }`}>
+                        {passwordValidation.uppercase ? (
+                          <AiOutlineCheckCircle className="mr-2" />
+                        ) : (
+                          <AiOutlineCloseCircle className="mr-2" />
+                        )}
+                        At least 1 uppercase letter
+                      </div>
+                      <div
+                        className={`flex items-center ${
+                          passwordValidation.number
+                            ? "text-green-600"
+                            : "text-red-500"
+                        }`}>
+                        {passwordValidation.number ? (
+                          <AiOutlineCheckCircle className="mr-2" />
+                        ) : (
+                          <AiOutlineCloseCircle className="mr-2" />
+                        )}
+                        At least 1 number
+                      </div>
+                      <div
+                        className={`flex items-center ${
+                          passwordValidation.specialChar
+                            ? "text-green-600"
+                            : "text-red-500"
+                        }`}>
+                        {passwordValidation.specialChar ? (
+                          <AiOutlineCheckCircle className="mr-2" />
+                        ) : (
+                          <AiOutlineCloseCircle className="mr-2" />
+                        )}
+                        At least 1 special character
+                      </div>
                     </div>
                     {warning && (
                       <div className="text-red-500">

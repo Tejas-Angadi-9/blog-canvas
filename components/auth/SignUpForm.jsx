@@ -11,6 +11,7 @@ const SignUpForm = ({
   setErrorMessage,
   setOpenModal,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState({
     password: false,
     confirmPassword: false,
@@ -51,6 +52,7 @@ const SignUpForm = ({
 
   const postSignupData = async (formData) => {
     try {
+      setIsLoading(true);
       const toastId = toast.loading("Loading...");
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/user/signup`,
@@ -64,7 +66,6 @@ const SignUpForm = ({
       );
       const output = await response.json();
       if (response.status === 200) {
-        // toast.success("Verification E-mail sent. Please check your email");
         setOpenModal(true);
       } else {
         toast.error(output.message || "Signup failed");
@@ -72,6 +73,8 @@ const SignUpForm = ({
       toast.dismiss(toastId);
     } catch (err) {
       console.error("Error during signup", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -225,8 +228,11 @@ const SignUpForm = ({
           {errorMessage}
         </p>
       )}
-      <button className="bg-blue-500 text-white p-2 w-full rounded-md duration-300 transition-all hover:scale-95">
-        Sign Up
+      <button
+        className={`bg-blue-500 text-white p-2 w-full rounded-md duration-300 transition-all hover:scale-95 ${
+          isLoading && "bg-blue-400 cursor-not-allowed pointer-events-none"
+        }`}>
+        {isLoading ? "Signing up..." : "Sign Up"}
       </button>
     </form>
   );
