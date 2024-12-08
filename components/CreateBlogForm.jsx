@@ -91,7 +91,9 @@ const CreateBlogForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 w-full border-gray-300 rounded-lg shadow-lg p-10 transition-shadow duration-300 hover:shadow-2xl">
           <div className="flex flex-col gap-2">
-            <label htmlFor="title" className="text-lg font-semibold">
+            <label
+              htmlFor="title"
+              className="text-base lg:text-lg font-semibold">
               Title:
             </label>
             <input
@@ -102,30 +104,32 @@ const CreateBlogForm = () => {
               placeholder="Enter your blog title"
               value={blogData.title}
               onChange={handleInputChange}
-              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light"
+              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light text-base lg:text-lg"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="description" className="text-lg font-semibold">
+            <label
+              htmlFor="description"
+              className="text-base lg:text-lg font-semibold">
               Description:
             </label>
             <textarea
               required
               id="description"
               name="description"
-              rows={6}
+              rows={10}
               placeholder="Write your blog content here. You can add line breaks or extra spaces between paragraphs, and they will be displayed exactly as you write...."
               value={blogData.description}
               onChange={handleInputChange}
-              className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light"
+              className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light text-base lg:text-lg"
             />
           </div>
 
           <div className="flex flex-col">
             <label
               htmlFor="blogImage"
-              className="text-lg font-semibold text-gray-700 flex items-center w-full justify-start gap-2">
+              className="text-base lg:text-lg font-semibold text-gray-700 flex items-center w-full justify-start gap-2">
               Blog Image
               {<span className="text-[12px] text-red-500">(Optional)</span>}
             </label>
@@ -148,13 +152,13 @@ const CreateBlogForm = () => {
                   loading="lazy"
                 />
               ) : (
-                <p>Choose an Image.</p>
+                <p className="text-base lg:text-lg">Choose an Image.</p>
               )}
             </label>
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="tag" className="text-lg font-semibold">
+            <label htmlFor="tag" className="text-base lg:text-lg font-semibold">
               Tag:
             </label>
             <input
@@ -165,7 +169,7 @@ const CreateBlogForm = () => {
               placeholder="Add relevant tags"
               value={blogData.tag}
               onChange={handleInputChange}
-              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light"
+              className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light text-base lg:text-lg"
             />
           </div>
         </div>

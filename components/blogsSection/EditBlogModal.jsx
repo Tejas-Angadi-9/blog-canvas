@@ -112,7 +112,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Enter your blog title"
                 value={blogData.title}
                 onChange={handleInputChange}
-                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light font-light lg:font-light"
+                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light text-base lg:text-lg"
               />
             </div>
 
@@ -129,7 +129,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Write your blog content here. You can add line breaks or extra spaces between paragraphs, and they will be displayed exactly as you write...."
                 value={blogData.description}
                 onChange={handleInputChange}
-                className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light"
+                className="border-2 border-gray-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light lg:font-light text-base lg:text-lg"
               />
             </div>
 
@@ -158,7 +158,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                     loading="lazy"
                   />
                 ) : (
-                  <p>Choose an Image.</p>
+                  <p className="text-base lg:text-lg">Choose an Image.</p>
                 )}
               </label>
             </div>
@@ -176,7 +176,7 @@ const EditBlogModal = ({ setIsEditModalOpen, blogId, blogContent }) => {
                 placeholder="Add relevant tags"
                 value={blogData.tag}
                 onChange={handleInputChange}
-                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light font-light lg:font-light"
+                className="border-b-2 border-gray-400 rounded-[2px] px-2 py-1 focus:outline-none focus:border-blue-500 transition duration-200 font-light"
               />
             </div>
           </div>
