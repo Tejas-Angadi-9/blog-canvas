@@ -12,9 +12,11 @@ export default function Home() {
       {!allBlogsData ? (
         <Loading />
       ) : blogs?.length === 0 ? (
-        <h1 className="flex w-full h-[75vh] items-center justify-center mx-auto text-[22px] xl:text-[40px] font-semibold">
-          No Blogs Found
-        </h1>
+        <>
+          <h1 className="flex w-full h-[75vh] items-center justify-center mx-auto text-[22px] xl:text-[40px] font-semibold">
+            No Blogs Found
+          </h1>
+        </>
       ) : (
         <>
           <section className="flex flex-col gap-4">
@@ -26,7 +28,6 @@ export default function Home() {
           </section>
         </>
       )}
-      {/* Top Section */}
     </div>
   );
 }

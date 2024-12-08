@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Spinner from "../common/Spinner";
+import toast from "react-hot-toast";
 
 const DeleteYourAccount = ({ loading, setLoading }) => {
   const [showModal, setShowModal] = useState(false);
