@@ -45,7 +45,7 @@ const VerifyEmail = ({ params }) => {
   };
 
   useEffect(() => {
-    // verifyToken();
+    verifyToken();
   }, []);
 
   return (
