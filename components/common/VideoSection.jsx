@@ -5,7 +5,7 @@ const VideoSection = () => {
     <section className="w-full bg-white py-10 flex flex-col items-center justify-center mx-auto">
       <div className="max-w-3xl px-6 text-center space-y-6 flex flex-col items-center justify-center gap-4">
         <h2 className="text-[20px] md:text-3xl font-semibold text-gray-900">
-          See BlogCanvas in Action! 🎥
+          See BlogCanvas in Action!
         </h2>
         <p className="text-gray-700 text-[14px] md:text-lg font-light leading-relaxed">
           Discover how <span className="font-semibold">Blog</span>
