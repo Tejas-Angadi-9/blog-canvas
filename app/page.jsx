@@ -3,6 +3,7 @@ import Blogs from "@/components/Blogs";
 import HeroSection from "@/components/HeroSection";
 import { useAuth } from "./contexts/AuthContext";
 import Loading from "@/components/common/Loading";
+import VideoSection from "@/components/common/VideoSection";
 
 export default function Home() {
   const { allBlogsData } = useAuth();
@@ -22,6 +23,7 @@ export default function Home() {
           <section className="flex flex-col gap-4">
             <HeroSection />
           </section>
+          <VideoSection />
           {/* 2nd Section where all blogs are displayed in grid */}
           <section className="flex flex-col gap-4 w-[95%] items-center justify-center mx-auto">
             <Blogs page="homePage" />
