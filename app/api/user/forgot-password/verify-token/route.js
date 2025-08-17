@@ -16,7 +16,6 @@ export const POST = async (req) => {
 
     try {
         await connectToDB();
-        console.log("HELLO")
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const email = decoded.email;
         if (!decoded || !email) {

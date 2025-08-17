@@ -66,7 +66,6 @@ export const POST = async (req) => {
         await transporter.sendMail(mailOptions)
 
         const tokenAlreadyGenerated = await Verification.findOne({ email });
-        console.log("Token Already generated: ", tokenAlreadyGenerated)
         if (tokenAlreadyGenerated) {
             tokenAlreadyGenerated.token = jwtToken;
             tokenAlreadyGenerated.expiresAt = Date.now() + 10 * 60 * 1000

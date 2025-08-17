@@ -9,12 +9,6 @@ export const GET = async (req) => {
         console.log("Connected to database:", process.env.MONGODB_URI);
         const blogs = await Blog.find({})
             .populate("userData").exec();
-        // if (blogs.length === 0) {
-        //     return new Response(JSON.stringify({
-        //         status: false,
-        //         message: 'No blogs found'
-        //     }), { status: 200 })
-        // }
 
         return new Response(JSON.stringify({
             status: true,

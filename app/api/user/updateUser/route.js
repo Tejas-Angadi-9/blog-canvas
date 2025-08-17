@@ -52,7 +52,6 @@ export const PATCH = async (req) => {
                     message: "Image upload failed",
                 }), { status: 400 });
             }
-            console.log("Image Upload Result: ", imageUploadResult)
             await existingUser.updateOne(
                 {
                     profileImage: imageUploadResult.secure_url,

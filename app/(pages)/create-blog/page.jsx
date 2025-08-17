@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 const CreateABlogPage = () => {
   const router = useRouter();
   const { isUserLoggedIn, checkUser } = useAuth();
-  console.log("isUserLoggedIn: ", isUserLoggedIn);
-
   const [visiblePage, setVisiblePage] = useState(false);
 
   useEffect(() => {

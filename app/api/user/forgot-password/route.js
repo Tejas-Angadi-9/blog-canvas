@@ -38,13 +38,11 @@ export const POST = async (req) => {
 
         const tokenAlreadyGenerated = await Verification.findOne({ email: email });
         if (tokenAlreadyGenerated) {
-            console.log("Token is regenerated")
             tokenAlreadyGenerated.token = forgotPasswordToken;
             tokenAlreadyGenerated.expiresAt = Date.now() + 10 * 60 * 1000
             await tokenAlreadyGenerated.save();
         }
         else {
-            console.log("Token is generated for the first time")
             const tokenGenerated = await Verification.create(
                 {
                     email: email,

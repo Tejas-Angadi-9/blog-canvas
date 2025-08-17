@@ -15,7 +15,6 @@ export const POST = async (req, { params }) => {
         }), { status: 404 })
     }
     const blogId = params.blogId;
-    console.log("BlogId: ", blogId)
     try {
         await connectToDB();
         const decodedData = jwt.verify(token.value, process.env.JWT_SECRET);
