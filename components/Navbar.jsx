@@ -13,7 +13,6 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 
 const Navbar = () => {
   const { isUserLoggedIn, setIsUserLoggedIn } = useAuth();
-
   const [userData, setUserData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -57,7 +56,10 @@ const Navbar = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
       const output = await response.json();
-
+      if (output.status === false) {
+        setIsUserLoggedIn(null);
+        return;
+      }
       setUserData(output?.userData);
     } catch (err) {
       console.log("Failed to fetch the user details: ", err.message);

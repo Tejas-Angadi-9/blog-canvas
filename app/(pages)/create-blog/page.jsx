@@ -3,20 +3,34 @@ import CreateBlogForm from "@/components/CreateBlogForm";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const CreateABlogPage = () => {
   const router = useRouter();
-  const { isUserLoggedIn } = useAuth();
+  const { isUserLoggedIn, checkUser } = useAuth();
+  console.log("isUserLoggedIn: ", isUserLoggedIn);
 
   const [visiblePage, setVisiblePage] = useState(false);
 
   useEffect(() => {
+    checkUser();
     if (!isUserLoggedIn) {
       router.push("/auth");
     } else {
       setVisiblePage(true);
     }
-  }, [isUserLoggedIn]);
+  }, []);
+
+  if (!isUserLoggedIn) {
+    toast.error("Something unexpected happened. Please login in", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        justifyItems: "center",
+      },
+    });
+    router.push("/auth");
+  }
 
   return (
     <>

@@ -24,6 +24,21 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const checkUser = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
+            const output = await response.json();
+
+            if (output.status === false)
+                setIsUserLoggedIn(null);
+            // else
+            //     setIsUserLoggedIn(output)
+        }
+        catch (err) {
+            console.error("Internal server error while checking the User authencity");
+        }
+    }
+
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -37,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn, allBlogsData, setAllBlogsData }}>
+        <AuthContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn, allBlogsData, setAllBlogsData, checkUser }}>
             {isLoading && <Loading />}
             {!isLoading && children}
         </AuthContext.Provider>
