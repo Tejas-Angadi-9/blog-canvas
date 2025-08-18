@@ -48,7 +48,7 @@ const Footer = () => {
         <p className="font-bold text-[14px] sm:text-[16px] xl:text-[18px]">
           <span className="font-normal">Blog</span>Canvas
           <span className="text-[12px] sm:text-[14px] xl:text-[16px] font-normal">
-            © 2024 Tejas Angadi.
+            © 2025 Tejas Angadi.
           </span>
         </p>
       </div>
