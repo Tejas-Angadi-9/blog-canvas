@@ -8,7 +8,7 @@ export const GET = async (req) => {
         await connectToDB();
         console.log("Connected to database:", process.env.MONGODB_URI);
         const blogs = await Blog.find({})
-            .populate("userData").exec();
+            .populate("userData", "-password").exec();
 
         return new Response(JSON.stringify({
             status: true,
@@ -36,7 +36,7 @@ export const POST = async (req) => {
         await connectToDB();
         console.log("Connected to database:", process.env.MONGODB_URI);
         const blogs = await Blog.find({})
-            .populate("userData").exec();
+            .populate("userData", "-password").exec();
 
         return new Response(JSON.stringify({
             status: true,

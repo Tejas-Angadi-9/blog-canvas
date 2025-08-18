@@ -9,20 +9,20 @@ export const AuthProvider = ({ children }) => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
     const [allBlogsData, setAllBlogsData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [blogsLoading, setBlogsLoading] = useState(true);
 
     const getAllBlogs = async () => {
+        setBlogsLoading(true);
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/blogs`);
             const output = await response.json();
-
             setAllBlogsData(output);
+        } catch (err) {
+            console.error("Internal server while fetching blogs", err);
+        } finally {
+            setBlogsLoading(false);
         }
-        catch (err) {
-            console.log("Failed to fetch all the blogs");
-            console.error(err.message);
-
-        }
-    }
+    };
 
     const checkUser = async () => {
         try {
@@ -31,8 +31,6 @@ export const AuthProvider = ({ children }) => {
 
             if (output.status === false)
                 setIsUserLoggedIn(null);
-            // else
-            //     setIsUserLoggedIn(output)
         }
         catch (err) {
             console.error("Internal server error while checking the User authencity");
@@ -40,19 +38,33 @@ export const AuthProvider = ({ children }) => {
     }
 
 
+    // useEffect(() => {
+    //     if (typeof window !== "undefined") {
+    //         const userData = localStorage.getItem("UserData");
+    //         const parsedUserData = userData ? JSON.parse(userData) : null;
+    //         setIsLoading(false)
+    //         setIsUserLoggedIn(parsedUserData);
+    //     }
+    //     getAllBlogs();
+    // }, [])
+
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const userData = localStorage.getItem("UserData");
-            const parsedUserData = userData ? JSON.parse(userData) : null;
-            setIsLoading(false)
-            setIsUserLoggedIn(parsedUserData);
-        }
-        getAllBlogs();
-    }, [])
+        const init = async () => {
+            if (typeof window !== "undefined") {
+                const userData = localStorage.getItem("UserData");
+                const parsedUserData = userData ? JSON.parse(userData) : null;
+                setIsUserLoggedIn(parsedUserData);
+            }
+            await getAllBlogs();   // wait for blogs
+            setIsLoading(false);   // only stop loading after fetch is done
+        };
+
+        init();
+    }, []);
 
 
     return (
-        <AuthContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn, allBlogsData, setAllBlogsData, checkUser }}>
+        <AuthContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn, allBlogsData, setAllBlogsData, checkUser, getAllBlogs, setBlogsLoading, blogsLoading }}>
             {isLoading && <Loading />}
             {!isLoading && children}
         </AuthContext.Provider>

@@ -6,18 +6,17 @@ import Loading from "@/components/common/Loading";
 import VideoSection from "@/components/common/VideoSection";
 
 export default function Home() {
-  const { allBlogsData } = useAuth();
+  const { allBlogsData, blogsLoading } = useAuth();
   const blogs = allBlogsData?.blogs;
+
+  if (blogsLoading) return <Loading />;
+
   return (
     <div className="xl:w-11/12 w-full h-100% flex flex-col mx-auto p-5 xl:p-10 gap-10 relative mb-10">
-      {!allBlogsData ? (
-        <Loading />
-      ) : blogs?.length === 0 ? (
-        <>
-          <h1 className="flex w-full h-[75vh] items-center justify-center mx-auto text-[22px] xl:text-[40px] font-semibold">
-            No Blogs Found
-          </h1>
-        </>
+      {!blogs?.length ? (
+        <h1 className="flex w-full h-[75vh] items-center justify-center mx-auto text-[22px] xl:text-[40px] font-semibold">
+          No Blogs Found
+        </h1>
       ) : (
         <>
           <section className="flex flex-col gap-4">
