@@ -1,4 +1,4 @@
-import { Schema, mongoose, models, model } from "mongoose";
+import mongoose, { Schema, models, model } from "mongoose";
 
 const blogSchema = new Schema({
   title: {
