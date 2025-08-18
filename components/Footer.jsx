@@ -5,20 +5,18 @@ const Footer = () => {
     <div className="w-full h-full bg-gray-200 flex flex-col items-center justify-between p-4 sm:p-6 xl:p-10">
       {/* About section with email and phone number */}
       <div className="flex flex-col items-start gap-4 sm:gap-5 w-11/12 mx-auto my-3 sm:my-5">
-        <div className="flex flex-col items-start gap-3 w-full sm:w-[75%] xl:w-[50%]">
+        <div className="flex flex-col items-start gap-3 w-full sm:w-[80%] xl:w-[700px]">
           <h3 className="text-[18px] sm:text-[20px] xl:text-[22px] font-semibold text-black">
             About Me
           </h3>
           <p className="text-[14px] sm:text-[15px] xl:text-[18px] font-light text-slate-500">
-            Hi, I'm <b>Tejas Angadi</b>, a passionate{" "}
-            <b> full stack developer</b> and <b>problem solver</b> with
-            expertise in
+            Hi, I'm <b>Tejas Angadi</b> — a <b>software engineer</b> and{" "}
+            <b>problem solver</b> with expertise in{" "}
             <b>
-              {" "}
               React.js, Next.js, Express.js, Node.js, MongoDB, and Tailwind CSS
             </b>
-            . I specialize in building full-stack applications and tackling DSA
-            problems...
+            . I enjoy turning ideas into real-world applications and building
+            projects that make an impact...{" "}
             <span className="text-blue-500">
               <Link href="/about"> Read More</Link>
             </span>

@@ -83,20 +83,22 @@ const AboutPage = () => {
             Welcome to BlogCanvas! 🌟
           </h1>
           <p className="text-sm lg:text-lg text-center leading-relaxed mb-4">
-            Created by <span className="font-semibold">Tejas Angadi</span>,{" "}
+            Hi, I'm <span className="font-semibold">Tejas Angadi</span>,{" "}
             <span className="font-semibold">
-              Automation Test and Full Stack Engineer at{" "}
-              <span className="text-[#000048]">Cognizant</span> {"  "}
+              Software Engineer 1 at{" "}
+              <span className="text-[#000048]">Nike</span>.
             </span>{" "}
-            Passionate about web development, DSA problem-solving, and crafting
-            scalable solutions using tools like React, Next.js, and Tailwind
-            CSS. Proficient in testing with Selenium and Robot Framework, and
-            coding in Python, Java, C++, JavaScript and TypeScript.
+            I'm passionate about software development, DSA problem-solving, and
+            building scalable solutions with React, Next.js, and modern web
+            technologies. Beyond work, I create personal projects and explore
+            ideas that can grow into real products. My long-term goal is to
+            build impactful companies that help drive India's growth, especially
+            in small towns and cities.
             <br />
             <br />
-            <p className="font-medium text-sm lg:text-lg">
-              I also do freelance work. Contact for more info.
-            </p>
+            <span className="font-medium text-sm lg:text-lg">
+              I also freelance and enjoy collaborating on meaningful projects.
+            </span>
           </p>
 
           <div className="flex flex-col items-center gap-3 text-sm md:text-lg text-center">
