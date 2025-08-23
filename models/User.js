@@ -1,4 +1,5 @@
 import mongoose, { Schema, models, model } from "mongoose";
+import Blog from "./Blog";
 
 const userSchema = new Schema({
   name: {

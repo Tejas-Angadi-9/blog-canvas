@@ -37,17 +37,6 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-
-    // useEffect(() => {
-    //     if (typeof window !== "undefined") {
-    //         const userData = localStorage.getItem("UserData");
-    //         const parsedUserData = userData ? JSON.parse(userData) : null;
-    //         setIsLoading(false)
-    //         setIsUserLoggedIn(parsedUserData);
-    //     }
-    //     getAllBlogs();
-    // }, [])
-
     useEffect(() => {
         const init = async () => {
             if (typeof window !== "undefined") {

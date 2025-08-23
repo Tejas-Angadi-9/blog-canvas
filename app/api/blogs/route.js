@@ -34,7 +34,6 @@ export const GET = async (req) => {
 export const POST = async (req) => {
     try {
         await connectToDB();
-        console.log("Connected to database:", process.env.MONGODB_URI);
         const blogs = await Blog.find({})
             .populate("userData", "-password").exec();
 
