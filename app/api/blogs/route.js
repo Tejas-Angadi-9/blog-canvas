@@ -6,7 +6,6 @@ import Blog from "@/models/Blog";
 export const GET = async (req) => {
     try {
         await connectToDB();
-        console.log("Connected to database:", process.env.MONGODB_URI);
         const blogs = await Blog.find({})
             .populate("userData", "-password").exec();
 
